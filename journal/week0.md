@@ -27,6 +27,9 @@ AWS recommends that all users enable MFA on their accounts, particularly on acco
 
 I also took the change to create a Administrators group and gave the AdministratorAccess role to be more organised, that way I can distribute the roles within groups to the necessary users (best security practices).
 
+<img width="1035" alt="Week0-IAM Administrators Group" src="https://user-images.githubusercontent.com/125006062/219641451-2fb168ea-f978-4698-b0fb-10ed6ade51f1.png">
+
+
 ## Health notifications
 
 I was able hookup Health Dashboard to SNS with EventBridge, then if there is any issue will send me a notification.
@@ -89,4 +92,10 @@ I wrote a ticket to AWS support requesting a service limited for RDS, incase the
 
 I was able to setup the billing alarm and the budget through the CLI using Gitpod and did the commint so the changes are reflected in Github. If you need to see the proof of it please visit my assets folder.
 
+
+<img width="1150" alt="Week0-Billing Alarm" src="https://user-images.githubusercontent.com/125006062/219641783-dae76498-ace3-47a7-8394-bd84c289eb3d.png">
+
+<img width="1031" alt="Week0-My Budgets" src="https://user-images.githubusercontent.com/125006062/219641850-7cdba541-cb2f-4193-acda-fd910ec06c85.png">
+
+<img width="570" alt="Week0-AWS CLI" src="https://user-images.githubusercontent.com/125006062/219641989-923a4edd-95a7-42a2-bdcc-434dfbe5e0ab.png">
 
