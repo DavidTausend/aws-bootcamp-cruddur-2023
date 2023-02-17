@@ -1,4 +1,5 @@
-# Prolog
+# Week 0 — Billing, Architecture and Sercurity
+# Prerequirements
 All participants of the AWS cloud project bootcamp are requieted to register an account with the following cloud services or requierements:
 
 1. Github: Create an account, then you need to copy and store Andrew's application by creating a new repository with the following name: aws-bootcamp-cruddur-2023, and make sure that the repo is public.
@@ -14,7 +15,7 @@ All participants of the AWS cloud project bootcamp are requieted to register an 
 
 If you are having problems setting up the prerequired accounts or you need more guidance to startup, I strongly recommend to take a look the following videos: https://www.youtube.com/playlist?list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv
 
-# Week 0 — Billing, Architecture and Sercurity
+
 
 On this first week we 
 
