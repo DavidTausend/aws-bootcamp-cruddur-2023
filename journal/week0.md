@@ -90,7 +90,7 @@ I wrote a ticket to AWS support requesting a service limited for RDS, incase the
 
 ## Billing alarm and Budget
 
-I was able to setup the billing alarm and the budget through the CLI using Gitpod and did the commint so the changes are reflected in Github. If you need to see the proof of it please visit my assets folder.
+I was able to setup the billing alarm and the budget through the CLI using Gitpod and did the commint so the changes are reflected in Github. If you need to see the proof of it please visit my assets folder. I like to have two budgets one daily and the other montly to be more save on both sides. If there a third budget I will need to buy 3 dollars per month more or less.
 
 
 <img width="1150" alt="Week0-Billing Alarm" src="https://user-images.githubusercontent.com/125006062/219641783-dae76498-ace3-47a7-8394-bd84c289eb3d.png">
