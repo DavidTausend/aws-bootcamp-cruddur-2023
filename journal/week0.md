@@ -33,10 +33,10 @@ I was able hookup Health Dashboard to SNS with EventBridge, then if there is any
 To summarize the steps:
 
 
-1.Create an Amazon SNS topic: Will send you the notifications issues.
-2.Create an Amazon EventBridge rule: The new rule that listens for health events from your health dashboard and routes them to the SNS topic.
-3.Configure your health dashboard to send health events to EventBridge: Configure the rule.
-4.Test the setup: I used the AWS Management Console to publish a sample event to EventBridge and verified that the event is correctly matched by the EventBridge rule and that a notification is sent to the SNS topic.
+1. Create an Amazon SNS topic: Will send you the notifications issues.
+2. Create an Amazon EventBridge rule: The new rule that listens for health events from your health dashboard and routes them to the SNS topic.
+3. Configure your health dashboard to send health events to EventBridge: Configure the rule.
+4. Test the setup: I used the AWS Management Console to publish a sample event to EventBridge and verified that the event is correctly matched by the EventBridge rule and that a notification is sent to the SNS topic.
 
 <img width="454" alt="image" src="https://user-images.githubusercontent.com/125006062/219620434-ce1d745a-10ef-4fe1-b793-523fad2d669b.png">
 
