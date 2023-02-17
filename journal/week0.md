@@ -49,11 +49,11 @@ The Well-Architected Tool in Amazon Web Services (AWS) is designed to help us to
 
 I was able to determine my priorities and the assess of my workload based on the six piller of AWS Well-Architected and determine where I can make some improvements to optimize your architecture:
 
-1.Started by reviewing the existing architecture of your workload and identify any areas that may be lacking in one or more of the six pillars.
-2.Prioritized the areas for improvement based on the potential impact and the likelihood of occurrence. For example, if you have a high likelihood of a security breach and a high impact, then security should be your top priority.
-3.Assess the effort required to make the improvements, including time, resources, and budget.
-4.Based on the results of the assessment, prioritize the areas that have the highest impact and the lowest effort to implement.
-5.Regularly re-assess your priorities to ensure that they are aligned with your business objectives and evolving technology landscape.
+1. Started by reviewing the existing architecture of your workload and identify any areas that may be lacking in one or more of the six pillars.
+2. Prioritized the areas for improvement based on the potential impact and the likelihood of occurrence. For example, if you have a high likelihood of a security breach and a high impact, then security should be your top priority.
+3. Assess the effort required to make the improvements, including time, resources, and budget.
+4. Based on the results of the assessment, prioritize the areas that have the highest impact and the lowest effort to implement.
+5. Regularly re-assess your priorities to ensure that they are aligned with your business objectives and evolving technology landscape.
 
 ## Architecture Diagram and Napkin
 
@@ -67,15 +67,15 @@ Source: https://lucid.app/lucidchart/d08313b5-32c3-482f-80a4-8196da77f6fc/edit?v
 
 These are the most common Service limits in AWS and the RDS seems more like to be a service that I would open the ticket, because it is more related to our project: 
 
-Amazon EC2 instance limits: EC2 instance limits determine the maximum number of instances you can run in your account. If you need to run more instances than your current limit allows, you can request an increase in the limit. However, if your use case requires many instances, it may be necessary to re-architect your application to use EC2 auto-scaling or to use EC2 instances in different regions or accounts.
++ Amazon EC2 instance limits: EC2 instance limits determine the maximum number of instances you can run in your account. If you need to run more instances than your current limit allows, you can request an increase in the limit. However, if your use case requires many instances, it may be necessary to re-architect your application to use EC2 auto-scaling or to use EC2 instances in different regions or accounts.
 
-Amazon S3 bucket limits: S3 bucket limits determine the maximum number of buckets you can create in your account. If you need to store more data than your current limit allows, you can request an increase in the limit. Alternatively, you can store your data in multiple S3 buckets or use S3 storage classes to store data that is less frequently accessed.
++ Amazon S3 bucket limits: S3 bucket limits determine the maximum number of buckets you can create in your account. If you need to store more data than your current limit allows, you can request an increase in the limit. Alternatively, you can store your data in multiple S3 buckets or use S3 storage classes to store data that is less frequently accessed.
 
-Amazon RDS database limits: RDS database limits determine the maximum number of databases you can run, the size of the databases, and the number of connections to the databases. If you need to run more databases than your current limit allows, you can request an increase in the limit. Alternatively, you can use Amazon Aurora or Amazon DynamoDB for larger database workloads or use RDS in multiple regions or accounts.
++ Amazon RDS database limits: RDS database limits determine the maximum number of databases you can run, the size of the databases, and the number of connections to the databases. If you need to run more databases than your current limit allows, you can request an increase in the limit. Alternatively, you can use Amazon Aurora or Amazon DynamoDB for larger database workloads or use RDS in multiple regions or accounts.
 
-Amazon VPC limits: VPC limits determine the maximum number of VPCs you can create the number of subnets in a VPC, and the number of security groups in a VPC. If you need to create more VPCs or subnets than your current limit allows, you can request an increase in the limit. Alternatively, you can use VPC peering or VPN connections to connect multiple VPCs.
++ Amazon VPC limits: VPC limits determine the maximum number of VPCs you can create the number of subnets in a VPC, and the number of security groups in a VPC. If you need to create more VPCs or subnets than your current limit allows, you can request an increase in the limit. Alternatively, you can use VPC peering or VPN connections to connect multiple VPCs.
 
-Amazon Lambda function limits: Lambda function limits determine the maximum number of functions you can run, the number of concurrent executions, and the amount of memory that can be allocated to a function. If you need to run more functions or allocate more memory than your current limit allows, you can request an increase in the limit. Alternatively, you can use multiple Lambda functions or use Amazon Fargate to run containerized workloads.
++ Amazon Lambda function limits: Lambda function limits determine the maximum number of functions you can run, the number of concurrent executions, and the amount of memory that can be allocated to a function. If you need to run more functions or allocate more memory than your current limit allows, you can request an increase in the limit. Alternatively, you can use multiple Lambda functions or use Amazon Fargate to run containerized workloads.
 
 Source: https://docs.aws.amazon.com/awssupport/latest/user/service-limits.html
 
