@@ -66,6 +66,11 @@ As mentioned in the prerequirements, I opened a Lucidchart account and checked b
 
 Source: https://lucid.app/lucidchart/d08313b5-32c3-482f-80a4-8196da77f6fc/edit?viewport_loc=-154%2C-30%2C2200%2C1080%2CkSnx2mVRHzuh&invitationId=inv_85d8d991-3370-4a7c-8e61-0930e8045b8e
 
+![WhatsApp Image 2023-02-18 at 11 15 41 AM](https://user-images.githubusercontent.com/125006062/219855103-f9862977-f1e5-4252-aed6-3fc62e08f937.jpeg)
+
+<img width="786" alt="Bildschirm­foto 2023-02-18 um 11 13 17 AM" src="https://user-images.githubusercontent.com/125006062/219855129-5eca214c-6b84-4266-be25-cd35fac442a1.png">
+
+
 ## AWS service limits
 
 These are the most common Service limits in AWS and the RDS seems more like to be a service that I would open the ticket, because it is more related to our project: 
