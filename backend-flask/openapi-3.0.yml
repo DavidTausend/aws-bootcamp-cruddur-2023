@@ -13,7 +13,7 @@ paths:
         - activities
       responses:
         '200':
-          description: Returns an array of activities
+          description: 'Returns an array of activities'
           content:
             application/json:
               schema:
@@ -35,7 +35,7 @@ paths:
             example: "#100DaysOfCloud"
       responses:
         '200':
-          description: Returns an array of activities"
+          description: Returns an array of activities
           content:
             application/json:
               schema:
@@ -156,7 +156,7 @@ paths:
       parameters: []
       responses:
         '200':
-          description: Returns an array of activities
+          description: 'Returns an array of activities'
           content:
             application/json:
               schema:
