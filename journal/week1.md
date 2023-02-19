@@ -54,7 +54,25 @@ An exanmple from my-script.sh could be: echo "Hello, World!". Then running the D
 docker-compose up
 
 ## Push and tag a image to DockerHub 
-(they have a free tier)
+
+Sign up to DockerHub and create an account, then provide the DockerHub credentials (username and password).
+Build your Docker image using the docker build command. Make sure to specify a unique name and tag for your image using the -t flag.
+
+To push an image to Docker Hub, you must first name your local image using your Docker Hub username and the repository name that you created through Docker Hub on the web.
+
+You can add multiple images to a repository by adding a specific :<tag> to them (for example docs/base:testing). If it’s not specified, the tag defaults to latest.
+
+Name your local images using one of these methods:
+
+When you build them, using docker build -t <hub-user>/<repo-name>[:<tag>]
+By re-tagging an existing local image docker tag <existing-image> <hub-user>/<repo-name>[:<tag>]
+By using docker commit <existing-container> <hub-user>/<repo-name>[:<tag>] to commit changes
+Now you can push this repository to the registry designated by its name or tag.
+
+
+$ docker push <hub-user>/<repo-name>:<tag>
+The image is then uploaded and available for use by your teammates and/or the community.
+
 
 ## Use multi-stage building for a Dockerfile build
 
