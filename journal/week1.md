@@ -55,7 +55,11 @@ docker-compose up
 
 ## Push and tag a image to DockerHub 
 
-Sign up to DockerHub and create an account, then provide the DockerHub credentials (username and password).
+Sign up to DockerHub and create an account, then provide the DockerHub credentials (username and password).  Inside the website create a repository to move the docker container:
+
+<img width="887" alt="Week1-DockerHub Respository" src="https://user-images.githubusercontent.com/125006062/219968809-873ce84f-ee26-4c35-a746-8dc7ae11b907.png">
+
+
 Build your Docker image using the docker build command. Make sure to specify a unique name and tag for your image using the -t flag.
 
 To push an image to Docker Hub, you must first name your local image using your Docker Hub username and the repository name that you created through Docker Hub on the web.
@@ -108,7 +112,27 @@ CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS
 
 
  
-## Research best practices of Dockerfiles and attempt to implement it in your Dockerfile
+## The best practices for Dockerfiles
+  
+  
++ Use a minimal base image: Choose a base image that has only the necessary software and libraries required for your application. This reduces the size of the image and minimizes the attack surface.
+  
++ Use specific tags for base images: Use specific tags for your base images to ensure consistency and to avoid unexpected changes in the environment.
+Use caching: Use caching to speed up the Docker build process. Caching layers that don't change can be reused in subsequent builds.
+  
++ Minimize the number of layers: Minimize the number of layers in your Docker image to reduce the size and complexity of the image.
+  
++ Copy files in a single layer: Copy files in a single layer to reduce the size of the image and improve performance.
+  
++ Use .dockerignore file: Use a .dockerignore file to exclude unnecessary files and directories from the Docker build context. This reduces the build time and the size of the image.
+  
++ Set a user for the container: Set a user for the container to improve security by reducing the privileges of the container.
+  
++ Remove unnecessary packages and files: Remove unnecessary packages and files to reduce the size of the image and minimize the attack surface.
+  
++ Use environment variables: Use environment variables to pass configuration information to the container at runtime. This makes the container more flexible and configurable.
+  
++ Use multi-stage builds: Use multi-stage builds to create smaller and more efficient images. This allows you to separate the build environment from the runtime environment and only include what is necessary in the final image.
 
 ## Learn how to install Docker on your localmachine and get the same containers running outside of Gitpod / Codespaces
 
