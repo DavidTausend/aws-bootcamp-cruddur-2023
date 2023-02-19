@@ -142,5 +142,7 @@ Use caching: Use caching to speed up the Docker build process. Caching layers th
 + Use multi-stage builds: Use multi-stage builds to create smaller and more efficient images. This allows you to separate the build environment from the runtime environment and only include what is necessary in the final image.
 
 ## Learn how to install Docker on your localmachine and get the same containers running outside of Gitpod / Codespaces
+  
+ 
 
 ## Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes. 
