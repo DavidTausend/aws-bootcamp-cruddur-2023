@@ -35,6 +35,22 @@ https://www.youtube.com/watch?v=OjZz4D0B-cA&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgN
 
 ## Run the dockerfile CMD as an external script
 
+To run a dockerfile CMD as an external script, it has to be define the command to be run in a separate script file, then reference that script file in the CMD instruction in the dockerfile.
+
+example:
+
+FROM some-image:latest
+
+COPY my-script.sh /
+
+CMD ["/my-script.sh"]
+
+In this example, the Dockerfile starts with a base image "some-image:latest" and then copies a script file "my-script.sh" to the root directory of the container. Finally, the CMD instruction runs the script file by executing the command ["/my-script.sh"].
+
+To use this Dockerfile, it's needed to create the my-script.sh file and place it in the same directory as the Dockerfile. The script file should contain the command or commands you want to run when the container starts up.
+
+An exanmple from my-script.sh could be: echo "Hello, World!". Then running the Docker container, should output Hello, World! printed to the console.
+
 docker-compose up
 
 ## Push and tag a image to DockerHub 
