@@ -59,6 +59,13 @@ Sign up to DockerHub and create an account, then provide the DockerHub credentia
 
 <img width="887" alt="Week1-DockerHub Respository" src="https://user-images.githubusercontent.com/125006062/219968809-873ce84f-ee26-4c35-a746-8dc7ae11b907.png">
 
+Go to Github to identify the Docker container that you want to move with the following command:
+
+docker images
+docker login
+Username/Password
+docker tag imagename:tag imagename:newtag
+docker push username/image:tag
 
 Build your Docker image using the docker build command. Make sure to specify a unique name and tag for your image using the -t flag.
 
