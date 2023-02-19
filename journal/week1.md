@@ -2,10 +2,80 @@
 
 # Homework
 
+## Container security top 10 best practices
+
+In the following information you will find the top 10 best practices for contianers which you can use in your day-to-day while working in an Enterprise as a cloud engineer or cloud secure engineer and in a bootcamp.
+
+### What is container Security?
+
+Container Security is the practice of protecting your application hosted on compute service like containers.
+
+### Application Security vs. Container Security
+
+It's similar but different when we talk about container security, application sercurity is the practice of protecting the applications running on a compute service called containers if the application is within a container, now simply what container security is a practice of protecting applications that are running on something called a container which is a compute service.
+
+### Why contianer sercurty became popular?
+
+The first reason is Docker, it's a very popular open source of containers and it's basically available on every cloud now, other reason why container security got popular is because it was a cloud agnostic and an OS agnostic way of running applications there used to be a thing for people who may not have been in the ID space or the cloud space for a while there used to be a problem where if we were to build an application on my laptop.
+
+### Top 10 conteaner security Best Practice
+
++ Keep Host & Docker Updated to latest security patches.
++ Docker Deamon & containers should run in non root user mode
++ Image Vulnerability Scanning
++ Trust a Private vs Public Image Registry
++ No Sensitive Data in Docker Files or Images
++ Use Secret Management Services to share secrets.
++ Read only file system and volume for dockers
++ Separate databases for long term storage
++ Use DevSecOps pratices while building application security
++ Ensure all code is tested for vulnerabilities before production use
+
+https://www.youtube.com/watch?v=OjZz4D0B-cA&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=25
+
 ## Run the dockerfile CMD as an external script
-## Push and tag a image to DockerHub (they have a free tier)
+
+docker-compose up
+
+## Push and tag a image to DockerHub 
+(they have a free tier)
+
 ## Use multi-stage building for a Dockerfile build
+
 ## Implement a healthcheck in the V3 Docker compose file
+
+version: "3"
+
+services:
+  my-service:
+    image: my-image:latest
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      
+In this example, we have a service named my-service that is based on the my-image:latest Docker image. The healthcheck parameter is defined with several options:
+
+test: This specifies the command to run to check the health of the service. In this case, we're using curl to make an HTTP request to the /healthcheck endpoint of our service.
+
+interval: This specifies how frequently the health check should be run. In this case, it will run every 30 seconds.
+
+timeout: This specifies how long to wait for a response from the health check command. If the command takes longer than this time, the check will fail.
+
+retries: This specifies how many times to retry the health check before considering the service unhealthy.
+
+When you run docker-compose up with this file, Compose will start the my-service container and run the health check command at the specified interval. If the health check fails, the container will be marked as unhealthy and Compose will attempt to restart it based on the restart policy defined in the docker-compose.yml file.
+
+You can monitor the health of your containers using the docker ps command, which will show the status of the health checks. For example, if the health check for my-service is failing, the output of docker ps might look like this:
+
+CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS                     PORTS      NAMES
+1234567890ab   my-image:latest  "my-service start"       5 minutes ago    Up 5 minutes (unhealthy)   8080/tcp   my-service
+
+
+ 
 ## Research best practices of Dockerfiles and attempt to implement it in your Dockerfile
+
 ## Learn how to install Docker on your localmachine and get the same containers running outside of Gitpod / Codespaces
+
 ## Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes. 
