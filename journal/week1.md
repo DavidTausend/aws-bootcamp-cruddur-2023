@@ -74,8 +74,9 @@ docker tag imagesourcername:tag imagetargetname:newtag
 docker push username/image:tag
 
 <img width="790" alt="Bildschirm­foto 2023-02-20 um 9 33 21 PM" src="https://user-images.githubusercontent.com/125006062/220195505-4ae5ed92-edf5-4a3b-aff4-3a74915166ab.png">
+<img width="1296" alt="Docker Hub" src="https://user-images.githubusercontent.com/125006062/220196356-819ab60f-7f6d-4494-884c-d2583aa6dddf.png">
 
-<img width="1440" alt="Docker Hub" src="https://user-images.githubusercontent.com/125006062/220195751-c63621b4-c70a-469b-ba68-cc43a6296771.png">
+
 
 
 ## Use multi-stage building for a Dockerfile build
