@@ -55,43 +55,27 @@ docker-compose up
 
 ## Push and tag a image to DockerHub 
 
-Sign up to DockerHub and create an account, then provide the DockerHub credentials (username and password).  Inside the website create a repository to move the docker container:
-
-<img width="887" alt="Week1-DockerHub Respository" src="https://user-images.githubusercontent.com/125006062/219968809-873ce84f-ee26-4c35-a746-8dc7ae11b907.png">
+Sign up to DockerHub and create an account, then provide the DockerHub credentials (username and password).
 
 Go to Github to identify the Docker container that you want to move with the following command:
 
 docker images
-<img width="766" alt="Docker Images" src="https://user-images.githubusercontent.com/125006062/220195384-81e855b4-5c32-4d3c-b008-11919c4d4275.png">
 
+<img width="766" alt="Docker Images" src="https://user-images.githubusercontent.com/125006062/220195384-81e855b4-5c32-4d3c-b008-11919c4d4275.png">
 
 docker login
 
 Username/Password
+
 docker tag imagesourcername:tag imagetargetname:newtag
+
 <img width="793" alt="Bildschirm­foto 2023-02-20 um 9 32 14 PM" src="https://user-images.githubusercontent.com/125006062/220195858-703e3e9d-e423-49d5-82a4-f6386197d280.png">
 
 docker push username/image:tag
+
 <img width="790" alt="Bildschirm­foto 2023-02-20 um 9 33 21 PM" src="https://user-images.githubusercontent.com/125006062/220195505-4ae5ed92-edf5-4a3b-aff4-3a74915166ab.png">
 
 <img width="1440" alt="Docker Hub" src="https://user-images.githubusercontent.com/125006062/220195751-c63621b4-c70a-469b-ba68-cc43a6296771.png">
-
-Build your Docker image using the docker build command. Make sure to specify a unique name and tag for your image using the -t flag.
-
-To push an image to Docker Hub, you must first name your local image using your Docker Hub username and the repository name that you created through Docker Hub on the web.
-
-You can add multiple images to a repository by adding a specific :<tag> to them (for example docs/base:testing). If it’s not specified, the tag defaults to latest.
-
-Name your local images using one of these methods:
-
-When you build them, using docker build -t <hub-user>/<repo-name>[:<tag>]
-By re-tagging an existing local image docker tag <existing-image> <hub-user>/<repo-name>[:<tag>]
-By using docker commit <existing-container> <hub-user>/<repo-name>[:<tag>] to commit changes
-Now you can push this repository to the registry designated by its name or tag.
-
-
-$ docker push <hub-user>/<repo-name>:<tag>
-The image is then uploaded and available for use by your teammates and/or the community.
 
 
 ## Use multi-stage building for a Dockerfile build
