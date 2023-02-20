@@ -41,17 +41,15 @@ example:
 
 FROM some-image:latest
 
-COPY my-script.sh /
+COPY script.sh /
 
-CMD ["/my-script.sh"]
+CMD ["/script.sh"]
 
 In this example, the Dockerfile starts with a base image "some-image:latest" and then copies a script file "my-script.sh" to the root directory of the container. Finally, the CMD instruction runs the script file by executing the command ["/my-script.sh"].
 
-To use this Dockerfile, it's needed to create the my-script.sh file and place it in the same directory as the Dockerfile. The script file should contain the command or commands you want to run when the container starts up.
+To use this Dockerfile, it's needed to create the script.sh file and place it in the same directory as the Dockerfile. The script file should contain the command or commands you want to run when the container starts up.
 
-An exanmple from my-script.sh could be: echo "Hello, World!". Then running the Docker container, should output Hello, World! printed to the console.
-
-docker-compose up
+An exanmple from script.sh could be: echo "Hello, World!". Then running the Docker container with "docker-compose up" should output Hello, World! printed to the console.
 
 ## Push and tag a image to DockerHub 
 
@@ -64,26 +62,8 @@ Go to Github to identify the Docker container that you want to move with the fol
 docker images
 docker login
 Username/Password
-docker tag imagename:tag imagename:newtag
+docker tag docker tag source_image:tag target_image:tag
 docker push username/image:tag
-
-Build your Docker image using the docker build command. Make sure to specify a unique name and tag for your image using the -t flag.
-
-To push an image to Docker Hub, you must first name your local image using your Docker Hub username and the repository name that you created through Docker Hub on the web.
-
-You can add multiple images to a repository by adding a specific :<tag> to them (for example docs/base:testing). If it’s not specified, the tag defaults to latest.
-
-Name your local images using one of these methods:
-
-When you build them, using docker build -t <hub-user>/<repo-name>[:<tag>]
-By re-tagging an existing local image docker tag <existing-image> <hub-user>/<repo-name>[:<tag>]
-By using docker commit <existing-container> <hub-user>/<repo-name>[:<tag>] to commit changes
-Now you can push this repository to the registry designated by its name or tag.
-
-
-$ docker push <hub-user>/<repo-name>:<tag>
-The image is then uploaded and available for use by your teammates and/or the community.
-
 
 ## Use multi-stage building for a Dockerfile build
 
@@ -115,8 +95,7 @@ When you run docker-compose up with this file, Compose will start the my-service
 You can monitor the health of your containers using the docker ps command, which will show the status of the health checks. For example, if the health check for my-service is failing, the output of docker ps might look like this:
 
 CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS                     PORTS      NAMES
-1234567890ab   my-image:latest  "my-service start"       5 minutes ago    Up 5 minutes (unhealthy)   8080/tcp   my-service
-
+1234567890ab   image:latest  "my-service start"       5 minutes ago    Up 5 minutes (unhealthy)   8080/tcp     service
 
  
 ## The best practices for Dockerfiles
