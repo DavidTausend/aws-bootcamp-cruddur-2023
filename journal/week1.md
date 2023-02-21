@@ -35,15 +35,17 @@ https://www.youtube.com/watch?v=OjZz4D0B-cA&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgN
 
 ## Run the dockerfile CMD as an external script
 
-To run a dockerfile CMD as an external script, it has to be define the command to be run in a separate script file, then reference that script file in the CMD instruction in the dockerfile.
+To run a dockerfile CMD as an external script, it has to be define the command to be run in a separate script file, then reference that script file in the CMD instruction in the dockerfile. First create a script file for example: 
+
+
 
 example:
 
 FROM some-image:latest
 
-COPY my-script.sh /
+COPY script.sh /
 
-CMD ["/my-script.sh"]
+CMD ["/script.sh"]
 
 In this example, the Dockerfile starts with a base image "some-image:latest" and then copies a script file "my-script.sh" to the root directory of the container. Finally, the CMD instruction runs the script file by executing the command ["/my-script.sh"].
 
@@ -77,11 +79,113 @@ docker push username/image:tag
 <img width="1296" alt="Docker Hub" src="https://user-images.githubusercontent.com/125006062/220196356-819ab60f-7f6d-4494-884c-d2583aa6dddf.png">
 
 
-
-
 ## Use multi-stage building for a Dockerfile build
 
+
+Backend
+# Build stage
+FROM node:16.18 AS build
+WORKDIR /frontend-react-js
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Run stage
+FROM node:16.18 AS run
+ENV PORT=3000
+WORKDIR /app
+COPY --from=build /frontend-react-js/build /app
+RUN npm install -g serve
+EXPOSE ${PORT}
+CMD ["serve", "-s", ".", "-p", "3000"]
+
+
+
+Frontend
+# Build stage
+FROM python:3.10-slim-buster AS build
+WORKDIR /backend-flask
+COPY requirements.txt requirements.txt
+RUN pip3 install --user --no-cache-dir -r requirements.txt
+
+# Production stage
+FROM python:3.10-slim-buster AS production
+WORKDIR /app
+COPY --from=build /root/.local /root/.local
+COPY . .
+ENV PATH=/root/.local/bin:$PATH
+ENV FLASK_ENV=production
+ENV PORT=4567
+EXPOSE ${PORT}
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=${PORT}"]
+
+
+
 ## Implement a healthcheck in the V3 Docker compose file
+
+After the backend image add healtcheck:
+
+version: "3.8"
+services:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    build: ./backend-flask
+    ports:
+      - "4567:4567"
+    volumes:
+      - ./backend-flask:/backend-flask
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost:4567/healthcheck || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  frontend-react-js:
+    environment:
+      REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    build: ./frontend-react-js
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend-react-js:/frontend-react-js
+  dynamodb-local:
+    # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
+    # We needed to add user:root to get this working.
+    user: root
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+  db:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+
+# the name flag is a hack to change the default prepend folder
+# name when outputting the image names
+networks: 
+  internal-network:
+    driver: bridge
+    name: cruddur
+    
+volumes:
+  db:
+    driver: local
+
+
+
 
 version: "3"
 
@@ -94,7 +198,7 @@ services:
       timeout: 10s
       retries: 3
       
-In this example, we have a service named my-service that is based on the my-image:latest Docker image. The healthcheck parameter is defined with several options:
+In this example, we have a service named backend-flask that is based on the /backend-flask:latest Docker image. The healthcheck parameter is defined with several options:
 
 test: This specifies the command to run to check the health of the service. In this case, we're using curl to make an HTTP request to the /healthcheck endpoint of our service.
 
@@ -104,12 +208,12 @@ timeout: This specifies how long to wait for a response from the health check co
 
 retries: This specifies how many times to retry the health check before considering the service unhealthy.
 
-When you run docker-compose up with this file, Compose will start the my-service container and run the health check command at the specified interval. If the health check fails, the container will be marked as unhealthy and Compose will attempt to restart it based on the restart policy defined in the docker-compose.yml file.
+When you run docker-compose up with this file, Compose will start the backend-flask container and run the health check command at the specified interval. If the health check fails, the container will be marked as unhealthy and Compose will attempt to restart it based on the restart policy defined in the docker-compose.yml file.
 
-You can monitor the health of your containers using the docker ps command, which will show the status of the health checks. For example, if the health check for my-service is failing, the output of docker ps might look like this:
+You can monitor the health of your containers using the docker ps command, which will show the status of the health checks. For example, if the health check for backend-flask is failing, the output of docker ps might look like this:
+<img width="860" alt="Docker PS" src="https://user-images.githubusercontent.com/125006062/220454982-3ed06075-e99f-4e46-9904-2b46b15614db.png">
 
-CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS                     PORTS      NAMES
-1234567890ab   my-image:latest  "my-service start"       5 minutes ago    Up 5 minutes (unhealthy)   8080/tcp   my-service
+
 
 
  
