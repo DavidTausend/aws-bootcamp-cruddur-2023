@@ -35,8 +35,11 @@ https://www.youtube.com/watch?v=OjZz4D0B-cA&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgN
 
 ## Run the dockerfile CMD as an external script
 
-To run a dockerfile CMD as an external script, it has to be define the command to be run in a separate script file, then reference that script file in the CMD instruction in the dockerfile. First create a script file for example: 
+To run a dockerfile CMD as an external script, it has to be define the command to be run in a separate script file, then reference that script file in the CMD instruction in the dockerfile. First create a script file on root and the name the file external.sh and inside has to have the script to be run like the example:
 
+
+#!/bin/sh
+python3 -m flask run --host=0.0.0.0 --port=4567
 
 
 example:
