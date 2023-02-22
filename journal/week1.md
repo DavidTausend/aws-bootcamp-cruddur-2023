@@ -40,7 +40,7 @@ To run a dockerfile CMD as an external script, it has to be define the command t
 #!/bin/sh
 python3 -m flask run --host=0.0.0.0 --port=4567
 
-Then I change the command in the backend to call the external script:
+Then I change the command in the backend dockerfile to call the external script:
 
 CMD [ "sh", "-c", "./external.sh" ]
 
