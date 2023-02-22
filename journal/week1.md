@@ -173,8 +173,16 @@ Use caching: Use caching to speed up the Docker build process. Caching layers th
   
  First step, I installed Docker in my localmachine:
  <img width="715" alt="Week1-DockerInstallation" src="https://user-images.githubusercontent.com/125006062/220744661-197f19d0-8fc9-4488-be1f-bb7c5f9e3178.png">
-Because I had a backend repository in Docker Hub, I can connect from the docker app on my localmachine to docker hub and pull the image easy, just clicking "pull". For sure, it is possible to use the terminal to pull and run the image. 
+Because I had a backend repository in Docker Hub, I can connect from the docker app on my localmachine to docker hub and pull the image easily by just clicking "pull". For sure, it is possible to use the terminal to pull and run the image. 
 <img width="1269" alt="Week1-PullDocker" src="https://user-images.githubusercontent.com/125006062/220746861-2bdb2efe-b241-4214-9b09-a61561134e0b.png">
 
+Then I went back to local and run the docker image:
+
+<img width="1268" alt="Week1-RunDocker" src="https://user-images.githubusercontent.com/125006062/220749071-81d88468-6a85-441a-85a2-b6d8c5b132c4.png">
+
+To test the image, unter inspect is the link to test it with the browser:
+<img width="1262" alt="Bildschirm­foto 2023-02-22 um 9 18 32 PM" src="https://user-images.githubusercontent.com/125006062/220749791-f0fc7247-ca82-4880-ab9d-bf33be3a1b62.png">
+
+<img width="1440" alt="Week1-CheckLinkDocker" src="https://user-images.githubusercontent.com/125006062/220750158-5c223325-d6de-48ef-bcdb-cf8fa9fa2377.png">
 
 ## Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes. 
