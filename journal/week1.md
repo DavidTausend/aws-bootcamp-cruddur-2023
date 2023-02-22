@@ -37,26 +37,12 @@ https://www.youtube.com/watch?v=OjZz4D0B-cA&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgN
 
 To run a dockerfile CMD as an external script, it has to be define the command to be run in a separate script file, then reference that script file in the CMD instruction in the dockerfile. First create a script file on root and the name the file external.sh and inside has to have the script to be run like the example:
 
-
 #!/bin/sh
 python3 -m flask run --host=0.0.0.0 --port=4567
 
+Then I change the command in the backend to call the external script:
 
-example:
-
-FROM some-image:latest
-
-COPY script.sh /
-
-CMD ["/script.sh"]
-
-In this example, the Dockerfile starts with a base image "some-image:latest" and then copies a script file "my-script.sh" to the root directory of the container. Finally, the CMD instruction runs the script file by executing the command ["/my-script.sh"].
-
-To use this Dockerfile, it's needed to create the my-script.sh file and place it in the same directory as the Dockerfile. The script file should contain the command or commands you want to run when the container starts up.
-
-An exanmple from my-script.sh could be: echo "Hello, World!". Then running the Docker container, should output Hello, World! printed to the console.
-
-docker-compose up
+CMD [ "sh", "-c", "./external.sh" ]
 
 ## Push and tag a image to DockerHub 
 
@@ -125,9 +111,9 @@ CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=${PORT}"]
 
 
 
-## Implement a healthcheck in the V3 Docker compose file
+## Healthcheck in Docker compose file
 
-After the backend image add healtcheck:
+After the backend volume image I added healtcheck:
 
 version: "3.8"
 services:
@@ -139,91 +125,27 @@ services:
     ports:
       - "4567:4567"
     volumes:
-      - ./backend-flask:/backend-flask
+      - ./backend-flask:/backend-flask  
     healthcheck:
       test: ["CMD-SHELL", "curl --fail http://localhost:4567/healthcheck || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
-  frontend-react-js:
-    environment:
-      REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
-    build: ./frontend-react-js
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend-react-js:/frontend-react-js
-    healthcheck:
-      test: ["CMD-SHELL", "curl --fail http://localhost:3000/healthcheck || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3  
-  dynamodb-local:
-    # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
-    # We needed to add user:root to get this working.
-    user: root
-    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
-    image: "amazon/dynamodb-local:latest"
-    container_name: dynamodb-local
-    ports:
-      - "8000:8000"
-    volumes:
-      - "./docker/dynamodb:/home/dynamodblocal/data"
-    working_dir: /home/dynamodblocal
-  db:
-    image: postgres:13-alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-    ports:
-      - '5432:5432'
-    volumes: 
-      - db:/var/lib/postgresql/data
 
-# the name flag is a hack to change the default prepend folder
-# name when outputting the image names
-networks: 
-  internal-network:
-    driver: bridge
-    name: cruddur
-    
-volumes:
-  db:
-    driver: local
-
-
-
-
-version: "3"
-
-services:
-  my-service:
-    image: my-image:latest
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/healthcheck"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
       
-In this example, we have a service named backend-flask that is based on the /backend-flask:latest Docker image. The healthcheck parameter is defined with several options:
+The healthcheck parameter is defined with several options:
 
-test: This specifies the command to run to check the health of the service. In this case, we're using curl to make an HTTP request to the /healthcheck endpoint of our service.
++ test: This specifies the command to run to check the health of the service. In this case, we're using curl to make an HTTP request to the /healthcheck endpoint of our service.
 
-interval: This specifies how frequently the health check should be run. In this case, it will run every 30 seconds.
++ interval: This specifies how frequently the health check should be run. In this case, it will run every 30 seconds.
 
-timeout: This specifies how long to wait for a response from the health check command. If the command takes longer than this time, the check will fail.
++ timeout: This specifies how long to wait for a response from the health check command. If the command takes longer than this time, the check will fail.
 
-retries: This specifies how many times to retry the health check before considering the service unhealthy.
++ retries: This specifies how many times to retry the health check before considering the service unhealthy.
 
 When you run docker-compose up with this file, Compose will start the backend-flask container and run the health check command at the specified interval. If the health check fails, the container will be marked as unhealthy and Compose will attempt to restart it based on the restart policy defined in the docker-compose.yml file.
 
-You can monitor the health of your containers using the docker ps command, which will show the status of the health checks. For example, if the health check for backend-flask is failing, the output of docker ps might look like this:
-<img width="860" alt="Docker PS" src="https://user-images.githubusercontent.com/125006062/220454982-3ed06075-e99f-4e46-9904-2b46b15614db.png">
-
-
-
-
+It is posible to monitor the health of the containers using the docker ps command, which will show the status of the health checks. 
  
 ## The best practices for Dockerfiles
   
