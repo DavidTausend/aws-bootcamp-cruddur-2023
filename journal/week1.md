@@ -54,9 +54,8 @@ docker images
 
 <img width="766" alt="Docker Images" src="https://user-images.githubusercontent.com/125006062/220195384-81e855b4-5c32-4d3c-b008-11919c4d4275.png">
 
-docker login
-
-Username/Password
+docker login and Username/Password
+<img width="782" alt="Week1-LoginDocker" src="https://user-images.githubusercontent.com/125006062/220835541-31e07639-58e9-4fb6-bbbb-cbc955514e7c.png">
 
 docker tag imagesourcername:tag imagetargetname:newtag
 
@@ -173,7 +172,7 @@ Use caching: Use caching to speed up the Docker build process. Caching layers th
   
  First step, I installed Docker in my localmachine:
  <img width="715" alt="Week1-DockerInstallation" src="https://user-images.githubusercontent.com/125006062/220744661-197f19d0-8fc9-4488-be1f-bb7c5f9e3178.png">
-Because I had a backend repository in Docker Hub, I can connect from the docker app on my localmachine to docker hub and pull the image easily by just clicking "pull". For sure, it is possible to use the terminal to pull and run the image. 
+Because I had many problems trying to push directly the docker image from Gitpod to my localmachine, I decided to pull backend image in Docker Hub that I already had uploaded, I can connect from the docker app on my localmachine to docker hub and pull the image easily by just clicking "pull". For sure, it is possible to use the terminal to pull and run the image. 
 <img width="1269" alt="Week1-PullDocker" src="https://user-images.githubusercontent.com/125006062/220746861-2bdb2efe-b241-4214-9b09-a61561134e0b.png">
 
 Then I went back to local and run the docker image:
