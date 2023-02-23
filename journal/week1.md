@@ -71,7 +71,7 @@ docker push username/image:tag
 
 
 Backend
-# Build stage
+#Build stage
 FROM node:16.18 AS build
 WORKDIR /frontend-react-js
 COPY package*.json ./
@@ -79,7 +79,7 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Run stage
+#Run stage
 FROM node:16.18 AS run
 ENV PORT=3000
 WORKDIR /app
@@ -91,13 +91,13 @@ CMD ["serve", "-s", ".", "-p", "3000"]
 
 
 Frontend
-# Build stage
+#Build stage
 FROM python:3.10-slim-buster AS build
 WORKDIR /backend-flask
 COPY requirements.txt requirements.txt
 RUN pip3 install --user --no-cache-dir -r requirements.txt
 
-# Production stage
+#Production stage
 FROM python:3.10-slim-buster AS production
 WORKDIR /app
 COPY --from=build /root/.local /root/.local
