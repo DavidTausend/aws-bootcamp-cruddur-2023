@@ -55,6 +55,7 @@ docker images
 <img width="766" alt="Docker Images" src="https://user-images.githubusercontent.com/125006062/220195384-81e855b4-5c32-4d3c-b008-11919c4d4275.png">
 
 docker login and Username/Password
+
 <img width="782" alt="Week1-LoginDocker" src="https://user-images.githubusercontent.com/125006062/220835541-31e07639-58e9-4fb6-bbbb-cbc955514e7c.png">
 
 docker tag imagesourcername:tag imagetargetname:newtag
