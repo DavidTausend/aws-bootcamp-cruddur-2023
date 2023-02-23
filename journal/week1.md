@@ -171,7 +171,9 @@ Use caching: Use caching to speed up the Docker build process. Caching layers th
 ## Learn how to install Docker on your localmachine and get the same containers running outside of Gitpod / Codespaces
   
  First step, I installed Docker in my localmachine:
+ 
  <img width="715" alt="Week1-DockerInstallation" src="https://user-images.githubusercontent.com/125006062/220744661-197f19d0-8fc9-4488-be1f-bb7c5f9e3178.png">
+ 
 Because I had many problems trying to push directly the docker image from Gitpod to my localmachine, I decided to pull backend image in Docker Hub that I already had uploaded, I can connect from the docker app on my localmachine to docker hub and pull the image easily by just clicking "pull". For sure, it is possible to use the terminal to pull and run the image. 
 <img width="1269" alt="Week1-PullDocker" src="https://user-images.githubusercontent.com/125006062/220746861-2bdb2efe-b241-4214-9b09-a61561134e0b.png">
 
