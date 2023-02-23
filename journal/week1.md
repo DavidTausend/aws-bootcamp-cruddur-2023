@@ -185,3 +185,25 @@ To test the image, unter inspect is the link to test it with the browser:
 <img width="1440" alt="Week1-CheckLinkDocker" src="https://user-images.githubusercontent.com/125006062/220750158-5c223325-d6de-48ef-bcdb-cf8fa9fa2377.png">
 
 ## Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes. 
+
+I launched an Ubuntu EC2 instance and installed Docker using the following command:
+sudo apt install docker.io
+![Week1-InstallDockerUbuntu](https://user-images.githubusercontent.com/125006062/220842128-317b491b-d931-43b3-a0f9-c53976292003.png)
+
+Add a user to docker group so it is possible to manage the docker images:
+
+![Week1-AddtheUsertoDockerGroup](https://user-images.githubusercontent.com/125006062/220842602-07102ed8-ac87-49d7-80f2-d6dba874b4af.png)
+
+Login to Docker hub:
+
+![Week1-EntertoDockerHub](https://user-images.githubusercontent.com/125006062/220842931-4ce38bf2-b9a0-401e-87f2-fc132557a410.png)
+
+Pull the docker container:
+
+![Week1-pulldocker](https://user-images.githubusercontent.com/125006062/220843129-ea36f489-eb8f-4b0e-8e74-b943101ab75e.png)
+
+Run the docker Container:
+
+![Week1-RunningDocker](https://user-images.githubusercontent.com/125006062/220843206-cd696675-032d-4b2a-8cb6-46ba3bcac091.png)
+
+
