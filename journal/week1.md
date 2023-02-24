@@ -75,20 +75,33 @@ docker push username/image:tag
 I was able to add the following code as a multi-stage build for the backend dockerfile:
 
 #Build stage
+
 FROM python:3.10-slim-buster AS build
+
 WORKDIR /build
+
 COPY requirements.txt requirements.txt
+
 RUN pip3 install --prefix=/install -r requirements.txt
+
 COPY . .
 
 #Run stage
+
 FROM python:3.10-slim-buster
+
 ENV FLASK_ENV=development
+
 ENV PORT=4567
+
 WORKDIR /app
+
 COPY --from=build /install /usr/local
+
 COPY --from=build /build .
+
 EXPOSE ${PORT}
+
 CMD ["sh", "-c", "./External.sh"]
 
 The build stage sets up the build directory and copies in the requirements.txt file, then installs the necessary Python packages to a separate /install directory using the --prefix flag. This ensures that the Python packages are installed to a separate directory from the system packages, which makes it easier to copy only the necessary packages into the final image.
@@ -100,9 +113,13 @@ After installing the Python packages, the build stage copies the rest of the app
 After the backend volume image I added healtcheck:
  
 healthcheck
+
 test: ["CMD-SHELL", "curl --fail http://localhost:4567/healthcheck || exit 1"]
+
 interval: 30s
+
 timeout: 10s
+
 retries: 3
       
 The healthcheck parameter is defined with several options:
