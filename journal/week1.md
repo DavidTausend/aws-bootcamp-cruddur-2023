@@ -72,45 +72,28 @@ docker push username/image:tag
 
 ## Use multi-stage building for a Dockerfile build
 
-Backend
-#Build stage
-FROM node:16.18 AS build
-WORKDIR /frontend-react-js
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
+I was able to add the following code as a multi-stage build for the backend dockerfile:
 
-#Run stage
-FROM node:16.18 AS run
-ENV PORT=3000
-WORKDIR /app
-COPY --from=build /frontend-react-js/build /app
-RUN npm install -g serve
-EXPOSE ${PORT}
-CMD ["serve", "-s", ".", "-p", "3000"]
-
-
-
-Frontend
 #Build stage
 FROM python:3.10-slim-buster AS build
-WORKDIR /backend-flask
+WORKDIR /build
 COPY requirements.txt requirements.txt
-RUN pip3 install --user --no-cache-dir -r requirements.txt
-
-#Production stage
-FROM python:3.10-slim-buster AS production
-WORKDIR /app
-COPY --from=build /root/.local /root/.local
+RUN pip3 install --prefix=/install -r requirements.txt
 COPY . .
-ENV PATH=/root/.local/bin:$PATH
-ENV FLASK_ENV=production
+
+#Run stage
+FROM python:3.10-slim-buster
+ENV FLASK_ENV=development
 ENV PORT=4567
+WORKDIR /app
+COPY --from=build /install /usr/local
+COPY --from=build /build .
 EXPOSE ${PORT}
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=${PORT}"]
+CMD ["sh", "-c", "./External.sh"]
 
+The build stage sets up the build directory and copies in the requirements.txt file, then installs the necessary Python packages to a separate /install directory using the --prefix flag. This ensures that the Python packages are installed to a separate directory from the system packages, which makes it easier to copy only the necessary packages into the final image.
 
+After installing the Python packages, the build stage copies the rest of the application code into the build directory, then runs stage sets up the final image with the necessary environment variables and working directory. It copies the /install directory from the build stage into /usr/local to make the installed Python packages available in the final image. Finally, it copies the rest of the application code from the build stage into the working directory of the final image, exposes the necessary port, and runs the External.sh script as the command to start the application.
 
 ## Healthcheck in Docker compose file
 
