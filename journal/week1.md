@@ -70,7 +70,6 @@ docker push username/image:tag
 
 ## Use multi-stage building for a Dockerfile build
 
-
 Backend
 #Build stage
 FROM node:16.18 AS build
@@ -114,24 +113,12 @@ CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=${PORT}"]
 ## Healthcheck in Docker compose file
 
 After the backend volume image I added healtcheck:
-
-version: "3.8"
-services:
-  backend-flask:
-    environment:
-      FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
-      BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
-    build: ./backend-flask
-    ports:
-      - "4567:4567"
-    volumes:
-      - ./backend-flask:/backend-flask  
-    healthcheck:
-      test: ["CMD-SHELL", "curl --fail http://localhost:4567/healthcheck || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-
+ 
+healthcheck
+test: ["CMD-SHELL", "curl --fail http://localhost:4567/healthcheck || exit 1"]
+interval: 30s
+timeout: 10s
+retries: 3
       
 The healthcheck parameter is defined with several options:
 
