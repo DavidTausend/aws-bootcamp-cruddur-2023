@@ -38,6 +38,7 @@ https://www.youtube.com/watch?v=OjZz4D0B-cA&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgN
 To run a dockerfile CMD as an external script, it has to be define the command to be run in a separate script file, then reference that script file in the CMD instruction in the dockerfile. First create a script file on root and the name the file external.sh and inside has to have the script to be run like the example:
 
 #!/bin/sh
+
 python3 -m flask run --host=0.0.0.0 --port=4567
 
 Then I changed the command in the backend dockerfile to call the external script and gave the right permission:
@@ -72,7 +73,7 @@ docker push username/image:tag
 
 ## Use multi-stage building for a Dockerfile build
 
-I was able to add the following code as a multi-stage build for the backend dockerfile:
+I was able to add the following code as a multi-stage build for my backend dockerfile:
 
 #Build stage
 
@@ -110,7 +111,7 @@ After installing the Python packages, the build stage copies the rest of the app
 
 ## Healthcheck in Docker compose file
 
-After the backend volume image I added healtcheck:
+After the backend volume image I added the following healtcheck:
  
 healthcheck
 
