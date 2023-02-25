@@ -111,7 +111,7 @@ After installing the Python packages, the build stage copies the rest of the app
 
 ## Healthcheck in Docker compose file
 
-After the fronten and backend volume image I added the healtcheck and there is one example:
+After the frontend and backend volume image line I added the healtcheck and there is one example:
  
 healthcheck
 
