@@ -125,13 +125,13 @@ retries: 3
       
 The healthcheck parameter is defined with several options:
 
-+ test: This specifies the command to run to check the health of the service. In this case, we're using curl to make an HTTP request to the /healthcheck endpoint of our service.
++ Test: This specifies the command to run to check the health of the service. In this case, we're using curl to make an HTTP request to the /healthcheck endpoint of our service.
 
-+ interval: This specifies how frequently the health check should be run. In this case, it will run every 30 seconds.
++ Interval: This specifies how frequently the health check should be run. In this case, it will run every 30 seconds.
 
-+ timeout: This specifies how long to wait for a response from the health check command. If the command takes longer than this time, the check will fail.
++ Timeout: This specifies how long to wait for a response from the health check command. If the command takes longer than this time, the check will fail.
 
-+ retries: This specifies how many times to retry the health check before considering the service unhealthy.
++ Retries: This specifies how many times to retry the health check before considering the service unhealthy.
 
 When you run docker-compose up with this file, Compose will start the backend-flask container and run the health check command at the specified interval. If the health check fails, the container will be marked as unhealthy and Compose will attempt to restart it based on the restart policy defined in the docker-compose.yml file.
 
