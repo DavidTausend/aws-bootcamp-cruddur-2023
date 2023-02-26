@@ -1,0 +1,10 @@
+npm install --save \
+    @opentelemetry/api \
+    @opentelemetry/sdk-trace-web \
+    @opentelemetry/exporter-trace-otlp-http \
+    @opentelemetry/context-zone
+    @opentelemetry/instrumentation-xml-http-request \
+    @opentelemetry/instrumentation-fetch \
+    @opentelemetry/instrumentation-document-load \
+    @opentelemetry/instrumentation-user-interaction \
+    @opentelemetry/instrumentation-long-task \
