@@ -1,5 +1,6 @@
 
-@opentelemetry/api 
-@opentelemetry/sdk-trace-web 
-@opentelemetry/exporter-trace-otlp-http 
+@opentelemetry/api
+@opentelemetry/sdk-trace-web
+@opentelemetry/exporter-trace-otlp-http
+@opentelemetry/auto-instrumentations-web
 @opentelemetry/context-zone
