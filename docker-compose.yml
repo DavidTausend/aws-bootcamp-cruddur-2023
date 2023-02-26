@@ -14,7 +14,7 @@ services:
       - ./backend-flask:/backend-flask
     #Homework backend healthcheck  
     healthcheck: 
-      test: ["CMD-SHELL", "curl --fail http://localhost:4567/healthcheck || exit 1"]
+      test: ["CMD-SHELL", "curl --fail http://localhost:4567/api/activities/home || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
