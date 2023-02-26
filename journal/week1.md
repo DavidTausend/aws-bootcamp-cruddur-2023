@@ -103,7 +103,7 @@ COPY --from=build /build .
 
 EXPOSE ${PORT}
 
-CMD ["sh", "-c", "./External.sh"]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
 
 The build stage sets up the build directory and copies in the requirements.txt file, then installs the necessary Python packages to a separate /install directory using the --prefix flag. This ensures that the Python packages are installed to a separate directory from the system packages, which makes it easier to copy only the necessary packages into the final image.
 
@@ -115,7 +115,7 @@ After the frontend and backend volume image line I added the healtcheck and ther
  
 healthcheck
 
-test: ["CMD-SHELL", "curl --fail http://localhost:4567/healthcheck || exit 1"]
+test: ["CMD-SHELL", "curl --fail http://localhost:4567/api/activities/home || exit 1"]
 
 interval: 30s
 
