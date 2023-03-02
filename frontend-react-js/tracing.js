@@ -1,41 +1,35 @@
 //OTEL HoneyComb
+import { BasicTracerProvider } from '@opentelemetry/tracing';
+import { CollectorTraceExporter } from '@opentelemetry/exporter-collector-grpc-web';
+import { Resource } from '@opentelemetry/resources';
+import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
-import { getWebAutoInstrumentations } from '@opentelemetry/auto-instrumentations-web';
-import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
-import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
-import { registerInstrumentations } from '@opentelemetry/instrumentation';
-import { ZoneContextManager } from '@opentelemetry/context-zone';
+import { SpanStatusCode } from '@opentelemetry/api';
 
-const { Resource } = require('@opentelemetry/resources');
-const { SemanticResourceAttributes } = require('@opentelemetry/semantic-conventions');
+//OTEL_SERVICE_NAME: "frontend-react-js"
+//OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
+//OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
+/* const OTEL_SERVICE_NAME = "<frontend-react-js>";
+const OTEL_EXPORTER_OTLP_ENDPOINT = '<https://api.honeycomb.io>';
+const OTEL_EXPORTER_OTLP_HEADERS = '<x-honeycomb-team=${HONEYCOMB_API_KEY}>'; */
 
-const exporter = new OTLPTraceExporter({
- url: 'https://3000-davidtausen-awsbootcamp-jzanev7oe34.ws-eu88.gitpod.io:443/v1/traces'
+const honeycombExporter = new CollectorTraceExporter({
+  url: `https://api.honeycomb.io:443`,
+  headers: {
+    'x-honeycomb-team': OTEL_EXPORTER_OTLP_ENDPOINT,
+    'x-honeycomb-dataset': OTEL_EXPORTER_OTLP_HEADERS,
+  },
 });
-const provider = new WebTracerProvider({
- resource: new Resource({
-   [SemanticResourceAttributes.SERVICE_NAME]: 'browser',
- }),
+
+const tracerProvider = new WebTracerProvider({
+  resource: new Resource({
+    [SemanticResourceAttributes.SERVICE_NAME]: OTEL_SERVICE_NAME,
+  }),
 });
-provider.addSpanProcessor(new BatchSpanProcessor(exporter));
-provider.register({
- contextManager: new ZoneContextManager()
-});
-registerInstrumentations({
- instrumentations: [
-   getWebAutoInstrumentations({
-     // load custom configuration for xml-http-request instrumentation
-     '@opentelemetry/instrumentation-xml-http-request': {
-       propagateTraceHeaderCorsUrls: [
-           /.+/g,
-         ],
-     },
-     // load custom configuration for fetch instrumentation
-     '@opentelemetry/instrumentation-fetch': {
-       propagateTraceHeaderCorsUrls: [
-           /.+/g,
-         ],
-     },
-   }),
- ],
-});
+tracerProvider.addSpanProcessor(new BatchSpanProcessor(honeycombExporter));
+
+// tracer to instrument your application code
+const tracer = tracerProvider.getTracer('my-tracer-name');
+const span = tracer.startSpan('my-span-name');
+span.setStatus({ code: SpanStatusCode.OK });
+span.end();
