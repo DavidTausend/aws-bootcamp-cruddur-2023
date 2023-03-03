@@ -1,9 +1,15 @@
 from datetime import datetime, timedelta, timezone
 from aws_xray_sdk.core import xray_recorder
+from opentelemetry import trace
+
+tracer = trace.get_tracer("user.activities")
+
 class UserActivities:
   def run(user_handle):
-    #yray
-    segment = xray_recorder.begin_segment('segment_name')
+    #Honeycomb
+    with tracer.start_as_current_span("home-activities-mock-data"):
+      #xray
+      segment = xray_recorder.begin_segment('segment_name')
   
     model = {
        'errors': None,
