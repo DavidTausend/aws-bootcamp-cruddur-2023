@@ -19,6 +19,22 @@ By using distributed tracing, developers and operators can gain insights into th
 
 ## Instrument Honeycomb for the frontend-application to observe network latency between frontend and backend[HARD]
 
+I wasn't able to accomplish the challenge, but I tried. There is some code in the application.
+
 ## Add custom instrumentation to Honeycomb to add more attributes eg. UserId, Add a custom span
 
-## Run custom queries in Honeycomb and save them later eg. Latency by UserID, Recent Traces
+##  Save queries in Honeycomb dasboard
+
+1. Log in to your Honeycomb account and navigate to the dataset you want to query.
+2. Click on the "Run Query" button in the top middle of the screen.
+3. In the query editor, write your custom query using Honeycomb's query language. You can use the autocomplete and syntax highlighting features to help you write your query.
+4. Once you have written your query, click on the "Run Query" button to execute it.
+5. If the query returns the results you expect, you can give it a name clicking the "add name and description" and then save the query for later use by clicking on the "Star ⭐️"in the top middle of the screen.
+In the "Save to board" select your dashboard and click "Save" to save the query.
+6. To see the query, go the board and select it. 
+
+
+
+
+
+
