@@ -1,6 +1,9 @@
 import './HomeFeedPage.css';
 import React from "react";
 
+//Conditionally show components based on logged in or logged out
+import { Auth } from 'aws-amplify';
+
 import DesktopNavigation  from '../components/DesktopNavigation';
 import DesktopSidebar     from '../components/DesktopSidebar';
 import ActivityFeed from '../components/ActivityFeed';
@@ -15,6 +18,7 @@ export default function HomeFeedPage() {
   const [popped, setPopped] = React.useState(false);
   const [poppedReply, setPoppedReply] = React.useState(false);
   const [replyActivity, setReplyActivity] = React.useState({});
+  // set a state
   const [user, setUser] = React.useState(null);
   const dataFetchedRef = React.useRef(false);
 
@@ -35,16 +39,25 @@ export default function HomeFeedPage() {
     }
   };
 
-  const checkAuth = async () => {
-    console.log('checkAuth')
-    // [TODO] Authenication
-    if (Cookies.get('user.logged_in')) {
+  // check if we are authenicated
+const checkAuth = async () => {
+  Auth.currentAuthenticatedUser({
+    // Optional, By default is false. 
+    // If set to true, this call will send a 
+    // request to Cognito to get the latest user data
+    bypassCache: false 
+  })
+  .then((user) => {
+    console.log('user',user);
+    return Auth.currentAuthenticatedUser()
+  }).then((cognito_user) => {
       setUser({
-        display_name: Cookies.get('user.name'),
-        handle: Cookies.get('user.username')
+        display_name: cognito_user.attributes.name,
+        handle: cognito_user.attributes.preferred_username
       })
-    }
-  };
+  })
+  .catch((err) => console.log(err));
+};
 
   React.useEffect(()=>{
     //prevents double call
