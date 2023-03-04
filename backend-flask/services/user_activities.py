@@ -7,7 +7,10 @@ tracer = trace.get_tracer("user.activities")
 class UserActivities:
   def run(user_handle):
     #Honeycomb
-    with tracer.start_as_current_span("home-activities-mock-data"):
+    with tracer.start_as_current_span("user-activities-mock-data"):
+      span = trace.get_current_span()
+      now = datetime.now(timezone.utc).astimezone()
+      span.set_attribute("user.now", now.isoformat())  
       #xray
       segment = xray_recorder.begin_segment('segment_name')
   
@@ -38,5 +41,5 @@ class UserActivities:
       "results-size": len(model['data'])
     }
     subsegment.put_metadata('key', dict, 'namespace')
-    
+    span.set_attribute("user.result_lenght", len(results))  
     return model
