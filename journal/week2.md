@@ -21,7 +21,9 @@ By using distributed tracing, developers and operators can gain insights into th
 
 I wasn't able to accomplish the challenge, but I tried. There is some code in the application.
 
-## Add custom instrumentation to Honeycomb to add more attributes eg. UserId, Add a custom span
+## Add Notifications span
+
+
 
 ##  Save queries in Honeycomb dasboard
 
