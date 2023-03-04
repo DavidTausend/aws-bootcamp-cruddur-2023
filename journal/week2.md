@@ -23,25 +23,25 @@ I wasn't able to accomplish the challenge, but I tried. There is some code in th
 
 ## Add Notifications span
 
-I added a span for the notifications in  to trace if the users are able to receive the update notification. Here is the example.
+I added a span for the notifications in  to trace if the users are able to receive the update notification. Here is the example:
 
-from opentelemetry import trace
+    from opentelemetry import trace
 
-tracer = trace.get_tracer("notifications.activities")
+    tracer = trace.get_tracer("notifications.activities")
 
-class NotificationsActivities:
+    class NotificationsActivities:
 
-  def run():
-  
-    with tracer.start_as_current_span("notifications-activities-mock-data"):
-    
-      span = trace.get_current_span()
-      
-      now = datetime.now(timezone.utc).astimezone()
-      
-      span.set_attribute("notifications.now", now.isoformat())  
-      
-      span.set_attribute("notifications.result_lenght", len(results)) 
+      def run():
+
+        with tracer.start_as_current_span("notifications-activities-mock-data"):
+
+          span = trace.get_current_span()
+
+          now = datetime.now(timezone.utc).astimezone()
+
+          span.set_attribute("notifications.now", now.isoformat())  
+
+          span.set_attribute("notifications.result_lenght", len(results)) 
 
 <img width="1440" alt="Week2-Span" src="https://user-images.githubusercontent.com/125006062/222908591-64e13d90-e148-48b0-bcf2-a4729ac3bbae.png">
 
@@ -56,8 +56,12 @@ class NotificationsActivities:
 In the "Save to board" select your dashboard and click "Save" to save the query.
 6. To see the query, go the board and select it. 
 
+<img width="1415" alt="Week2-HoneyCombQuery" src="https://user-images.githubusercontent.com/125006062/222908880-eae1d1a9-9421-4e76-8ade-ed4a0d6faa11.png">
+
+<img width="1420" alt="Week2-AddBoard" src="https://user-images.githubusercontent.com/125006062/222908901-49e330a0-d283-452f-8bd5-4f606645a29b.png">
+
+<img width="1418" alt="Week2-SaveBoard" src="https://user-images.githubusercontent.com/125006062/222908924-210b3a51-a7cc-4e09-81d9-d46b18f7bd1c.png">
 
 
-
-
+<img width="1416" alt="Week2-Boards" src="https://user-images.githubusercontent.com/125006062/222908946-ce8436cc-7389-431e-8ffd-79735e2806cb.png">
 
