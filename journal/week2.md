@@ -19,10 +19,31 @@ By using distributed tracing, developers and operators can gain insights into th
 
 ## Instrument Honeycomb for the frontend-application to observe network latency between frontend and backend[HARD]
 
-I wasn't able to accomplish the challenge, but I tried. There is some code in the application.
+I wasn't able to accomplish the challenge, but I tried. There is some code in the application.Therefore, I will try again in the future.
 
 ## Add Notifications span
 
+I added a span for the notifications in  to trace if the users are able to receive the update notification. Here is the example.
+
+from opentelemetry import trace
+
+tracer = trace.get_tracer("notifications.activities")
+
+class NotificationsActivities:
+
+  def run():
+  
+    with tracer.start_as_current_span("notifications-activities-mock-data"):
+    
+      span = trace.get_current_span()
+      
+      now = datetime.now(timezone.utc).astimezone()
+      
+      span.set_attribute("notifications.now", now.isoformat())  
+      
+      span.set_attribute("notifications.result_lenght", len(results)) 
+
+<img width="1440" alt="Week2-Span" src="https://user-images.githubusercontent.com/125006062/222908591-64e13d90-e148-48b0-bcf2-a4729ac3bbae.png">
 
 
 ##  Save queries in Honeycomb dasboard
