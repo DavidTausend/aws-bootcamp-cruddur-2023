@@ -20,6 +20,8 @@ export default function SigninPage() {
     event.preventDefault();
     Auth.signIn(email, password)
     .then(user => {
+      //log cognito
+      console.log('user', user)
       localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
       window.location.href = "/"
     })
