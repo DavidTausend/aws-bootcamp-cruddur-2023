@@ -10,6 +10,7 @@ export default function ConfirmationPage() {
   const [email, setEmail] = React.useState('');
   const [code, setCode] = React.useState('');
   const [errors, setErrors] = React.useState('');
+  //value not used
   const [codeSent, setCodeSent] = React.useState(false);
 
   const params = useParams();
@@ -64,7 +65,8 @@ export default function ConfirmationPage() {
     if (params.email) {
       setEmail(params.email)
     }
-  }, [])
+    //add dependency array
+  }, [params.email])
 
   return (
     <article className="confirm-article">
