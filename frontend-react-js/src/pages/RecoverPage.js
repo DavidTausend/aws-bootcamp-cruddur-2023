@@ -115,13 +115,16 @@ export default function RecoverPage() {
     }
 
   let form;
-  if (formState == 'send_code') {
+  //== to ===
+  if (formState === 'send_code') {
     form = send_code()
   }
-  else if (formState == 'confirm_code') {
+  //== to ===
+  else if (formState === 'confirm_code') {
     form = confirm_code()
   }
-  else if (formState == 'success') {
+  //== to ===
+  else if (formState === 'success') {
     form = success()
   }
 
