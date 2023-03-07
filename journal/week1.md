@@ -75,39 +75,45 @@ docker push username/image:tag
 
 I was able to add the following code as a multi-stage build for my backend dockerfile:
 
-#Build stage
+      #Build stage
+      FROM python:3.10-slim-buster AS build
+      WORKDIR /build
+      COPY requirements.txt requirements.txt
+      RUN pip3 install --prefix=/install -r requirements.txt
+      COPY . .
 
-FROM python:3.10-slim-buster AS build
-
-WORKDIR /build
-
-COPY requirements.txt requirements.txt
-
-RUN pip3 install --prefix=/install -r requirements.txt
-
-COPY . .
-
-#Run stage
-
-FROM python:3.10-slim-buster
-
-ENV FLASK_ENV=development
-
-ENV PORT=4567
-
-WORKDIR /app
-
-COPY --from=build /install /usr/local
-
-COPY --from=build /build .
-
-EXPOSE ${PORT}
-
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
+      #Run stage
+      FROM python:3.10-slim-buster
+      ENV FLASK_ENV=development
+      ENV PORT=4567
+      WORKDIR /app
+      COPY --from=build /install /usr/local
+      COPY --from=build /build .
+      EXPOSE ${PORT}
+      CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
 
 The build stage sets up the build directory and copies in the requirements.txt file, then installs the necessary Python packages to a separate /install directory using the --prefix flag. This ensures that the Python packages are installed to a separate directory from the system packages, which makes it easier to copy only the necessary packages into the final image.
 
 After installing the Python packages, the build stage copies the rest of the application code into the build directory, then runs stage sets up the final image with the necessary environment variables and working directory. It copies the /install directory from the build stage into /usr/local to make the installed Python packages available in the final image. Finally, it copies the rest of the application code from the build stage into the working directory of the final image, exposes the necessary port, and runs the External.sh script as the command to start the application.
+
+Multi stage build for frontend: 
+
+     # Build Stage
+     FROM node:16.18 AS build
+     COPY package*.json /frontend-react-js/
+     WORKDIR /frontend-react-js
+     RUN npm install
+     COPY . .
+     RUN npm run build
+
+     # Final Stage
+     FROM node:16.18-alpine
+     ENV PORT=3000
+     WORKDIR /frontend-react-js
+     COPY --from=build /frontend-react-js/build ./build
+     COPY --from=build /frontend-react-js/node_modules ./node_modules
+     EXPOSE ${PORT}
+     CMD ["npm", "start"]
 
 ## Healthcheck in Docker compose file
 
