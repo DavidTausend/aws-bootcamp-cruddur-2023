@@ -1,8 +1,18 @@
+:root {
+  --bg: #rgba(61,13,123);
+  --fg: #000;
+
+  --field-border: rbga(149,0,255,0.29);
+  --field-border-forcus: rbga(149,0,255,0.1);
+  --field-bg: rbga(149,0,255,0.1);
+}
+
+
 * { box-sizing: border-box; }
 html,body { 
   height: 100%; 
   width: 100%; 
-  background: rgb(14,3,28);
+  background: var(--bg);
 }
 
 body {
@@ -12,6 +22,18 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(to top, #732495, #491669);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: bottom;
+  }
+  100% {
+    background-position: top;
+  }
 }
 
 code {
