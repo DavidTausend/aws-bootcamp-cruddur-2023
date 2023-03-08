@@ -1,5 +1,6 @@
 import './HomeFeedPage.css';
 import React from "react";
+import { trace } from '@opentelemetry/api';
 
 //Conditionally show components based on logged in or logged out
 import { Auth } from 'aws-amplify';
@@ -22,6 +23,8 @@ export default function HomeFeedPage() {
   // set a state
   const [user, setUser] = React.useState(null);
   const dataFetchedRef = React.useRef(false);
+  //HoneyComb Frontend
+  const tracer = trace.getTracer('frontend-ract-js');
 
   const loadData = async () => {
     try {
@@ -42,6 +45,27 @@ export default function HomeFeedPage() {
       console.log(err);
     }
   };
+
+  //tracer (Frontend)
+  React.useEffect(()=>{
+    //prevents double call
+    if (dataFetchedRef.current) return;
+    dataFetchedRef.current = true;
+  
+    tracer.startActiveSpan('HomeFeedPage', (span) => {
+      tracer.startActiveSpan('load_data', (span) => {
+        span.setAttribute('endpoint', '/api/activities/home');
+        loadData();
+        span.end()
+      })
+      tracer.startActiveSpan('check_auth', (span) => {
+        span.setAttribute('endpoint', '/api/auth');
+        checkAuth();
+        span.end()
+      })
+      span.end()
+    })
+  }, [tracer])
 
   // check if we are authenicated
 const checkAuth = async () => {

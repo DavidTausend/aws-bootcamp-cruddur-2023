@@ -15,4 +15,6 @@ watchtower
 blinker
 rollbar
 
+requests
+
 Flask-AWSCognito

@@ -36,9 +36,9 @@ services:
     environment:
       REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       #HoneyComb fronted
-      OTEL_SERVICE_NAME: "frontend-react-js"
-      OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
-      OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
+      #OTEL_SERVICE_NAME: "frontend-ract-js"
+      HONEYCOMB_TRACES_API: "https://api.honeycomb.io/v1/traces"
+      HONEYCOMB_API_KEY: "${HONEYCOMB_API_KEY}"
       #xray
       AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
       AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"

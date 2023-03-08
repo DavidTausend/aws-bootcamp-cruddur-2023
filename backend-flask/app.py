@@ -18,7 +18,7 @@ from services.show_activity import *
 #Cognito
 from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVerifyError
 
-#HoneyComb
+#HoneyComb backend
 from opentelemetry import trace
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
@@ -26,6 +26,9 @@ from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExport
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProcessor
+
+#HoneyComb frontend
+import requests
 
 #X-Ray
 from aws_xray_sdk.core import xray_recorder
@@ -81,7 +84,7 @@ cognito_jwt_token = CognitoJwtToken(
 #xray
 XRayMiddleware(app, xray_recorder)
 
-#HoneyComb
+#HoneyComb Backend
 # Initialize automatic instrumentation with Flask
 FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
@@ -249,6 +252,33 @@ def data_activities_reply(activity_uuid):
   else:
     return model['data'], 200
   return
+
+#HoneyComb Frontend
+@app.route("/honeycomb/traces", methods=['POST','OPTIONS'])
+@cross_origin(supports_credentials=True)
+def collect_traces():
+    otlp_json_exported_from_frontend = request.json
+
+    headers = {
+        'Content-Type': 'application/json',
+        'x-honeycomb-team': os.getenv('HONEYCOMB_API_KEY'),
+    }
+
+    try:
+        response = requests.post(
+            url=os.getenv('HONEYCOMB_TRACES_API'),
+            json=otlp_json_exported_from_frontend,
+            headers=headers
+        )
+        #Raise any error 4xx or 500
+        response.raise_for_status()  
+
+        return {'success': True}, 200
+
+    except requests.exceptions.RequestException as e:
+        #Handle any exceptions that occur during the POST request
+        print('Error sending data to Honeycomb:', e)
+        return {'success': False}, 500
 
 if __name__ == "__main__":
   app.run(debug=True)
