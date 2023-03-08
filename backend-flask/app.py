@@ -17,6 +17,7 @@ from services.show_activity import *
 
 #Cognito
 from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVerifyError
+from flask import jsonify
 
 #HoneyComb backend
 from opentelemetry import trace
