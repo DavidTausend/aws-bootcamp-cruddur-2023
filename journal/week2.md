@@ -63,9 +63,77 @@ In app.py I importe the new library adding the following code to test HoneyComb 
             print('Error sending data to Honeycomb:', e)
             return {'success': False}, 500
     
+After that the backend is done, I started working with the frontend by installing the following dependencies:
 
+         npm install --save \
+         @opentelemetry/api \
+         @opentelemetry/sdk-trace-web \
+         @opentelemetry/exporter-trace-otlp-http \
+         @opentelemetry/context-zone
+         
+Then the code that will send the information to the backend:
 
+         import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
+         import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
+         import { ZoneContextManager } from '@opentelemetry/context-zone';
+         import { Resource } from '@opentelemetry/resources';
+         import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
+         import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-web';
 
+         // Create a resource with the service name
+         const resource = new Resource({
+           [SemanticResourceAttributes.SERVICE_NAME]: 'frontend-react-js',
+         });
+
+         // Configure the OTLP trace exporter with the backend URL
+         const exporter = new OTLPTraceExporter({
+           url: `${process.env.REACT_APP_BACKEND_URL}/honeycomb/traces`,
+         });
+
+         // Configure the web tracer provider with the exporter and resource
+         const provider = new WebTracerProvider({
+           resource: resource,
+         });
+
+         provider.addSpanProcessor(new BatchSpanProcessor(exporter));
+
+         // Register the provider and context manager
+         provider.register({
+           contextManager: new ZoneContextManager(),
+
+Imported the file to the index.js adding the following code at the beginning:
+
+          import './tracing.js
+          
+Getting the traces and span from the Homefeedpage:
+
+     import { trace } from '@opentelemetry/api';
+     
+     //HoneyComb Frontend
+     const tracer = trace.getTracer('frontend-ract-js');
+     
+     //tracer (Frontend)
+       React.useEffect(()=>{
+         //prevents double call
+         if (dataFetchedRef.current) return;
+         dataFetchedRef.current = true;
+
+         tracer.startActiveSpan('HomeFeedPage', (span) => {
+           tracer.startActiveSpan('load_data', (span) => {
+             span.setAttribute('endpoint', '/api/activities/home');
+             loadData();
+             span.end()
+           })
+           tracer.startActiveSpan('check_auth', (span) => {
+             span.setAttribute('endpoint', '/api/auth');
+             checkAuth();
+             span.end()
+           })
+           span.end()
+         })
+       }, [tracer])
+       
+Note: I am still having problems wiht the connection to HoneyComb.
 
 ## Add Notifications span
 
