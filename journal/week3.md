@@ -1,5 +1,17 @@
 # Week 3 — Decentralized Authentication
 
+## Decentralized authentication refers to a method of authentication that does not rely on a central authority or server to verify the identity of a user. Instead, it uses a decentralized network or system of nodes to verify the user's identity.
+
+Decentralized authentication can be achieved through various technologies, such as blockchain and distributed ledger technology (DLT), which enable the creation of a network of nodes that collectively verify user identities. In this system, each node maintains a copy of the user's identity data and can verify the authenticity of the user's identity without relying on a central server or authority.
+
+One advantage of decentralized authentication is that it can increase security and privacy by reducing the risk of a single point of failure or a data breach. Since there is no central authority or server to compromise, it is much harder for an attacker to gain access to user data or impersonate a user.
+
+Decentralized authentication also allows for greater user control over their own identity data, as users can maintain ownership of their data and choose who has access to it. This can help prevent identity theft and give users greater control over their online presence.
+
+Overall, decentralized authentication is a promising approach to online identity verification that can improve security, privacy, and user control.
+
+## Homework
+
 ## [Medium] Decouple the JWT verify from the application code by writing a  Flask Middleware
 
 ## [Hard] Decouple the JWT verify by implementing a Container Sidecar pattern using AWS’s official Aws-jwt-verify.js library
