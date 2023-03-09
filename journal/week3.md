@@ -48,6 +48,9 @@ Overall, Amazon Cognito makes it easy for developers to add user authentication 
 
 ## [Easy] Implement MFA that send an SMS (text message), warning this has spend, investigate spend before considering, text messages are not eligible for AWS Credits
 
+      import boto3
+      from flask import jsonify
+      
       access_token = extract_access_token(request.headers)
 
       try:
