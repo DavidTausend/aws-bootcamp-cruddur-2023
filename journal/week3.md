@@ -40,6 +40,8 @@ Overall, Amazon Cognito makes it easy for developers to add user authentication 
 
 ## MFA SMS
 
+I added the following code in app.py:
+
       import boto3
       from flask import jsonify
       
