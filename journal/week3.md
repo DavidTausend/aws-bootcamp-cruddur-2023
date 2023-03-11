@@ -38,15 +38,7 @@ Overall, Amazon Cognito makes it easy for developers to add user authentication 
 
 ## Homework
 
-## [Medium] Decouple the JWT verify from the application code by writing a  Flask Middleware
-
-## [Hard] Decouple the JWT verify by implementing a Container Sidecar pattern using AWS’s official Aws-jwt-verify.js library
-
-## [Hard] Decouple the JWT verify process by using Envoy as a sidecar https://www.envoyproxy.io/
-
-## [Hard]  Implement a IdP login eg. Login with Amazon or Facebook or Apple.
-
-## [Easy] Implement MFA that send an SMS (text message), warning this has spend, investigate spend before considering, text messages are not eligible for AWS Credits
+## MFA SMS
 
       import boto3
       from flask import jsonify
@@ -72,7 +64,7 @@ Overall, Amazon Cognito makes it easy for developers to add user authentication 
           cognito.verify_software_token(
               AccessToken=access_token,
               UserCode=request.form['mfa_code'],
-              FriendlyDeviceName='My Device'
+              FriendlyDeviceName='device'
           )
 
           # Authenticate the user using Amazon Cognito
@@ -81,7 +73,7 @@ Overall, Amazon Cognito makes it easy for developers to add user authentication 
               AuthParameters={
                   'USERNAME': claims['username'],
                   'PASSWORD': request.form['password'],
-                  'SOFTWARE_TOKEN_MFA_CODE': request.form['mfa_code']
+                  'MFA_TOKEN': request.form['mfa_code']
               },
               ClientId='your_client_id',
               Session=response['Session']
