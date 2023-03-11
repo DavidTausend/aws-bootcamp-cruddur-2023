@@ -1,0 +1,8 @@
+#! /usr/bin/bash 
+
+echo "db-schema-load"
+
+schema_path=$(realpath .)/db/schema.sql
+echo $schema
+
+postgresql $CONNECTION_URL crudder < db/schema.sql
