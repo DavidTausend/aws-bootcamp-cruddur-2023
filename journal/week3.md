@@ -40,7 +40,7 @@ Overall, Amazon Cognito makes it easy for developers to add user authentication 
 
 ## MFA SMS
 
-I added the following code in app.py:
+I first enabled the MFA in AWS cognito as optional but before it's needed to have a SNS services to send the text message.Then I added the following code in app.py:
 
       import boto3
       from flask import jsonify
@@ -93,4 +93,8 @@ I added the following code in app.py:
           app.logger.debug("unauthenticated")
           data = HomeActivities.run()
           return data, 401
+
+
+## IdP login with Facebook
+
 
