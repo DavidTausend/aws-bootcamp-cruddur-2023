@@ -17,9 +17,7 @@ By using distributed tracing, developers and operators can gain insights into th
 
 
 
-## Instrument Honeycomb for the frontend-application to observe network latency between frontend and backend[HARD]
-
-
+## Frontend-application with HoneyComb
 
 
 In docker-compose.yml file I added the traces and the key api for the comunication to Honeycomb:
