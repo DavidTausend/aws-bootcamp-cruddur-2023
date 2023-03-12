@@ -32,8 +32,8 @@ from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProces
 import requests
 
 #X-Ray
-from aws_xray_sdk.core import xray_recorder
-from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+#from aws_xray_sdk.core import xray_recorder
+#from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
 
 #Cloudwacth logs
 import watchtower
@@ -63,8 +63,8 @@ provider.add_span_processor(processor)
 
 
 #X-Ray
-xray_url = os.getenv("AWS_XRAY_URL")
-xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
+#xray_url = os.getenv("AWS_XRAY_URL")
+#xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
 
 
 #show this in the logs within the backend-flask app (STDOUT)
@@ -83,7 +83,7 @@ cognito_jwt_token = CognitoJwtToken(
 )
 
 #xray
-XRayMiddleware(app, xray_recorder)
+#XRayMiddleware(app, xray_recorder)
 
 #HoneyComb Backend
 # Initialize automatic instrumentation with Flask
@@ -177,7 +177,7 @@ def data_create_message():
 
 @app.route("/api/activities/home", methods=['GET'])
 #yxray
-@xray_recorder.capture('activities_home')
+#@xray_recorder.capture('activities_home')
 def data_home():
   #Cognito
   access_token = extract_access_token(request.headers)
@@ -197,7 +197,7 @@ def data_home():
 
 @app.route("/api/activities/notifications", methods=['GET'])
 #yxray
-@xray_recorder.capture('activities_notifications')
+#@xray_recorder.capture('activities_notifications')
 def data_notifications():
   data = NotificationsActivities.run()
   return data, 200
@@ -237,7 +237,7 @@ def data_activities():
 
 @app.route("/api/activities/<string:activity_uuid>", methods=['GET'])
 #Xray
-@xray_recorder.capture('activities_show')
+#@xray_recorder.capture('activities_show')
 def data_show_activity(activity_uuid):
   data = ShowActivity.run(activity_uuid=activity_uuid)
   return data, 200
