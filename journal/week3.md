@@ -95,6 +95,43 @@ I first enabled the MFA in AWS cognito as optional but before it's needed to hav
           return data, 401
 
 
-## IdP login with Facebook
+## Secure API Gateway HTTP endpoint with JWT
+
+To create the three Lambda functions with the requirements you described, you can follow these steps:
+1.	Open the AWS Management Console and navigate to the AWS Lambda service.
+2.	Click on the "Create Function" button.
+3.	Select "Author from scratch" and enter a name for the first Lambda function (e.g., "Pre-tokenAuthLambda").
+4.	Choose "Python" as the runtime.
+5.	Under "Permissions," select "Create a new role with basic Lambda permissions" and enter a name for the role.
+6.	Click on "Create function."
+7.	In the function code editor, you can write the code to customize the claims in the identity token. For example, you can use the event parameter to access the input data, modify the claims, and return the modified data.
+8.	Click on "Deploy" to save the function.
+Repeat steps 3-8 for the second and third Lambda functions (e.g., "LambdaForAdminUser" and "LambdaForRegularUser"), but choose "Node.js" as the runtime instead of Python. In the function code editor, you can write the code to handle the HTTP API Gateway integration for the corresponding routes (/AdminUser and /RegularUser).
+9.	Once you have created all three Lambda functions, you can create an HTTP API Gateway in the AWS Management Console.
+10.	Select "HTTP API" as the protocol and click on "Create API."
+11.	Under "Routes," click on "Create Route."
+12.	Enter "/AdminUser" as the route and select "Lambda Function" as the integration target.
+13.	Choose the "LambdaForAdminUser" function as the target.
+14.	Click on "Create Route."
+15.	Repeat steps 11-14 for the "/RegularUser" route and the "LambdaForRegularUser" function.
+16.	Once you have created both routes, you can deploy the API by clicking on "Actions" and selecting "Deploy API."
+17.	You can now test the API by sending HTTP requests to the API Gateway endpoints for the "/AdminUser" and "/RegularUser" routes, which will trigger the corresponding Lambda functions.
+
+To create an IAM role with the IAM policy you provided for each of the three Lambda functions, you can follow these steps:
+1.	Open the AWS Management Console and navigate to the IAM service.
+2.	Click on "Roles" in the left-hand menu and then click on "Create role."
+3.	Select "AWS service" as the trusted entity and choose "Lambda" as the service that will use this role.
+4.	Click on "Next: Permissions."
+5.	Under "Attach permissions policies," click on "Create policy."
+6.	Select the "JSON" tab and copy and paste the IAM policy you provided into the text box.
+7.	Click on "Review policy."
+8.	Enter a name for the policy (e.g., "LambdaLogsPolicy") and click on "Create policy."
+9.	In the "Create role" page, click on the "Refresh" button under "Attach permissions policies."
+10.	Search for and select the policy you just created (e.g., "LambdaLogsPolicy") and click on "Next: Tags."
+11.	(Optional) Add any desired tags and click on "Next: Review."
+12.	Enter a name for the role (e.g., "LambdaExecutionRole") and click on "Create role."
+13.	Repeat steps 2-12 for the other two Lambda functions, using the same policy and role name but changing the name of the Lambda function in the "Resource" field of the policy.
+Once you have created the IAM roles, you can assign them to the corresponding Lambda functions by going to the "Permissions" tab of each Lambda function and selecting the role from the "Execution role" dropdown. This will grant the Lambda functions the necessary permissions to create and write logs to CloudWatch Logs.
+
 
 
