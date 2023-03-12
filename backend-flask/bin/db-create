@@ -7,5 +7,5 @@ printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
 NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$CONNECTION_URL")
 
-psql $NO_DB_CONNECTION_URL -c "CREATE database crudder;"
+psql $NO_DB_CONNECTION_URL -c "CREATE database cruddur;"
 
