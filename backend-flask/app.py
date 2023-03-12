@@ -176,7 +176,7 @@ def data_create_message():
   return
 
 @app.route("/api/activities/home", methods=['GET'])
-#yxray
+#xray
 #@xray_recorder.capture('activities_home')
 def data_home():
   #Cognito
@@ -196,7 +196,7 @@ def data_home():
   return data, 200
 
 @app.route("/api/activities/notifications", methods=['GET'])
-#yxray
+#xray
 #@xray_recorder.capture('activities_notifications')
 def data_notifications():
   data = NotificationsActivities.run()
