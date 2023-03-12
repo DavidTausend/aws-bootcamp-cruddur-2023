@@ -16,7 +16,7 @@ services:
       AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
       #Rollbar
-      ROLLBAR_ACCESS_TOKEN: "67b08e842fff4a7985f4f86ce412a065"
+      ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
       #Cognito
       AWS_COGNITO_USER_POOL_ID: 'eu-central-1_rDpbtgw5E'
       AWS_COGNITO_USER_POOL_CLIENT_ID: '2bsm1nf80lse6sgrntodvnkq01'
