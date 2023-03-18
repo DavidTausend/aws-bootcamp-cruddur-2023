@@ -1,42 +1,43 @@
 import './SignupPage.css';
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {ReactComponent as Logo} from '../components/svg/logo.svg';
 import { Link } from "react-router-dom";
 import { Auth } from 'aws-amplify';
 
 export default function SignupPage() {
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    username: '',
+    password: '',
+  });
   const [errors, setErrors] = useState('');
 
-  useEffect(() => {
-    const storedEmail = localStorage.getItem('email');
-    if (storedEmail) {
-      setEmail(storedEmail);
-      localStorage.removeItem('email'); 
-    }
-  }, []);
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-  const onsubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setErrors('')
     try {
       const { user } = await Auth.signUp({
-        username: email,
-        password: password,
+        username: formData.email,
+        password: formData.password,
         attributes: {
-          name: name,
-          email: email,
-          preferred_username: username,
+          name: formData.name,
+          email: formData.email,
+          preferred_username: formData.username,
         },
         autoSignIn: {
           enabled: true,
         }
       });
-      localStorage.setItem('email', email);
+      localStorage.setItem('email', formData.email);
       window.location.href = `/confirm`
     } catch (error) {
       console.log(error);
@@ -45,23 +46,7 @@ export default function SignupPage() {
     return false
   }
 
-  const name_onchange = (event) => {
-    setName(event.target.value);
-  }
-  const email_onchange = (event) => {
-    setEmail(event.target.value);
-  }
-  const username_onchange = (event) => {
-    setUsername(event.target.value);
-  }
-  const password_onchange = (event) => {
-    setPassword(event.target.value);
-  }
-
-  let el_errors;
-  if (errors){
-    el_errors = <div className='errors'>{errors}</div>;
-  }
+  const errorElement = errors ? <div className='errors'>{errors}</div> : null;
 
   return (
     <article className='signup-article'>
@@ -71,7 +56,7 @@ export default function SignupPage() {
       <div className='signup-wrapper'>
         <form 
           className='signup_form'
-          onSubmit={onsubmit}
+          onSubmit={handleSubmit}
         >
           <h2>Sign up to create a Cruddur account</h2>
           <div className='fields'>
@@ -79,8 +64,9 @@ export default function SignupPage() {
               <label>Name</label>
               <input
                 type="text"
-                value={name}
-                onChange={name_onchange} 
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange} 
               />
             </div>
 
@@ -88,8 +74,9 @@ export default function SignupPage() {
               <label>Email</label>
               <input
                 type="text"
-                value={email}
-                onChange={email_onchange} 
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange} 
               />
             </div>
 
@@ -97,8 +84,9 @@ export default function SignupPage() {
               <label>Username</label>
               <input
                 type="text"
-                value={username}
-                onChange={username_onchange} 
+                name="username"
+                value={formData.username}
+                onChange={handleInputChange} 
               />
             </div>
 
@@ -106,12 +94,13 @@ export default function SignupPage() {
               <label>Password</label>
               <input
                 type="password"
-                value={password}
-                onChange={password_onchange} 
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange} 
               />
             </div>
           </div>
-          {el_errors}
+          {errorElement}
           <div className='submit'>
             <button type='submit'>Sign Up</button>
           </div>
