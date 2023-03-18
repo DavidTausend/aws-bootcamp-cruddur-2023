@@ -1,26 +1,28 @@
 import './SignupPage.css';
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {ReactComponent as Logo} from '../components/svg/logo.svg';
 import { Link } from "react-router-dom";
-
-// [TODO] Authenication
 import { Auth } from 'aws-amplify';
 
 export default function SignupPage() {
 
-  // Username is Eamil
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [errors, setErrors] = React.useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState('');
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('email');
+    if (storedEmail) {
+      setEmail(storedEmail);
+      localStorage.removeItem('email'); 
+    }
+  }, []);
 
   const onsubmit = async (event) => {
     event.preventDefault();
     setErrors('')
-    console.log('username' ,username)
-    console.log('email' ,email)
-    console.log('name' ,name,)
     try {
       const { user } = await Auth.signUp({
         username: email,
@@ -30,15 +32,15 @@ export default function SignupPage() {
           email: email,
           preferred_username: username,
         },
-        autoSignIn: { // optional - enables auto sign in after user is confirmed
-            enabled: true,
+        autoSignIn: {
+          enabled: true,
         }
       });
-      console.log(user);
-       window.location.href = `/confirm?email=${email}`
+      localStorage.setItem('email', email);
+      window.location.href = `/confirm`
     } catch (error) {
-        console.log(error);
-        setErrors(error.message)
+      console.log(error);
+      setErrors(error.message)
     }
     return false
   }
