@@ -15,3 +15,11 @@ Amazon RDS (Relational Database Service) is a managed database service provided 
 + Regularly update RDS and its components: Keep your RDS instances up-to-date by regularly applying security patches and updates to the database engine, operating system, and other components.
 + Enable encryption at rest: Use encryption at rest to encrypt data stored on your RDS instances.
 + Regularly audit database activities: Regularly audit your database activities to detect any suspicious activities, such as unauthorized access or modifications to your data.
+
+## Other improvements
+
+### Save email while signing up
+
+
+
+  
