@@ -8,9 +8,18 @@ class Db:
   def _init_(self):
     self._init_pool()
 
+  def template(self,name):
+    template_paht = os.path.join(app.intance_path,'db','sql', name)
+    with open(template_path, 'r') as f:
+      template_content = f.read()
+    return template_content
+    #pathing = list((app.root_path,'db','sql',) + args)
+    #pathing[-1] = pathing[-1] + ".sql"
+
   def _init_pool(self):  
     connection_url = os.getenv("CONNECTION_URL")
     self.pool = ConnectionPool(connection_url)
+
   #when we want to commint code data as an insert    
   def query_commit(self,sql,params):  
     print("SQL STATEMENT------[commit with returning]------")

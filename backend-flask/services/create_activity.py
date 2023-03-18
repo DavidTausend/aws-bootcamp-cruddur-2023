@@ -53,22 +53,7 @@ class CreateActivity:
       }
     return model
   def create_activity(handle, user_uuid, message, expires_at):
-    sql = f"""
-    INSECT INTO (
-      user_uuid,
-      message,
-      expires_at
-      )
-    VALUES (
-      (SELECT uuid 
-       from public.users 
-      WHERE users.handle = %(handle)s
-      LIMIT 1
-      ),
-      %(message),
-      %(expires_at),
-      ) Returning uuid;
-    """
+    sql = db.template('create_activity')
     uuid = db.query_commit(sql,{
       'handle': handle,
       'message': message,
