@@ -45,7 +45,7 @@ class CreateActivity:
       CreateActivity.create_activity(user_handle,message,expires_at)
       model['data'] = {
         'uuid': uuid.uuid4(),
-        'display_name': 'Andrew Brown',
+        'display_name': 'David Tausend',
         'handle':  user_handle,
         'message': message,
         'created_at': now.isoformat(),

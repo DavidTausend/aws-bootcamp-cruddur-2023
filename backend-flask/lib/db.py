@@ -9,7 +9,7 @@ class Db:
     self._init_pool()
 
   def template(self,name):
-    template_paht = os.path.join(app.intance_path,'db','sql', name)
+    template_paht = os.path.join(app.root_path,'db','sql', name)
     with open(template_path, 'r') as f:
       template_content = f.read()
     return template_content
@@ -19,18 +19,23 @@ class Db:
   def _init_pool(self):  
     connection_url = os.getenv("CONNECTION_URL")
     self.pool = ConnectionPool(connection_url)
-
+  def print_sql(self,title,sql):
+    cyan = '\033[96m'
+    no_color = '\033[0m'
+    print("\n")
+    print(f'{cyan} SQL STATEMENT-[{title}]------{no_color}')
+    print(sql + "\n")
   #when we want to commint code data as an insert    
   def query_commit(self,sql,params):  
-    print("SQL STATEMENT------[commit with returning]------")
-    print(sql + "\n")
+    self.print_sql('commit with returning',sql)
+    
     
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
-
+  
     try:
-      conn = self.pool.connection()  
-      cur = conn.cursor(sql,params)
+      with self.pool.connection() as conn: 
+       cur = conn.cursor()
       if is_returning_id:
         returning_id = cur.fetchone()[0]
       conn.commint()
