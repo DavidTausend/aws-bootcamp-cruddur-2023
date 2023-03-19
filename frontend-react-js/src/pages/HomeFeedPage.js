@@ -24,7 +24,7 @@ export default function HomeFeedPage() {
   const [user, setUser] = React.useState(null);
   const dataFetchedRef = React.useRef(false);
   //HoneyComb Frontend
-  const tracer = trace.getTracer('frontend-ract-js');
+  const tracer = trace.getTracer();
 
   const loadData = async () => {
     try {
