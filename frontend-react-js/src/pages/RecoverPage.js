@@ -27,7 +27,7 @@ export default function RecoverPage() {
   const onsubmit_confirm_code = async (event) => {
     event.preventDefault();
     setErrors('')
-    if (password == passwordAgain){
+    if (password === passwordAgain){
       Auth.forgotPasswordSubmit(username, code, password)
       .then((data) => setFormState('success'))
       .catch((err) => setErrors(err.message) );
