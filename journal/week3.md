@@ -133,5 +133,5 @@ To create an IAM role with the IAM policy you provided for each of the three Lam
 13.	Repeat steps 2-12 for the other two Lambda functions, using the same policy and role name but changing the name of the Lambda function in the "Resource" field of the policy.
 Once you have created the IAM roles, you can assign them to the corresponding Lambda functions by going to the "Permissions" tab of each Lambda function and selecting the role from the "Execution role" dropdown. This will grant the Lambda functions the necessary permissions to create and write logs to CloudWatch Logs.
 
-
+## idp with Facebook and Google
 
