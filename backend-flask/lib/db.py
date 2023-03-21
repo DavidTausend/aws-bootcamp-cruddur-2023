@@ -42,7 +42,7 @@ class Db:
     print(sql,params)
 
   def query_commit(self,sql,params={}):
-    self.print_sql('commit with returning',sql)
+    self.print_sql('commit with returning',sql,params)
 
 
     pattern = r"\bRETURNING\b"
