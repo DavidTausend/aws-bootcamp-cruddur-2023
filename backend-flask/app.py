@@ -165,6 +165,8 @@ def data_message_groups():
       return model['errors'], 422
     else:
       return model['data'], 200
+     #error
+    return 'an error occurred', 500
 
 @app.route("/api/messages/@<string:handle>", methods=['GET'])
 def data_messages(handle):
@@ -181,7 +183,7 @@ def data_messages(handle):
 @app.route("/api/messages", methods=['POST','OPTIONS'])
 @cross_origin()
 def data_create_message():
-  user_sender_handle = 'andrewbrown'
+  user_sender_handle = 'davidtausend'
   user_receiver_handle = request.json['user_receiver_handle']
   message = request.json['message']
 
@@ -190,7 +192,9 @@ def data_create_message():
     return model['errors'], 422
   else:
     return model['data'], 200
-  return
+
+  #error  
+  return 'an error occurred', 500
 
 @app.route("/api/activities/home", methods=['GET'])
 #xray
@@ -198,6 +202,7 @@ def data_create_message():
 def data_home():
   #Cognito
   access_token = extract_access_token(request.headers)
+
   try:
     claims = cognito_jwt_token.verify(access_token)
      # Check if MFA is required
