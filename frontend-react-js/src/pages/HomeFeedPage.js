@@ -1,12 +1,13 @@
 import './HomeFeedPage.css';
 import React, { useEffect, useRef, useState } from "react";
 import { trace } from '@opentelemetry/api';
-import { Auth } from 'aws-amplify';
+
 import DesktopNavigation from '../components/DesktopNavigation';
 import DesktopSidebar from '../components/DesktopSidebar';
 import ActivityFeed from '../components/ActivityFeed';
 import ActivityForm from '../components/ActivityForm';
 import ReplyForm from '../components/ReplyForm';
+import checkAuth from '../lib/CheckAuth';
 
 export default function HomeFeedPage() {
   const [activities, setActivities] = useState([]);
@@ -49,33 +50,20 @@ export default function HomeFeedPage() {
       })
       tracer.startActiveSpan('check_auth', (span) => {
         span.setAttribute('endpoint', '/api/auth');
-        checkAuth();
+        checkAuth(setUser);
         span.end()
       })
       span.end()
     })
   }, []);
 
-  const checkAuth = async () => {
-    try {
-      const user = await Auth.currentAuthenticatedUser({
-        bypassCache: false 
-      });
-      const cognito_user = await Auth.currentAuthenticatedUser();
-      setUser({
-        display_name: cognito_user.attributes.name,
-        handle: cognito_user.attributes.preferred_username
-      })
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
 
   useEffect(() => {
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
     loadData();
-    checkAuth();
+    checkAuth(setUser);
   }, []);
 
 
