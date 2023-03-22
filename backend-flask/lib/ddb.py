@@ -21,7 +21,10 @@ class Ddb:
         }
         print('query-params:',query_params)
         print(query_params)
-        
+
+    #Funcion client David
+    def client():
+        return boto3.client('dynamodb')    
 
         # query the table
         response = client.query(**query_params)
