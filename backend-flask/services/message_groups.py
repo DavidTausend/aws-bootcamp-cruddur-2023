@@ -5,7 +5,7 @@ from lib.db import db
 #from lib.momento import MomentoCounter
 
 class MessageGroups:
-  def run(cognito_user_id):
+  def run(self,cognito_user_id):
     model = {
       'errors': None,
       'data': None
