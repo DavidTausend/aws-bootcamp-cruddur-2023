@@ -14,6 +14,7 @@ from services.message_groups import *
 from services.messages import *
 from services.create_message import *
 from services.show_activity import *
+from services.users_short import *
 
 #Cognito
 import boto3
@@ -352,6 +353,11 @@ def collect_traces():
         #Handle any exceptions that occur during the POST request
         print('Error sending data to Honeycomb:', e)
         return {'success': False}, 500
+
+@app.route("/api/users/@<string:handle>/short", methods=['GET'])
+def data_users_short(handle):
+  data = UsersShort.run(handle)
+  return data, 200
 
 if __name__ == "__main__":
   app.run(debug=True)
