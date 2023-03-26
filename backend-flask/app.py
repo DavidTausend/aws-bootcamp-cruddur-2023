@@ -157,7 +157,7 @@ def data_message_groups():
 @app.route("/api/messages/<string:message_group_uuid>", methods=['GET'])
 def data_messages(handle): 
   access_token = extract_access_token(request.headers)
-  
+
   try:
     claims = cognito_jwt_token.verify(access_token)
     # authenticated request
@@ -222,7 +222,7 @@ def data_create_message():
 def data_home():
   #Cognito
   access_token = extract_access_token(request.headers)
-
+  
   try:
     claims = cognito_jwt_token.verify(access_token)
      # Check if MFA is required

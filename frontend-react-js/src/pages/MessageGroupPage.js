@@ -35,8 +35,10 @@ export default function MessageGroupPage() {
       }
     } catch (err) {
       console.log(err);
+      alert("Failed to fetch message groups data. Please try again later.");
     }
-  };  
+  };
+  
 
   const loadMessageGroupData = async () => {
     try {

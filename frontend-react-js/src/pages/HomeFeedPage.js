@@ -59,7 +59,7 @@ export default function HomeFeedPage() {
 
 
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
     loadData();
