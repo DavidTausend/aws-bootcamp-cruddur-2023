@@ -5,8 +5,6 @@ import DesktopNavigation  from '../components/DesktopNavigation';
 import MessageGroupFeed from '../components/MessageGroupFeed';
 import checkAuth from '../lib/CheckAuth';
 
-
-
 export default function MessageGroupsPage() {
   const [messageGroups, setMessageGroups] = React.useState([]);
   const [popped, setPopped] = React.useState([]);
@@ -32,8 +30,6 @@ export default function MessageGroupsPage() {
       console.log(err);
     }
   };  
-
- 
 
   React.useEffect(()=>{
     //prevents double call

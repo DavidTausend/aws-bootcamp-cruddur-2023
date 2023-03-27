@@ -72,6 +72,7 @@ class CreateMessage:
       elif (mode == "create"):
         data = Ddb.create_message_group(
           client=ddb,
+          message=message,
           my_user_uuid=my_user['uuid'],
           my_user_display_name=my_user['display_name'],
           my_user_handle=my_user['handle'],

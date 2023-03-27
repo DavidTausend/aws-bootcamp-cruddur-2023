@@ -1,22 +1,22 @@
 import './HomeFeedPage.css';
-import React, { useEffect, useRef, useState } from "react";
-import { trace } from '@opentelemetry/api';
+import React from "react";
+//import { trace } from '@opentelemetry/api';
 
-import DesktopNavigation from '../components/DesktopNavigation';
-import DesktopSidebar from '../components/DesktopSidebar';
+import DesktopNavigation  from '../components/DesktopNavigation';
+import DesktopSidebar     from '../components/DesktopSidebar';
 import ActivityFeed from '../components/ActivityFeed';
 import ActivityForm from '../components/ActivityForm';
 import ReplyForm from '../components/ReplyForm';
 import checkAuth from '../lib/CheckAuth';
 
 export default function HomeFeedPage() {
-  const [activities, setActivities] = useState([]);
-  const [popped, setPopped] = useState(false);
-  const [poppedReply, setPoppedReply] = useState(false);
-  const [replyActivity, setReplyActivity] = useState({});
-  const [user, setUser] = useState(null);
-  const dataFetchedRef = useRef(false);
-  const tracer = trace.getTracer();
+  const [activities, setActivities] = React.useState([]);
+  const [popped, setPopped] = React.useState(false);
+  const [poppedReply, setPoppedReply] = React.useState(false);
+  const [replyActivity, setReplyActivity] = React.useState({});
+  const [user, setUser] = React.useState(null);
+  const dataFetchedRef = React.useRef(false);
+  //const tracer = trace.getTracer();
 
   const loadData = async () => {
     try {
@@ -38,34 +38,34 @@ export default function HomeFeedPage() {
     }
   };
 
-  useEffect(() => {
-    if (dataFetchedRef.current) return;
-    dataFetchedRef.current = true;
+  //React.useEffect(() => {
+  //  if (dataFetchedRef.current) return;
+  //  dataFetchedRef.current = true;
   
-    tracer.startActiveSpan('HomeFeedPage', (span) => {
-      tracer.startActiveSpan('load_data', (span) => {
-        span.setAttribute('endpoint', '/api/activities/home');
-        loadData();
-        span.end()
-      })
-      tracer.startActiveSpan('check_auth', (span) => {
-        span.setAttribute('endpoint', '/api/auth');
-        checkAuth(setUser);
-        span.end()
-      })
-      span.end()
-    })
-  }, []);
+ //   tracer.startActiveSpan('HomeFeedPage', (span) => {
+ //     tracer.startActiveSpan('load_data', (span) => {
+ //       span.setAttribute('endpoint', '/api/activities/home');
+ //       loadData();
+ //       span.end()
+ //     })
+//      tracer.startActiveSpan('check_auth', (span) => {
+ //       span.setAttribute('endpoint', '/api/auth');
+ //       checkAuth(setUser);
+  //      span.end()
+  //    })
+  //    span.end()
+  //  })
+ // }, [])
+  
 
-
-
-  React.useEffect(() => {
+  React.useEffect(()=>{
+    //prevents double call
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
+
     loadData();
     checkAuth(setUser);
   }, []);
-
 
   return (
     <article>
