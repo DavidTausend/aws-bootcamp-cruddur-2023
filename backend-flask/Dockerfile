@@ -1,7 +1,8 @@
-FROM python:3.10-slim-buster
+FROM 250283220840.dkr.ecr.eu-central-1.amazonaws.com/cruddur-python:3.10-slim-buster
 
 # Set environment variables
-ENV FLASK_ENV=development
+#ENV FLASK_ENV=development
+ENV FLASK_DEBUG=1
 ENV PORT=4567
 
 # Set working directory
