@@ -44,8 +44,8 @@
         {"name": "OTEL_EXPORTER_OTLP_ENDPOINT", "value": "https://api.honeycomb.io"},
         {"name": "AWS_COGNITO_USER_POOL_ID", "value": "eu-central-1_rDpbtgw5E"},
         {"name": "AWS_COGNITO_USER_POOL_CLIENT_ID", "value": "2bsm1nf80lse6sgrntodvnkq01"},
-        {"name": "FRONTEND_URL", "value": "*"},
-        {"name": "BACKEND_URL", "value": "*"},
+        {"name": "FRONTEND_URL", "value": "https://hallotausend.com"},
+        {"name": "BACKEND_URL", "value": "https://api.hallotausend.com"},
         {"name": "AWS_DEFAULT_REGION", "value": "eu-central-1"}
       ],
       "secrets": [
