@@ -29,5 +29,18 @@ docker build \
 -f Dockerfile.prod \
 .
 
+
+
+
+docker build \
+--build-arg REACT_APP_BACKEND_URL="https://api.cruddur.com" \
+--build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_USER_POOLS_ID="eu-central-1_rDpbtgw5E" \
+--build-arg REACT_APP_CLIENT_ID="2bsm1nf80lse6sgrntodvnkq01" \
+-t frontend-react-js \
+-f Dockerfile.prod \
+.
+
 Login in ecs
 ./bin/ecr/login
