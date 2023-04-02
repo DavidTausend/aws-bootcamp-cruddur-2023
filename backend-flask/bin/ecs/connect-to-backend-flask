@@ -1,11 +1,11 @@
 #! /usr/bin/bash 
 
 if [ -z "$1" ]; then
-    echo "No TASK_ID argument supplied eg ./bin/ecs/connect-to-frontend-react-js 8e7f02f61ae24f91accf9cf215866f52"
+    echo "No TASK_ID argument supplied eg ./bin/ecs/connect-to-backend-flask 8e7f02f61ae24f91accf9cf215866f52"
     exit 1
 fi
 
-CONTAINER_NAME=frontend-react-js
+CONTAINER_NAME=backend-flask
 
 echo " TASK ID: $TASK_ID"
 echo "Container Name: $CONTAINER_NAME"
