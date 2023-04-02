@@ -28,3 +28,6 @@ docker build \
 -t frontend-react-js \
 -f Dockerfile.prod \
 .
+
+Login in ecs
+./bin/ecr/login
