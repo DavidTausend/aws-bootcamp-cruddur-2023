@@ -45,7 +45,7 @@ docker build \
 Login in ecs
 ./bin/ecr/login
 
-
+## Build Backend prod
 docker run -rm \
 -p 4567:4567 \
 -e AWS_ENDPOINT_URL="http://dynamodb-local:8000" \
