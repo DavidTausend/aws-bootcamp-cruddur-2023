@@ -17,3 +17,14 @@ Docker enables developers to create containers that contain all of the dependenc
 Docker has become a popular technology for DevOps teams and cloud-based architectures, as it enables fast and efficient deployment and scaling of applications. It is supported by most major cloud platforms, including AWS, Microsoft Azure, and Google Cloud Platform.
 
 ./bin/rds/update-sq-rule
+
+
+docker build \
+--build-arg REACT_APP_BACKEND_URL="https://4567-$GITPOD_WORKSPACE_ID.$GITPOD_WORKSPACE_CLUSTER_HOST" \
+--build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_USER_POOLS_ID="$AWS_COGNITO_USER_POOL_ID" \
+--build-arg REACT_APP_CLIENT_ID="2bsm1nf80lse6sgrntodvnkq01" \
+-t frontend-react-js \
+-f Dockerfile.prod \
+.
