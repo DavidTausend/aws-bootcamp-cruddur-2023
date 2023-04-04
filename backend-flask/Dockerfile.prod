@@ -17,4 +17,4 @@ COPY . .
 
 # Expose port and start Flask app
 EXPOSE ${PORT}
-CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0", "--port=4567", "--no-debugger","--no-reload"]
+CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0", "--port=4567", "--no-debug", "--no-debugger","--no-reload"]

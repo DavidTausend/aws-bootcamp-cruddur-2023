@@ -65,7 +65,7 @@ export default function HomeFeedPage() {
 
     loadData();
     checkAuth(setUser);
-  }, []);
+  }, [])
 
   return (
     <article>
