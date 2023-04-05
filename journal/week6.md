@@ -33,7 +33,7 @@ docker build \
 
 
 docker build \
---build-arg REACT_APP_BACKEND_URL="https://api.cruddur.com" \
+--build-arg REACT_APP_BACKEND_URL="https://api.hallotausend.com" \
 --build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
 --build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
 --build-arg REACT_APP_AWS_USER_POOLS_ID="eu-central-1_rDpbtgw5E" \
