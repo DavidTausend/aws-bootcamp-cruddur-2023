@@ -1,4 +1,0 @@
-#!/usr/bin/bash
-
-docker tag frontend-react-js:latest $ECR_FRONTEND_REACT_URL:latest
-docker push $ECR_FRONTEND_REACT_URL:latest
