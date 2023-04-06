@@ -7,7 +7,8 @@ from datetime import datetime, timedelta, timezone
 import uuid
 
 current_path = os.path.dirname(os.path.abspath(__file__))
-parent_path = os.path.abspath(os.path.join(current_path, '..', '..'))
+parent_path = os.path.abspath(os.path.join(current_path, '..', '..', 'backend-flask'))
+print(parent_path)
 sys.path.append(parent_path)
 from lib.db import db
 
@@ -37,10 +38,10 @@ def get_user_uuids():
 
     users = db.query_array_json(sql,{
         'my_handle':  'davidtausend',
-        'other_handle': 'bayko'
+        'other_handle': 'davidpadilla'
     })  
     my_user    = next((item for item in users if item["handle"] == 'davidtausend'), None)
-    other_user = next((item for item in users if item["handle"] == 'bayko'), None)
+    other_user = next((item for item in users if item["handle"] == 'davidpadilla'), None)
     results = {
         'my_user': my_user,
         'other_user': other_user
@@ -231,9 +232,8 @@ for i in range(len(lines)):
     print(lines[i])
     raise 'invalid line'
 
-created_at = (now + timedelta(minutes=i)).isoformat()
-
-create_message(
+  created_at = (now + timedelta(minutes=i)).isoformat()
+  create_message(
     client=ddb,
     message_group_uuid=message_group_uuid,
     created_at=created_at,
@@ -241,4 +241,4 @@ create_message(
     my_user_uuid=users[key]['uuid'],
     my_user_display_name=users[key]['display_name'],
     my_user_handle=users[key]['handle']
-)
+  )
