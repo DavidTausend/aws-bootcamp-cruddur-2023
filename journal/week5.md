@@ -51,5 +51,7 @@ When a function is triggered in a serverless architecture, it can check the cach
 Overall, serverless caching is a powerful technique for building serverless applications that require fast and reliable access to frequently accessed data. By leveraging cloud-based caching services, developers can build highly performant and scalable serverless architectures with minimal infrastructure overhead.
 
 
+## Corectly Implementing Timezones for ISO 8601
 
 
+Source: https://www.youtube.com/watch?v=g21EZ54c8iw&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=68
