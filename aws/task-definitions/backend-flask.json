@@ -18,8 +18,7 @@
         {
           "name": "xray",
           "containerPort": 2000,
-          "protocol": "udp", 
-          "appProtocol": "http"
+          "protocol": "udp"
         }
       ]
     },
