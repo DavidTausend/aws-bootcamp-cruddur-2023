@@ -104,3 +104,4 @@ I was able to setup the billing alarm and the budget through the CLI using Gitpo
 
 <img width="570" alt="Week0-AWS CLI" src="https://user-images.githubusercontent.com/125006062/219641989-923a4edd-95a7-42a2-bdcc-434dfbe5e0ab.png">
 
+source: https://www.youtube.com/watch?v=SG8blanhAOg&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=12
