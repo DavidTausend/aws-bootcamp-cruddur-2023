@@ -67,3 +67,12 @@ docker run -rm \
 -e AWS_COGNITO_USER_POOL_ID="${AWS_COGNITO_USER_POOL_ID}" \
 -e AWS_COGNITO_USER_POOL_CLIENT_ID="2bsm1nf80lse6sgrntodvnkq01" \   
 -it backend-flask-prod
+
+
+
+## Create a docker Network
+
+docker network create cruddur-net
+<img width="682" alt="Week7-CreateDockerNetwork" src="https://user-images.githubusercontent.com/125006062/230715912-838c704a-b471-44bd-89b0-77b74f52a9f2.png">
+
+
