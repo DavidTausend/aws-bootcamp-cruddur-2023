@@ -76,7 +76,9 @@ docker run -rm \
 docker network create cruddur-net
 <img width="682" alt="Week7-CreateDockerNetwork" src="https://user-images.githubusercontent.com/125006062/230715912-838c704a-b471-44bd-89b0-77b74f52a9f2.png">
 
+### Check docker network
 
+      docker network list
 
 ### .gitignore
 
