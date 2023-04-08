@@ -4,21 +4,26 @@ FROM 250283220840.dkr.ecr.eu-central-1.amazonaws.com/cruddur-python:3.10-slim-bu
 #RUN apt-get update -y
 #RUN apt-get install iputils-ping -y
 
-# Set environment variables
-#ENV FLASK_ENV=development
-ENV FLASK_DEBUG=1
-ENV PORT=4567
+# Inside Container
+# make a new folder inside container
+WORKDIR /backend-flask
 
-# Set working directory
-WORKDIR /app
+# Outside Container -> Inside Container
+# this contains the libraries want to install to run the app
+COPY requirements.txt requirements.txt
 
-# Copy requirements and install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir --prefix=/usr/local -r requirements.txt
+# Inside Container
+# Install the python libraries used for the app
+RUN pip3 install -r requirements.txt
 
-# Copy application files
+# Outside Container -> Inside Container
+# . means everything in the current directory
+# first period . - /backend-flask (outside container)
+# second period . /backend-flask (inside container)
 COPY . .
 
-# Expose port and start Flask app
 EXPOSE ${PORT}
-CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0", "--port=4567", "--no-debug", "--no-debugger","--no-reload"]
+
+# CMD (Command)
+# python3 -m flask run --host=0.0.0.0 --port=4567
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567", "--no-debug", "--no-debugger","--no-reload"]
