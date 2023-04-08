@@ -107,31 +107,31 @@ Create the following file frontend-react-js/src/lib/DateTimeFormats.js and add t
 Replace the following code in backend-flask/lib/ddb.py with the code below:
 
 Replace code:
-        now = datetime.now(timezone.utc).astimezone().isoformat()
-            created_at = now
+            now = datetime.now(timezone.utc).astimezone().isoformat()
+                    created_at = now
     
 New code:
-        created_at = datetime.now().isoformat()
+            created_at = datetime.now().isoformat()
 
 Replace the following code in bin/ddb/seed with the code below: 
 
 Replace code:
-        now = datetime.now(timezone.utc).astimezone()
+            now = datetime.now(timezone.utc).astimezone()
 
 New code: 
-        now = datetime.now()
+            now = datetime.now()
     
 Replace code:
-        created_at = (now + timedelta(minutes=i)).isoformat()
+            created_at = (now + timedelta(minutes=i)).isoformat()
 
 New code:
-        created_at = (now - timedelta(days=1) + timedelta(minutes=i))
+            created_at = (now - timedelta(days=1) + timedelta(minutes=i))
     
 Replace code:
-        created_at=created_at,
+            created_at=created_at,
     
 New code:
-        created_at=created_at.isoformat(),
+            created_at=created_at.isoformat(),
 
     
 Go to frontend-react-js/src/components/ActivityContent.js and work on the following code:
