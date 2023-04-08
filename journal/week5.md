@@ -107,37 +107,37 @@ Create the following file frontend-react-js/src/lib/DateTimeFormats.js and add t
 Replace the following code in backend-flask/lib/ddb.py with the code below:
 
 Replace code:
-    now = datetime.now(timezone.utc).astimezone().isoformat()
-        created_at = now
+        now = datetime.now(timezone.utc).astimezone().isoformat()
+            created_at = now
     
 New code:
-    created_at = datetime.now().isoformat()
+        created_at = datetime.now().isoformat()
 
-replace the following code in bin/ddb/seed with the code below: 
+Replace the following code in bin/ddb/seed with the code below: 
 
 Replace code:
-    now = datetime.now(timezone.utc).astimezone()
+        now = datetime.now(timezone.utc).astimezone()
 
-new code: 
-    now = datetime.now()
+New code: 
+        now = datetime.now()
     
 Replace code:
-    created_at = (now + timedelta(minutes=i)).isoformat()
+        created_at = (now + timedelta(minutes=i)).isoformat()
 
 New code:
-    created_at = (now - timedelta(days=1) + timedelta(minutes=i))
+        created_at = (now - timedelta(days=1) + timedelta(minutes=i))
     
 Replace code:
-    created_at=created_at,
+        created_at=created_at,
     
 New code:
-    created_at=created_at.isoformat(),
-    
+        created_at=created_at.isoformat(),
+
     
 Go to frontend-react-js/src/components/ActivityContent.js and work on the following code:
 
 Import the DateTimeFormats to ActivityContent.js, add the following code:
-    import { format_datetime, time_ago } from '../lib/DateTimeFormats';
+        import { format_datetime, time_ago } from '../lib/DateTimeFormats';
 
 Delete the old code not needed:
 
@@ -178,26 +178,26 @@ Delete the old code not needed:
 Replace the following code with the code below:
 
 Replace code:
-    expires_at = <div className="expires_at" title={props.activity.expires_at}>
+            expires_at = <div className="expires_at" title={props.activity.expires_at}>
   
 
 New code:
-    expires_at = <div className="expires_at" title={format_datetime(props.activity.expires_at)}>
+        expires_at = <div className="expires_at" title={format_datetime(props.activity.expires_at)}>
   
 Replace code:
-  <span className='ago'>{format_time_expires_at(props.activity.expires_at)}</span>
+      <span className='ago'>{format_time_expires_at(props.activity.expires_at)}</span>
 
 New code:
-  <span className='ago'>{time_ago(props.activity.expires_at)}</span>
+      <span className='ago'>{time_ago(props.activity.expires_at)}</span>
   
 Replace code:
-   <div className="created_at" title={props.activity.created_at}>
-   <span className='ago'>{format_time_created_at(props.activity.created_at)}</span> 
-  
+       <div className="created_at" title={props.activity.created_at}>
+       <span className='ago'>{format_time_created_at(props.activity.created_at)}</span> 
+
 New code:
-     <div className="created_at" title={format_datetime(props.activity.created_at)}>
-     <span className='ago'>{time_ago(props.activity.created_at)}</span> 
-  
+         <div className="created_at" title={format_datetime(props.activity.created_at)}>
+         <span className='ago'>{time_ago(props.activity.created_at)}</span> 
+
 
 Go the following path frontend-react-js/src/components/MessageGroupItem.js and work with the following code:
        
@@ -224,26 +224,25 @@ Delete the not needed code:
 
                                 
 Import DateTimeFormats adding the following line:
-      import { format_datetime, message_time_ago } from '../lib/DateTimeFormats';
+         import { format_datetime, message_time_ago } from '../lib/DateTimeFormats';
                                     
 Replace code:                             
-      <Link className='message_item' to={`/messages/@`+props.message.handle}>
-      <div className='message_avatar'></div>
-       
+          <Link className='message_item' to={`/messages/@`+props.message.handle}>
+          <div className='message_avatar'></div>
+
  New code:
-      <div className='message_item'>
-      <link className='message_avatar' to={`/messages/@`+props.message.handle}></link>
+          <div className='message_item'>
+          <link className='message_avatar' to={`/messages/@`+props.message.handle}></link>
  
  Replace code:
-       <div className="created_at" title={props.message.created_at}>
-       <span className='ago'>{format_time_created_at(props.message.created_at)}</span> 
-       </Link>
-         
-       
+           <div className="created_at" title={props.message.created_at}>
+           <span className='ago'>{format_time_created_at(props.message.created_at)}</span> 
+           </Link>
+
  New code:
-       <div className="created_at" title={format_datetime(props.message.created_at)}>
-       <span className='ago'>{message_time_ago(props.message.created_at)}</span>  
-       </div>
+           <div className="created_at" title={format_datetime(props.message.created_at)}>
+           <span className='ago'>{message_time_ago(props.message.created_at)}</span>  
+           </div>
       
  
 
