@@ -18,7 +18,6 @@ tasks:
       export GITPOD_IP=$(curl ifconfig.me)
       source  "$THEIA_WORKSPACE_ROOT/bin/rds/update-sg-rule"
       source  "$THEIA_WORKSPACE_ROOT/bin/ecr/login"
-      source  "$THEIA_WORKSPACE_ROOT/bin/db/setup"
   #Install npm
   - name: react-js
     command: |
