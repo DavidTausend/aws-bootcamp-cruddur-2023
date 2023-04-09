@@ -17,6 +17,13 @@ Amazon RDS (Relational Database Service) is a managed database service provided 
 + Regularly audit database activities: Regularly audit your database activities to detect any suspicious activities, such as unauthorized access or modifications to your data.
 
 
+## Database dependencies
+
+Add the following dependencies to our backend-flask/requirements.txt:
+
+ psycopg[binary]
+ psycopg[pool]
+
 ## Create Database files
 
 Create database schema:
@@ -204,6 +211,85 @@ Setup database:
          source "$bin_path/db-create"
          source "$bin_path/db-schema-load"
          source "$bin_path/db-seed"
+         
+         
+        
+## Query the database
+
+Create backend-flask/lib/db.py to query the database:
+
+        from psycopg_pool import ConnectionPool
+         import os
+
+         def query_wrap_object(template):
+           sql = f"""
+           (SELECT COALESCE(row_to_json(object_row),'{{}}'::json) FROM (
+           {template}
+           ) object_row);
+           """
+           return sql
+
+         def query_wrap_array(template):
+           sql = f"""
+           (SELECT COALESCE(array_to_json(array_agg(row_to_json(array_row))),'[]'::json) FROM (
+           {template}
+           ) array_row);
+           """
+           return sql
+
+         connection_url = os.getenv("CONNECTION_URL")
+         pool = ConnectionPool(connection_url)
+
+Add the following code in backend-flask/services/home_activities.py:
+
+        span.set_attribute("app.now", now.isoformat())
+               #Postgress
+               sql = query_wrap_array("""
+               SELECT
+                 activities.uuid,
+                 users.display_name,
+                 users.handle,
+                 activities.message,
+                 activities.replies_count,
+                 activities.reposts_count,
+                 activities.likes_count,
+                 activities.reply_to_activity_uuid,
+                 activities.expires_at,
+                 activities.created_at
+               FROM public.activities
+               LEFT JOIN public.users ON users.uuid = activities.user_uuid
+               ORDER BY activities.created_at DESC
+               """)
+               with pool.connection() as conn:
+                 with conn.cursor() as cur:
+                  cur.execute(sql)
+                  # this will return a tuple
+                  # the first field being the data
+
+## Automate the connection with the RDS in AWS
+
+To do the automate the task we need to get the IP of gitpod and sende it to the Security group where our RDS is.
+
+Create the following script to update gitpod IP in our RDS:
+
+        #! /usr/bin/bash 
+
+         CYAN='\033[1;36m'
+         NO_COLOR='\033[0m'
+         LABEL="rds-update-sq-rule"
+         printf "${CYAN}==== ${LABEL}${NO_COLOR}\n"
+
+         aws ec2 modify-security-group-rules \
+             --group-id $DB_SG_ID \
+             --security-group-rules "SecurityGroupRuleId=$DB_SG_RULE_ID,SecurityGroupRule=                      {Description=GITPOD,IpProtocol=tcp,FromPort=5432,ToPort=5432,CidrIpv4=$GITPOD_IP/32}"
+
+Add the following in .gitpod.yml to get gitpod IP and everytime that gitpod starts it will automatically update with our RDS:
+
+        command: | 
+          export GITPOD_IP=$(curl ifconfig.me)       
+          source  "$THEIA_WORKSPACE_ROOT/backend-flask/rds-update-sg-rule"
+          
+          
 
 ## Other improvements
 
