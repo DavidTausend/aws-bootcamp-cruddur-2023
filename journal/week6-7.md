@@ -18,20 +18,7 @@ Docker enables developers to create containers that contain all of the dependenc
 Docker has become a popular technology for DevOps teams and cloud-based architectures, as it enables fast and efficient deployment and scaling of applications. It is supported by most major cloud platforms, including AWS, Microsoft Azure, and Google Cloud Platform.
 
 
-
-
-docker build \
---build-arg REACT_APP_BACKEND_URL="http://cruddur-alb-547998038.eu-central-1.elb.amazonaws.com:4567" \
---build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
---build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
---build-arg REACT_APP_AWS_USER_POOLS_ID="$AWS_COGNITO_USER_POOL_ID" \
---build-arg REACT_APP_CLIENT_ID="2bsm1nf80lse6sgrntodvnkq01" \
--t frontend-react-js \
--f Dockerfile.prod \
-.
-
-
-
+### Build backend-flask 
 
 docker build \
 --build-arg REACT_APP_BACKEND_URL="https://api.hallotausend.com" \
@@ -42,30 +29,6 @@ docker build \
 -t frontend-react-js \
 -f Dockerfile.prod \
 .
-
-docker build --build-arg REACT_APP_BACKEND_URL="https://api.hallotausend.com" --build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" --build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" --build-arg REACT_APP_AWS_USER_POOLS_ID="eu-central-1_rDpbtgw5E" --build-arg REACT_APP_CLIENT_ID="2bsm1nf80lse6sgrntodvnkq01" -t frontend-react-js -f Dockerfile.prod .
-
-
-## Build Backend prod
-docker run -rm \
--p 4567:4567 \
--e AWS_ENDPOINT_URL="http://dynamodb-local:8000" \
--e CONNECTION_URL="postgresql://postgres:password@db:5432/cruddur" \
--e FRONTEND_URL="https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}" \
--e BACKEND_URL="https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}" \
--e OTEL_SERVICE_NAME='backend-flask' \
--e OTEL_EXPORTER_OTLP_ENDPOINT="https://api.honeycomb.io" \
--e OTEL_EXPORTER_OTLP_HEADERS="x-honeycomb-team=${HONEYCOMB_API_KEY}" \
--e AWS_XRAY_URL="*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*" \
--e AWS_XRAY_DAEMON_ADDRESS="xray-daemon:2000" \
--e AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION}" \
--e AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
--e AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
--e ROLLBAR_ACCESS_TOKEN="${ROLLBAR_ACCESS_TOKEN}" \
--e AWS_COGNITO_USER_POOL_ID="${AWS_COGNITO_USER_POOL_ID}" \
--e AWS_COGNITO_USER_POOL_CLIENT_ID="2bsm1nf80lse6sgrntodvnkq01" \   
--it backend-flask-prod
-
 
 ## Docker Compose clear up
 
