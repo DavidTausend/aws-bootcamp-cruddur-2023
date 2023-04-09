@@ -30,6 +30,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "client-s3-deploy": "aws s3 sync build/ s3://wwww.hallotausend.com --profile DavidTausend",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
