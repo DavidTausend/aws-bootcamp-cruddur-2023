@@ -113,7 +113,7 @@ Load database schema:
            CON_URL=$CONNECTION_URL
          fi
 
-        psql $CONNECTION_URL crudder < $schema_path
+        psql $CONNECTION_URL cruddur < $schema_path
 
 Seed the information:
 
@@ -134,35 +134,77 @@ Seed the information:
            CON_URL=$CONNECTION_URL
          fi
 
-         psql $CONNECTION_URL crudder < $seed_path
+         psql $CONNECTION_URL cruddur < $seed_path
 
 Create database schema:
 
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
- DROP TABLE IF EXISTS public.users;
- DROP TABLE IF EXISTS public.activities;
+        CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+         DROP TABLE IF EXISTS public.users;
+         DROP TABLE IF EXISTS public.activities;
 
 
- CREATE TABLE public.users (
-   uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-   display_name text,
-   handle text,
-   cognito_user_id text,
-   created_at TIMESTAMP default current_timestamp NOT NULL
- );
+         CREATE TABLE public.users (
+           uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+           display_name text,
+           handle text,
+           cognito_user_id text,
+           created_at TIMESTAMP default current_timestamp NOT NULL
+         );
 
- CREATE TABLE public.activities (
-   uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-   user_uuid UUID NOT NULL,
-   message text NOT NULL,
-   replies_count integer DEFAULT 0,
-   reposts_count integer DEFAULT 0,
-   likes_count integer DEFAULT 0,
-   reply_to_activity_uuid integer,
-   expires_at TIMESTAMP,
-   created_at TIMESTAMP default current_timestamp NOT NULL
- );
+         CREATE TABLE public.activities (
+           uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+           user_uuid UUID NOT NULL,
+           message text NOT NULL,
+           replies_count integer DEFAULT 0,
+           reposts_count integer DEFAULT 0,
+           likes_count integer DEFAULT 0,
+           reply_to_activity_uuid integer,
+           expires_at TIMESTAMP,
+           created_at TIMESTAMP default current_timestamp NOT NULL
+         );
  
+ 
+Create database seesions:
+
+        #! /usr/bin/bash 
+
+         CYAN='\033[1;36m'
+         NO_COLOR='\033[0m'
+         LABEL="db-sessions"
+         printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+         if [ "$1" = "prod" ]; then
+           echo "using production"
+           \URL=$PROD_CONNECTION_URL
+         else
+           URL=$CONNECTION_URL
+         fi
+
+         NO_DB_URL=$(sed 's/\/cruddur//g' <<<"$URL")
+         psql $NO_DB_URL -c "select pid as process_id, \
+                usename as user,  \
+                datname as db, \
+                client_addr, \
+                application_name as app,\
+                state \
+
+Setup database:
+
+        #! /usr/bin/bash 
+         -e # stop if it fails at any point
+
+         CYAN='\033[1;36m'
+         NO_COLOR='\033[0m'
+         LABEL="db-setup"
+         printf "${CYAN}==== ${LABEL}${NO_COLOR}\n"
+
+         bin_path="$(realpath .)/bin"
+
+         source "$bin_path/db-drop"
+         source "$bin_path/db-create"
+         source "$bin_path/db-schema-load"
+         source "$bin_path/db-seed"
+
 ## Other improvements
 
 ### Save email while signing in and confirming
@@ -401,4 +443,3 @@ https://www.youtube.com/watch?v=UourWxz7iQg&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgN
 https://www.youtube.com/watch?v=UourWxz7iQg&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=47
 https://www.youtube.com/watch?v=UourWxz7iQg&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=48
 https://www.youtube.com/watch?v=UourWxz7iQg&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=49
-  
