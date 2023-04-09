@@ -18,6 +18,10 @@ tasks:
       export GITPOD_IP=$(curl ifconfig.me)
       source  "$THEIA_WORKSPACE_ROOT/bin/rds/update-sg-rule"
       source  "$THEIA_WORKSPACE_ROOT/bin/ecr/login"
+      source  "$THEIA_WORKSPACE_ROOT/bin/db/setup"
+      source  "$THEIA_WORKSPACE_ROOT/bin/db/schema-load"
+      source  "$THEIA_WORKSPACE_ROOT/bin/db/seed"
+      source  "$THEIA_WORKSPACE_ROOT/bin/db/update_cognito_user_ids"
   #Install npm
   - name: react-js
     command: |
