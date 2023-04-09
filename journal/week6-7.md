@@ -17,7 +17,7 @@ Docker enables developers to create containers that contain all of the dependenc
 
 Docker has become a popular technology for DevOps teams and cloud-based architectures, as it enables fast and efficient deployment and scaling of applications. It is supported by most major cloud platforms, including AWS, Microsoft Azure, and Google Cloud Platform.
 
-./bin/rds/update-sq-rule
+
 
 
 docker build \
