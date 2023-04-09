@@ -37,6 +37,7 @@ Create database schema:
            uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
            display_name text,
            handle text,
+           email text,
            cognito_user_id text,
            created_at TIMESTAMP default current_timestamp NOT NULL
          );
@@ -289,7 +290,51 @@ Add the following in .gitpod.yml to get gitpod IP and everytime that gitpod star
           export GITPOD_IP=$(curl ifconfig.me)       
           source  "$THEIA_WORKSPACE_ROOT/backend-flask/rds-update-sg-rule"
           
-          
+         
+## Add Lambda function in AWS to connect and add Information to the Database
+
+
+        import json
+        import psycopg2
+
+        def lambda_handler(event, context):
+            user = event['request']['userAttributes']
+            user_display_name = user['name']
+            user_email = user['email']
+            user_handel = user['preferred_username']
+            user_cognito_id= user['sub']
+            try:
+                conn = psycopg2.connect(os.getenv('CONNECTION_URL'))
+                cur = conn.cursor()
+
+                sql = f"""
+                  "INSERT INTO users (
+                    display_name,
+                    email,
+                    handle,
+                    cognito_user_id
+                    )
+                  VALUES(
+                    {user_display_name},
+                    {user_email},
+                    {user_handle},
+                    {user_cognito_id}
+                 )"
+                """
+                cur.execute(sql)
+                conn.commit() 
+
+            except (Exception, psycopg2.DatabaseError) as error:
+                print(error)
+
+            finally:
+                if conn is not None:
+                    cur.close()
+                    conn.close()
+                    print('Database connection closed.')
+
+            return event
+
 
 ## Other improvements
 
