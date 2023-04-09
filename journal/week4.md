@@ -16,6 +16,153 @@ Amazon RDS (Relational Database Service) is a managed database service provided 
 + Enable encryption at rest: Use encryption at rest to encrypt data stored on your RDS instances.
 + Regularly audit database activities: Regularly audit your database activities to detect any suspicious activities, such as unauthorized access or modifications to your data.
 
+
+## Create Database files
+
+Create database schema:
+
+        CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+         DROP TABLE IF EXISTS public.users;
+         DROP TABLE IF EXISTS public.activities;
+
+
+         CREATE TABLE public.users (
+           uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+           display_name text,
+           handle text,
+           cognito_user_id text,
+           created_at TIMESTAMP default current_timestamp NOT NULL
+         );
+
+         CREATE TABLE public.activities (
+           uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+           user_uuid UUID NOT NULL,
+           message text NOT NULL,
+           replies_count integer DEFAULT 0,
+           reposts_count integer DEFAULT 0,
+           likes_count integer DEFAULT 0,
+           reply_to_activity_uuid integer,
+           expires_at TIMESTAMP,
+           created_at TIMESTAMP default current_timestamp NOT NULL
+         );
+
+Create Seed for the database:
+
+        -- this file was manually created
+         INSERT INTO public.users (display_name, handle, cognito_user_id)
+         VALUES
+           ('Andrew Brown', 'andrewbrown' ,'MOCK'),
+           ('Andrew Bayko', 'bayko' ,'MOCK');
+
+         INSERT INTO public.activities (user_uuid, message, expires_at)
+         VALUES
+           (
+             (SELECT uuid from public.users WHERE users.handle = 'andrewbrown' LIMIT 1),
+             'This was imported as seed data!',
+             current_timestamp + interval '10 day'
+
+
+## Database Scripts
+
+To make our life easy we will create the following scripts:
+
+Connect to the database:
+
+        #! /usr/bin/bash 
+        psql $CONNECTION_URL
+
+Create database:
+
+        #! /usr/bin/bash 
+
+         CYAN='\033[1;36m'
+         NO_COLOR='\033[0m'
+         LABEL="db-create"
+         printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+         NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$CONNECTION_URL")
+         
+Drop the database:
+
+        #! /usr/bin/bash 
+
+         CYAN='\033[1;36m'
+         NO_COLOR='\033[0m'
+         LABEL="db-drop"
+         printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+         NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$CONNECTION_URL")
+
+Load database schema:
+
+        #! /usr/bin/bash 
+         CYAN='\033[1;36m'
+         NO_COLOR='\033[0m'
+         LABEL="db-schema-load"
+         printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+         echo "== db-schema-load"
+
+         schema_path="$(realpath .)/db/schema.sql"
+         echo $schema_path
+
+         if [ "$1" = "prod" ]; then
+           echo "using production"
+           CON_URL=$PROD_CONNECTION_URL
+         else
+           CON_URL=$CONNECTION_URL
+         fi
+
+        psql $CONNECTION_URL crudder < $schema_path
+
+Seed the information:
+
+        #! /usr/bin/bash 
+
+         CYAN='\033[1;36m'
+         NO_COLOR='\033[0m'
+         LABEL="db-seed"
+         printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+         seed_path="$(realpath .)/db/seed.sql"
+         echo $seed_path
+
+         if [ "$1" = "prod" ]; then
+           echo "using production"
+           CON_URL=$PROD_CONNECTION_URL
+         else
+           CON_URL=$CONNECTION_URL
+         fi
+
+         psql $CONNECTION_URL crudder < $seed_path
+
+Create database schema:
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+ DROP TABLE IF EXISTS public.users;
+ DROP TABLE IF EXISTS public.activities;
+
+
+ CREATE TABLE public.users (
+   uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+   display_name text,
+   handle text,
+   cognito_user_id text,
+   created_at TIMESTAMP default current_timestamp NOT NULL
+ );
+
+ CREATE TABLE public.activities (
+   uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+   user_uuid UUID NOT NULL,
+   message text NOT NULL,
+   replies_count integer DEFAULT 0,
+   reposts_count integer DEFAULT 0,
+   likes_count integer DEFAULT 0,
+   reply_to_activity_uuid integer,
+   expires_at TIMESTAMP,
+   created_at TIMESTAMP default current_timestamp NOT NULL
+ );
+ 
 ## Other improvements
 
 ### Save email while signing in and confirming
@@ -247,3 +394,11 @@ ConfirmationPage.js
             </article>
           );
         }
+        
+Source: 
+https://www.youtube.com/watch?v=UourWxz7iQg&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=45
+https://www.youtube.com/watch?v=UourWxz7iQg&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=46
+https://www.youtube.com/watch?v=UourWxz7iQg&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=47
+https://www.youtube.com/watch?v=UourWxz7iQg&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=48
+https://www.youtube.com/watch?v=UourWxz7iQg&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=49
+  
