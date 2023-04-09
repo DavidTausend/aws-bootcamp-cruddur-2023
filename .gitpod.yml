@@ -24,6 +24,10 @@ tasks:
       source  "$THEIA_WORKSPACE_ROOT/bin/frontend/generate-env"
       cd frontend-react-js
       npm i
+      aws s3 sync --delete ${{ env.DIST }} s3://${{ env.BUCKET }}
+      aws cloudfront create-invalidation \
+          --distribution-id ${{ env.DIST_ID }} \
+          --paths "/*"
   #Install requirements.txt for boto3    
   - name: flask
     command: |
