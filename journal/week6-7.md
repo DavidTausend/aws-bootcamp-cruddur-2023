@@ -227,14 +227,6 @@ Create cruddur-net to communicate with the other resources:
         driver: local
     
     
-  
-
-  
-  
-  
-
-
-    
     
 ### Troubleshoot issues with backend docker network
 
