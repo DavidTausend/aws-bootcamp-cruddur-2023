@@ -31,6 +31,43 @@ hallotausend.com
 
 Download the react app of Github and upload it to the two s3 buckets.
 
+<img width="1440" alt="Week7-UploadS3" src="https://user-images.githubusercontent.com/125006062/230772460-05c9ec1b-5478-4406-b7e2-777da36e5dc8.png">
+
+Disable the block all public access of the two buckets
+
+<img width="1440" alt="Week7-S3BlockDisable" src="https://user-images.githubusercontent.com/125006062/230772578-1ede371b-0ea3-420e-9844-260805f1602f.png">
+
+ Add a policy for the two buckets with the bucket name:
+ 
+ {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::Bucket-Name/*"
+            ]
+        }
+    ]
+}
+
+<img width="1440" alt="Week7-BucketPolicy" src="https://user-images.githubusercontent.com/125006062/230772873-aa0eb8bb-d3ae-455d-98bf-a48be6d78658.png">
+
+Enable static website hosting for your www s3 bucket:
+
+<img width="1440" alt="Week7-EnableStaticWebsite" src="https://user-images.githubusercontent.com/125006062/230773154-161f3f5e-25c1-4ae0-8bc9-b31a94d2728c.png">
+
+
+Redirect the other bucket to your main www bucket(Security): 
+Note: We will leave it with http but when we implement cloudfront, then it will be https.
+
+<img width="1421" alt="Bildschirmfoto 2023-04-09 um 2 46 23 PM" src="https://user-images.githubusercontent.com/125006062/230773351-b592cee3-3d12-4523-832c-0a4df80fcaba.png">
+
 
 
 ### Build backend-flask 
@@ -262,4 +299,3 @@ https://www.youtube.com/watch?v=QIZx2NhdCMI&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgN
 https://www.youtube.com/watch?v=QIZx2NhdCMI&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=62
 https://www.youtube.com/watch?v=G_8_xtS2MsY&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=63
 https://www.youtube.com/watch?v=G_8_xtS2MsY&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=64
-https://repost.aws/knowledge-center/cloudfront-serve-static-website
