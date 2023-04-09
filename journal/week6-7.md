@@ -46,9 +46,6 @@ docker build \
 docker build --build-arg REACT_APP_BACKEND_URL="https://api.hallotausend.com" --build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" --build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" --build-arg REACT_APP_AWS_USER_POOLS_ID="eu-central-1_rDpbtgw5E" --build-arg REACT_APP_CLIENT_ID="2bsm1nf80lse6sgrntodvnkq01" -t frontend-react-js -f Dockerfile.prod .
 
 
-Login in ecs
-./bin/ecr/login
-
 ## Build Backend prod
 docker run -rm \
 -p 4567:4567 \
@@ -70,18 +67,21 @@ docker run -rm \
 -it backend-flask-prod
 
 
-## Week7
+## Docker Compose clearup
 
 ### Create a docker Network
 
-docker network create cruddur-net
+Create cruddur-net to communicate with the other resources:
+
+      docker network create cruddur-net
+
 <img width="682" alt="Week7-CreateDockerNetwork" src="https://user-images.githubusercontent.com/125006062/230715912-838c704a-b471-44bd-89b0-77b74f52a9f2.png">
 
 ### Check docker network
 
       docker network list
 
-### .gitignore
+### Add *.env .gitignore
 
     docker/**/*
     frontend-react-js/build/*
@@ -145,7 +145,7 @@ docker network create cruddur-net
     
     
     
-### docker compose
+### Add the network and the new env_file in the docker compose file
 
     version: "3.8"
     services:
@@ -233,22 +233,8 @@ docker network create cruddur-net
         driver: local
     
     
-    
-### dockerfile
+  
 
-    #[TODO] For debugging, don't leave these in
-    #RUN apt-get update -y
-    #RUN apt-get install iputils-ping -y
-
-
-### busybox
-
-    #! /usr/bin/bash
-
-    docker run --rm \
-      --network cruddur-net \
-      --publish 4567:4567 \
-      -it busybox
   
   
   
@@ -293,5 +279,20 @@ docker network create cruddur-net
 
     
     
+### Troubleshoot issues with env files
+
+    #! /usr/bin/bash
+
+    docker run --rm \
+      --network cruddur-net \
+      --publish 4567:4567 \
+      -it busybox    
 
 Source: 
+https://www.youtube.com/watch?v=QIZx2NhdCMI&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=58
+https://www.youtube.com/watch?v=QIZx2NhdCMI&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=59
+https://www.youtube.com/watch?v=QIZx2NhdCMI&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=60
+https://www.youtube.com/watch?v=QIZx2NhdCMI&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=61
+https://www.youtube.com/watch?v=QIZx2NhdCMI&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=62
+https://www.youtube.com/watch?v=G_8_xtS2MsY&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=63
+https://www.youtube.com/watch?v=G_8_xtS2MsY&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=64
