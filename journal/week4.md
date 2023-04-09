@@ -21,8 +21,8 @@ Amazon RDS (Relational Database Service) is a managed database service provided 
 
 Add the following dependencies to our backend-flask/requirements.txt:
 
- psycopg[binary]
- psycopg[pool]
+   psycopg[binary]
+   psycopg[pool]
 
 ## Create Database files
 
@@ -35,11 +35,11 @@ Create database schema:
 
          CREATE TABLE public.users (
            uuid UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-           display_name text,
-           handle text,
-           email text,
-           cognito_user_id text,
-           created_at TIMESTAMP default current_timestamp NOT NULL
+            display_name text NOT NULL,
+            handle text NOT NULL,
+            email text NOT NULL ,
+            cognito_user_id text NOT NULL,
+            created_at TIMESTAMP default current_timestamp NOT NULL
          );
 
          CREATE TABLE public.activities (
@@ -294,47 +294,49 @@ Add the following in .gitpod.yml to get gitpod IP and everytime that gitpod star
 ## Add Lambda function in AWS to connect and add Information to the Database
 
 
-        import json
-        import psycopg2
+         import json
+         import psycopg2
+         import os
 
-        def lambda_handler(event, context):
-            user = event['request']['userAttributes']
-            user_display_name = user['name']
-            user_email = user['email']
-            user_handel = user['preferred_username']
-            user_cognito_id= user['sub']
-            try:
-                conn = psycopg2.connect(os.getenv('CONNECTION_URL'))
-                cur = conn.cursor()
+         def lambda_handler(event, context):
+             user = event['request']['userAttributes']
+             user_display_name = user['name']
+             user_email = user['email']
+             user_handle = user['preferred_username']
+             user_cognito_id = user['sub']
+             try:
+               print('entered-try')
 
-                sql = f"""
-                  "INSERT INTO users (
-                    display_name,
-                    email,
-                    handle,
-                    cognito_user_id
-                    )
+               sql = f"""
+                 INSERT INTO users (
+                  display_name,
+                  email,
+                  handle,
+                  cognito_user_id
+                   )
                   VALUES(
-                    {user_display_name},
-                    {user_email},
-                    {user_handle},
-                    {user_cognito_id}
-                 )"
-                """
-                cur.execute(sql)
-                conn.commit() 
+                   '{user_display_name}',
+                   '{user_email}',
+                   '{user_handle}',
+                   '{user_cognito_id}'
+                  )
+                 """
+               print('SQL Statement  ----')
+               print(sql)
+               conn = psycopg2.connect(os.getenv('CONNECTION_URL'))
+               cur = conn.cursor()
+               cur.execute(sql)
+               conn.commit() 
 
-            except (Exception, psycopg2.DatabaseError) as error:
-                print(error)
+             except (Exception, psycopg2.DatabaseError) as error:
+                 print(error)
 
             finally:
                 if conn is not None:
                     cur.close()
                     conn.close()
                     print('Database connection closed.')
-
             return event
-
 
 ## Other improvements
 
