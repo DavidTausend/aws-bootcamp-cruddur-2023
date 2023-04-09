@@ -18,6 +18,21 @@ Docker enables developers to create containers that contain all of the dependenc
 Docker has become a popular technology for DevOps teams and cloud-based architectures, as it enables fast and efficient deployment and scaling of applications. It is supported by most major cloud platforms, including AWS, Microsoft Azure, and Google Cloud Platform.
 
 
+
+## Homework challenge 
+
+### React App on AWS S3 with Static Hosting and Cloudfront 
+
+Create two s3 buckets with the name of the website, in my case it will be:
+www.hallotausend.com
+hallotausend.com
+
+<img width="1049" alt="Week7-S3Buckets" src="https://user-images.githubusercontent.com/125006062/230772122-fbd2658c-d2e7-4dc6-8201-45e572d0905d.png">
+
+Download the react app of Github and upload it to the two s3 buckets.
+
+
+
 ### Build backend-flask 
 
 docker build \
