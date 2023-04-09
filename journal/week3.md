@@ -22,6 +22,8 @@ Overall, Amazon Cognito makes it easy for developers to add user authentication 
 
 ## AWS Cognito good practices
 
+Amazon Cognito is a fully managed service by Amazon Web Services (AWS) that provides user authentication and authorization for applications. To ensure the security of your Amazon Cognito setup, it's important to follow best practices. Here are some security best practices for Amazon Cognito:
+
 + Use a unique user pool for each application: It's recommended to create a separate user pool for each application rather than sharing a single user pool across multiple applications. This approach provides better isolation of user data and allows for more granular access control.
 
 + Enable multi-factor authentication (MFA): Multi-factor authentication adds an extra layer of security to the authentication process. It's recommended to enable MFA for all users, especially those who have access to sensitive data.
@@ -135,3 +137,10 @@ Once you have created the IAM roles, you can assign them to the corresponding La
 
 ## idp with Facebook and Google
 
+
+Source:
+https://www.youtube.com/watch?v=9obl7rVgzJw&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=40
+https://www.youtube.com/watch?v=T4X4yIzejTc&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=41
+https://www.youtube.com/watch?v=d079jccoG-M&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=42
+https://www.youtube.com/watch?v=d079jccoG-M&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=43
+https://www.youtube.com/watch?v=d079jccoG-M&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=44
