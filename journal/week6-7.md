@@ -67,7 +67,38 @@ docker run -rm \
 -it backend-flask-prod
 
 
-## Docker Compose clearup
+## Docker Compose clear up
+
+### Create backend-flask and frontend-react-js
+
+  ### backend-flask.env.erb
+  
+    AWS_ENDPOINT_URL=http://dynamodb-local:8000
+    CONNECTION_URL=postgresql://postgres:password@DB:5432/cruddur
+    FRONTEND_URL= https://3000-<%= ENV['GITPOD_WORKSPACE_ID'] %>.<%= ENV['GITPOD_WORKSPACE_CLUSTER_HOST'] %>
+    BACKEND_URL=https://4567-<%= ENV['GITPOD_WORKSPACE_ID'] %>.<%= ENV['GITPOD_WORKSPACE_CLUSTER_HOST'] %>
+    OTEL_SERVICE_NAME=backend-flask
+    OTEL_EXPORTER_OTLP_ENDPOINT=https://api.honeycomb.io
+    OTEL_EXPORTER_OTLP_HEADERS=x-honeycomb-team=<%= ENV['HONEYCOMB_API_KEY'] %>
+    AWS_XRAY_URL=*4567-<%= ENV['GITPOD_WORKSPACE_ID'] %>.<%= ENV['GITPOD_WORKSPACE_CLUSTER_HOST'] %>*
+    AWS_XRAY_DAEMON_ADDRESS=xray-daemon:2000
+    AWS_DEFAULT_REGION=<%= ENV['AWS_DEFAULT_REGION'] %>
+    AWS_ACCESS_KEY_ID=<%= ENV['AWS_ACCESS_KEY_ID'] %>
+    AWS_SECRET_ACCESS_KEY=<%= ENV['AWS_SECRET_ACCESS_KEY'] %>
+    ROLLBAR_ACCESS_TOKEN=<%= ENV['ROLLBAR_ACCESS_TOKEN'] %>
+    AWS_COGNITO_USER_POOL_ID=<%= ENV['AWS_COGNITO_USER_POOL_ID'] %>
+    AWS_COGNITO_USER_POOL_CLIENT_ID=2bsm1nf80lse6sgrntodvnkq01
+
+
+### frontend-react.js.env.erb
+
+    REACT_APP_BACKEND_URL=https://4567-<%= ENV['process.env.GITPOD_WORKSPACE_ID'] %>.<%= ENV['process.env.GITPOD_WORKSPACE_CLUSTER_HOST'] %>
+    HONEYCOMB_TRACES_API=https://api.honeycomb.io/v1/traces
+    HONEYCOMB_API_KEY = <%= ENV['HONEYCOMB_API_KEY'] %>
+    REACT_APP_AWS_PROJECT_REGION=<%= ENV['AWS_DEFAULT_REGION'] %>
+    REACT_APP_AWS_COGNITO_REGION=<%= ENV['AWS_DEFAULT_REGION'] %>
+    REACT_APP_AWS_USER_POOLS_ID=eu-central-1_rDpbtgw5E
+    REACT_APP_CLIENT_ID =2bsm1nf80lse6sgrntodvnkq01
 
 ### Create a docker Network
 
@@ -238,48 +269,13 @@ Create cruddur-net to communicate with the other resources:
   
   
   
-  ### backend-flask.env.erb
-  
-      AWS_ENDPOINT_URL=http://dynamodb-local:8000
-    # Postgres
-    # CONNECTION_URL: "${PROD_CONNECTION_URL}"
-    CONNECTION_URL=postgresql://postgres:password@DB:5432/cruddur
-    FRONTEND_URL= https://3000-<%= ENV['GITPOD_WORKSPACE_ID'] %>.<%= ENV['GITPOD_WORKSPACE_CLUSTER_HOST'] %>
-    BACKEND_URL=https://4567-<%= ENV['GITPOD_WORKSPACE_ID'] %>.<%= ENV['GITPOD_WORKSPACE_CLUSTER_HOST'] %>
-    # Honycomb backend
-    OTEL_SERVICE_NAME=backend-flask
-    OTEL_EXPORTER_OTLP_ENDPOINT=https://api.honeycomb.io
-    OTEL_EXPORTER_OTLP_HEADERS=x-honeycomb-team=<%= ENV['HONEYCOMB_API_KEY'] %>
-    # xray
-    AWS_XRAY_URL=*4567-<%= ENV['GITPOD_WORKSPACE_ID'] %>.<%= ENV['GITPOD_WORKSPACE_CLUSTER_HOST'] %>*
-    AWS_XRAY_DAEMON_ADDRESS=xray-daemon:2000
-    # AWS
-    AWS_DEFAULT_REGION=<%= ENV['AWS_DEFAULT_REGION'] %>
-    AWS_ACCESS_KEY_ID=<%= ENV['AWS_ACCESS_KEY_ID'] %>
-    AWS_SECRET_ACCESS_KEY=<%= ENV['AWS_SECRET_ACCESS_KEY'] %>
-    # Rollbar
-    ROLLBAR_ACCESS_TOKEN=<%= ENV['ROLLBAR_ACCESS_TOKEN'] %>
-    # Cognito
-    AWS_COGNITO_USER_POOL_ID=<%= ENV['AWS_COGNITO_USER_POOL_ID'] %>
-    AWS_COGNITO_USER_POOL_CLIENT_ID=2bsm1nf80lse6sgrntodvnkq01
 
-
-### Backend-flask.env.erb
-
-    const REACT_APP_BACKEND_URL=https://4567-<%= ENV['process.env.GITPOD_WORKSPACE_ID'] %>.<%= ENV['process.env.GITPOD_WORKSPACE_CLUSTER_HOST'] %>
-    #HoneyComb fronted
-    const OTEL_SERVICE_NAME=frontend-ract-js
-    const HONEYCOMB_TRACES_API=https://api.honeycomb.io/v1/traces
-    #const HONEYCOMB_API_KEY = <%= ENV['HONEYCOMB_API_KEY'] %>
-    #AWS Cognito
-    const REACT_APP_AWS_PROJECT_REGION=<%= ENV['AWS_DEFAULT_REGION'] %>
-    const REACT_APP_AWS_COGNITO_REGION=<%= ENV['AWS_DEFAULT_REGION'] %>
-    const REACT_APP_AWS_USER_POOLS_ID=eu-central-1_rDpbtgw5E
-    const REACT_APP_CLIENT_ID =2bsm1nf80lse6sgrntodvnkq01
 
     
     
-### Troubleshoot issues with env files
+### Troubleshoot issues with backend docker network
+
+Create the following script if you are having problems with your backend docker network:
 
     #! /usr/bin/bash
 
