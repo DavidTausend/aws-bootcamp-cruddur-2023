@@ -74,8 +74,23 @@ On this point you can try the your website with the link on static website S3 bu
 
 <img width="1424" alt="Bildschirmfoto 2023-04-10 um 8 29 33 AM" src="https://user-images.githubusercontent.com/125006062/230841364-e3b5f9f7-423c-4773-998c-efde8e27bc9b.png">
 
+Request a public certicate in certificate manager. Note: The certificate must be request in us-east-1 issued, because we will use cloudfront is a global resource.
 
-Go to cloudfront to create a new distribution.
+<img width="1440" alt="Week7-CM" src="https://user-images.githubusercontent.com/125006062/230845235-ce7a5985-78d3-4e27-a92c-a2737d909d04.png">
+
+The certicate must take time to issued.
+
+<img width="1440" alt="Wee7-IssuedCertificate" src="https://user-images.githubusercontent.com/125006062/230846025-e6223f8d-44b6-4558-a5e0-15aeac3b4db6.png">
+
+
+
+Go to cloudfront to create a new distribution with the following configurations:
+
+<img width="889" alt="Bildschirmfoto 2023-04-10 um 8 43 28 AM" src="https://user-images.githubusercontent.com/125006062/230843533-49378b8f-4a80-4a89-a718-e2dcee478083.png">
+
+Enable Redirect HTTP to HTTPS
+<img width="1440" alt="Week7-HTTPS" src="https://user-images.githubusercontent.com/125006062/230843838-61ff99c1-8f71-49d7-9d3e-a465c4923978.png">
+
 
 
 
