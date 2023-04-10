@@ -108,6 +108,9 @@ Then deploy it and wait a while for testing it with the following command:
 
 dig www.hallotausend.com
 
+<img width="945" alt="Week7-DigS3" src="https://user-images.githubusercontent.com/125006062/230858478-dbc4b3db-b687-4068-9522-e52c79410c86.png">
+
+
 note: It must return your bucket name.
 
 Add another DNS entry with the distribution URL pointing to the S3 bucket in Route53:
