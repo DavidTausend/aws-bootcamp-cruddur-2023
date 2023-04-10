@@ -11,6 +11,11 @@ Move to that directory using the following command:
     cd thumbing-serverless-cdk/
 
 
+Install AWS CDK with the following command:
+note: -g means the installation will be locally.
+
+    npm install aws-cdk -g
+
 
 CDK
 
