@@ -21,6 +21,9 @@ Then type to initials our cdk project:
 
     cdk init app --language typescript
 
+<img width="1438" alt="Week8-CDKinitapp" src="https://user-images.githubusercontent.com/125006062/230866906-6949cfdf-0082-487c-bd5a-e6b68d687ec2.png">
+
+
 
 CDK
 
