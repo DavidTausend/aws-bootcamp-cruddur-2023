@@ -78,6 +78,13 @@ Request a public certicate in certificate manager. Note: The certificate must be
 
 <img width="1440" alt="Week7-CM" src="https://user-images.githubusercontent.com/125006062/230845235-ce7a5985-78d3-4e27-a92c-a2737d909d04.png">
 
+
+Go to Route53 and create dns entry for the certificates:
+
+<img width="1435" alt="Week7-DNS" src="https://user-images.githubusercontent.com/125006062/230850221-5bcf7457-d597-45c8-8250-ef041e88d0d6.png">
+
+
+
 The certicate might take time to be issued.
 
 <img width="1440" alt="Wee7-IssuedCertificate" src="https://user-images.githubusercontent.com/125006062/230846025-e6223f8d-44b6-4558-a5e0-15aeac3b4db6.png">
