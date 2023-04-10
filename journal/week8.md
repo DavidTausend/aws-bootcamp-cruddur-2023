@@ -1,5 +1,13 @@
 # Week 8 — Serverless Image Processing
 
+Serverless Image Processing refers to a computing approach where image processing tasks, such as image resizing, cropping, filtering, and other transformations, are performed using serverless computing architectures.
+
+In a traditional image processing workflow, you would typically set up dedicated servers or virtual machines to handle the image processing tasks. However, with serverless image processing, you can offload the processing to cloud-based serverless platforms that automatically scale and manage the computing resources based on demand. This allows you to focus on writing code to define the image processing logic without having to manage the underlying infrastructure.
+
+Serverless image processing is commonly used in applications that require dynamic image manipulation, such as e-commerce websites, social media platforms, and content management systems. It enables developers to efficiently handle image processing tasks without having to worry about provisioning and managing servers, and it can also help reduce costs by allowing you to pay only for the actual compute resources used during image processing tasks.
+
+Serverless image processing is typically implemented using serverless computing platforms, such as AWS Lambda, Azure Functions, or Google Cloud Functions, along with cloud-based storage services, such as Amazon S3 or Azure Blob Storage, to store and retrieve the images. The image processing tasks are triggered by events, such as image uploads or requests for processed images, and the processing logic is implemented as functions that are automatically executed in response to these events.
+
 
 Create a directory for CDK in main folder:
 
