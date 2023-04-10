@@ -99,7 +99,14 @@ Enable Redirect HTTP to HTTPS
 <img width="1440" alt="Week7-HTTPS" src="https://user-images.githubusercontent.com/125006062/230843838-61ff99c1-8f71-49d7-9d3e-a465c4923978.png">
 
 
-Select the previews certificate that we created:
+Select the previews certificate that we created and type index.html on default root object:
+
+<img width="1428" alt="Week7-CFCertificate" src="https://user-images.githubusercontent.com/125006062/230851894-08907e79-14a2-4994-b348-d98b79f907a5.png">
+
+
+Then deploy it and wait a while for testing it with the following command:
+
+dig www.hallotausend.com
 
 
 
