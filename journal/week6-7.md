@@ -23,50 +23,47 @@ Docker has become a popular technology for DevOps teams and cloud-based architec
 
 ### React App on AWS S3 with Static Hosting and Cloudfront 
 
-Create two s3 buckets with the name of the website, in my case it will be:
+Create a S3 buckets with the name of the website and diasble block all public access, in my case it will be:
 www.hallotausend.com
-hallotausend.com
 
-<img width="1049" alt="Week7-S3Buckets" src="https://user-images.githubusercontent.com/125006062/230772122-fbd2658c-d2e7-4dc6-8201-45e572d0905d.png">
+We need to make before we can access the website is to allow read access to anyone. Go to the Permissions tab and update the Bucket policy. Replace www.hallotausend.com with your bucket name:
 
-Download the react app of Github and upload it to the two s3 buckets.
-
-<img width="1440" alt="Week7-UploadS3" src="https://user-images.githubusercontent.com/125006062/230772460-05c9ec1b-5478-4406-b7e2-777da36e5dc8.png">
-
-Disable the block all public access of the two buckets
-
-<img width="1440" alt="Week7-S3BlockDisable" src="https://user-images.githubusercontent.com/125006062/230772578-1ede371b-0ea3-420e-9844-260805f1602f.png">
-
- Add a policy for the two buckets with the bucket name:
- 
- {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "PublicReadGetObject",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": [
-                "s3:GetObject"
-            ],
-            "Resource": [
-                "arn:aws:s3:::Bucket-Name/*"
-            ]
-        }
-    ]
-}
-
-<img width="1440" alt="Week7-BucketPolicy" src="https://user-images.githubusercontent.com/125006062/230772873-aa0eb8bb-d3ae-455d-98bf-a48be6d78658.png">
-
-Enable static website hosting for your www s3 bucket:
+     {
+         "Version": "2012-10-17",
+         "Statement": [
+             {
+                 "Sid": "PublicReadGetObject",
+                 "Effect": "Allow",
+                 "Principal": "*",
+                 "Action": [
+                     "s3:GetObject"
+                 ],
+                 "Resource": [
+                     "arn:aws:s3:::www.hallotausend.com/*"
+                 ]
+             }
+         ]
+     }
+     
+     
+Enable static website hosting for your s3 bucket:
 
 <img width="1440" alt="Week7-EnableStaticWebsite" src="https://user-images.githubusercontent.com/125006062/230773154-161f3f5e-25c1-4ae0-8bc9-b31a94d2728c.png">
 
+Build the website with the following command:
 
-Redirect the other bucket to your main www bucket(Security): 
-Note: We will leave it with http but when we implement cloudfront, then it will be https.
+  npm run build
 
-<img width="1421" alt="Bildschirmfoto 2023-04-09 um 2 46 23 PM" src="https://user-images.githubusercontent.com/125006062/230773351-b592cee3-3d12-4523-832c-0a4df80fcaba.png">
+Then upload the website to aws using the following command:
+Note: make sure that you are in the right directory, where you run the build that will be in frontend-react-js.
+
+aws S3 sync build s3://www.hallotausend.com
+
+
+On this point you can try the your website with the link on static website S3 bucket, the website should just open with http protocol.
+
+
+
 
 
 
