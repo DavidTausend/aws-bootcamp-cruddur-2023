@@ -92,6 +92,9 @@ Enable Redirect HTTP to HTTPS
 <img width="1440" alt="Week7-HTTPS" src="https://user-images.githubusercontent.com/125006062/230843838-61ff99c1-8f71-49d7-9d3e-a465c4923978.png">
 
 
+Select the previews certificate that we created:
+
+
 
 
 
