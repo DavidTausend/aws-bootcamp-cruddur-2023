@@ -26,6 +26,10 @@ Docker has become a popular technology for DevOps teams and cloud-based architec
 Create a S3 buckets with the name of the website and diasble block all public access, in my case it will be:
 www.hallotausend.com
 
+<img width="1440" alt="Week7-S3BlockDisable" src="https://user-images.githubusercontent.com/125006062/230842249-dcf20dec-61f2-4c79-9fbd-db72f7056eeb.png">
+
+
+
 We need to make before we can access the website is to allow read access to anyone. Go to the Permissions tab and update the Bucket policy. Replace www.hallotausend.com with your bucket name:
 
      {
@@ -46,6 +50,10 @@ We need to make before we can access the website is to allow read access to anyo
      }
      
      
+     
+ <img width="1440" alt="Week7-BucketPolicy" src="https://user-images.githubusercontent.com/125006062/230842295-fc58074a-55c8-467f-b9fd-e2591d315311.png">
+
+     
 Enable static website hosting for your s3 bucket:
 
 <img width="1440" alt="Week7-EnableStaticWebsite" src="https://user-images.githubusercontent.com/125006062/230773154-161f3f5e-25c1-4ae0-8bc9-b31a94d2728c.png">
@@ -57,10 +65,17 @@ Build the website with the following command:
 Then upload the website to aws using the following command:
 Note: make sure that you are in the right directory, where you run the build that will be in frontend-react-js.
 
-aws S3 sync build s3://www.hallotausend.com
+     aws S3 sync build s3://www.hallotausend.com
+
+<img width="1440" alt="Week7-UploadBuildtoS3" src="https://user-images.githubusercontent.com/125006062/230842100-14fac159-38c4-45e1-a3c8-6d2e2cde8027.png">
 
 
 On this point you can try the your website with the link on static website S3 bucket, the website should just open with http protocol.
+
+<img width="1424" alt="Bildschirmfoto 2023-04-10 um 8 29 33 AM" src="https://user-images.githubusercontent.com/125006062/230841364-e3b5f9f7-423c-4773-998c-efde8e27bc9b.png">
+
+
+Go to cloudfront to create a new distribution.
 
 
 
