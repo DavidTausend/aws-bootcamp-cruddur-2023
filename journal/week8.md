@@ -93,7 +93,7 @@ Go to thumbing-serverless-cdk/lib/import * as s3 from 'aws-cdk-lib/aws-s3' and a
       }
 
 
-Then run the following command on terminal:
+Then run the following command on terminal to double check the deployment:
 
     cdk synth
 <img width="1093" alt="Week8-CDKSynth" src="https://user-images.githubusercontent.com/125006062/230883980-1ab97b2b-7dfa-46a0-9a5b-07a12934dc44.png">
