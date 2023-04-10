@@ -27,7 +27,7 @@
                     "arn": "arn:aws:s3:::assets.hallotausend.com"
                 },
                 "object": {
-                    "key": "avatars/original.txt",
+                    "key": "avatars/original/AWS.jpg",
                     "size": 1024,
                     "eTag": "EXAMPLEETAG",
                     "sequencer": "EXAMPLESEQUENCER"
