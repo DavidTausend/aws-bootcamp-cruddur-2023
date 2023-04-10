@@ -124,20 +124,10 @@ dig www.hallotausend.com
 <img width="953" alt="Week7-PointCF" src="https://user-images.githubusercontent.com/125006062/230854958-32e538be-2c42-46d7-b951-13199f817cf1.png">
 
 
+At last try your website www.hallotausend.com:
 
+<img width="1435" alt="Week7-CFWebsiteWork" src="https://user-images.githubusercontent.com/125006062/230865294-b6892432-ffe8-42cc-ba81-c8e20b1c82f2.png">
 
-
-### Build backend-flask 
-
-docker build \
---build-arg REACT_APP_BACKEND_URL="https://api.hallotausend.com" \
---build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
---build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
---build-arg REACT_APP_AWS_USER_POOLS_ID="eu-central-1_rDpbtgw5E" \
---build-arg REACT_APP_CLIENT_ID="2bsm1nf80lse6sgrntodvnkq01" \
--t frontend-react-js \
--f Dockerfile.prod \
-.
 
 ## Docker Compose clear up
 
