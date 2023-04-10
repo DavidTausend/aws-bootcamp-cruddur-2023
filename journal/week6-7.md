@@ -129,6 +129,12 @@ At last try your website www.hallotausend.com:
 <img width="1435" alt="Week7-CFWebsiteWork" src="https://user-images.githubusercontent.com/125006062/230865294-b6892432-ffe8-42cc-ba81-c8e20b1c82f2.png">
 
 
+To make cloudfront with our application just add ALB:
+
+<img width="1434" alt="Week7-AddALBtoCF" src="https://user-images.githubusercontent.com/125006062/230869366-13e0fa15-3cd1-4fc7-ac3c-cadbc848f4b8.png">
+
+
+
 ## Docker Compose clear up
 
 ### Create backend-flask and frontend-react-js
