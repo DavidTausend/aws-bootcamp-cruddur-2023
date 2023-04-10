@@ -108,7 +108,17 @@ Then deploy it and wait a while for testing it with the following command:
 
 dig www.hallotausend.com
 
+note: It must return your bucket name.
 
+Add another DNS entry with the distribution URL pointing to the S3 bucket in Route53:
+
+<img width="436" alt="Week7-DNSPointCF" src="https://user-images.githubusercontent.com/125006062/230854801-fa1f60c3-482b-440e-b022-b0f6109310a4.png">
+
+Check if the website is point with the cloudfrount: 
+
+dig www.hallotausend.com
+
+<img width="953" alt="Week7-PointCF" src="https://user-images.githubusercontent.com/125006062/230854958-32e538be-2c42-46d7-b951-13199f817cf1.png">
 
 
 
