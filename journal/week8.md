@@ -109,11 +109,25 @@ Then run the following command on the terminal to double check the deployment:
 
 
 To deploy the CDK run the following command on thumbing-serverless-cdk directory:
+note: we install the CDK on this directory, therefore, CDK will just run on it.
 
-cdk deploy
+    cdk deploy
 
 
+Load the Env Vars to thumbing-serverless-cdk-stack.ts file:
 
+    const bucketName: string = process.env.THUMBING_BUCKET_NAME as string;
+    const folderInput: string = process.env.THUMBING_S3_FOLDER_INPUT as string;
+    const folderOutput: string = process.env.THUMBING_S3_FOLDER_OUTPUT as string;
+    const webhookUrl: string = process.env.THUMBING_WEBHOOK_URL as string;
+    const topicName: string = process.env.THUMBING_TOPIC_NAME as string;
+    const functionPath: string = process.env.THUMBING_FUNCTION_PATH as string;
+    console.log('bucketName',bucketName)
+    console.log('folderInput',folderInput)
+    console.log('folderOutput',folderOutput)
+    console.log('webhookUrl',webhookUrl)
+    console.log('topicName',topicName)
+    console.log('functionPath',functionPath)
 
 CDK
 
