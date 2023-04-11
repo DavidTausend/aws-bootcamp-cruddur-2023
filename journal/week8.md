@@ -24,7 +24,16 @@ note: -g means the installation will be locally.
 
     npm install aws-cdk -g
      
-    
+Then the following code so next time you start your environment you install cdk and copy .env.example .env for the deployment:
+
+     - name: cdk
+        before: |
+          npm install aws-cdk -g    
+          cd thumbing-serverless-cdk
+          cp .env.example .env
+          npm i
+          
+          
 Install dotenv dependency:
 
     npm i dotenv
@@ -93,18 +102,25 @@ Go to thumbing-serverless-cdk/lib/import * as s3 from 'aws-cdk-lib/aws-s3' and a
       }
 
 
-Then run the following command on terminal to double check the deployment:
+Then run the following command on the terminal to double check the deployment:
 
     cdk synth
 <img width="1093" alt="Week8-CDKSynth" src="https://user-images.githubusercontent.com/125006062/230883980-1ab97b2b-7dfa-46a0-9a5b-07a12934dc44.png">
 
 
-Deploy the CDK running:
+To deploy the CDK run the following command on thumbing-serverless-cdk directory:
 
 cdk deploy
+
+
+
 
 CDK
 
 Source:
-https://www.youtube.com/watch?v=YiSNlK4bk90
+https://www.youtube.com/watch?v=YiSNlK4bk90&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=70
+https://www.youtube.com/watch?v=YiSNlK4bk90&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=71
+https://www.youtube.com/watch?v=YiSNlK4bk90&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=72
+https://www.youtube.com/watch?v=YiSNlK4bk90&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=73
+
 
