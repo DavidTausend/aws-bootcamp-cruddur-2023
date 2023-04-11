@@ -173,7 +173,28 @@ Create index.js file in lambdas/process-images folder and add the following code
       await uploadProcessedImage(client,dstBucket,dstKey,processedImage)
     };
 
-CDK
+
+Create test.js file in lambdas/process-images folder and add the following code:
+
+    const {getClient, getOriginalImage, processImage, uploadProcessedImage} = require('./s3-image-processing.js')
+
+    async function main(){
+      client = getClient()
+      const srcBucket = 'cruddur-thumbs'
+      const srcKey = 'avatar/original/data.jpg'
+      const dstBucket = 'cruddur-thumbs'
+      const dstKey = 'avatar/processed/data.png'
+      const width = 256
+      const height = 256
+
+      const originalImage = await getOriginalImage(client,srcBucket,srcKey)
+      console.log(originalImage)
+      const processedImage = await processImage(originalImage,width,height)
+      await uploadProcessedImage(client,dstBucket,dstKey,processedImage)
+    }
+
+    main()
+
 
 Source:
 https://www.youtube.com/watch?v=YiSNlK4bk90&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=70
