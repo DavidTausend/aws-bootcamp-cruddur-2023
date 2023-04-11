@@ -122,6 +122,7 @@ To deploy the CDK run the following command on thumbing-serverless-cdk directory
 note: we install the CDK on this directory, therefore, CDK will just run on it.
 
     cdk deploy
+<img width="1440" alt="Week8-CDKDeploy" src="https://user-images.githubusercontent.com/125006062/231072441-bed5723c-6a86-4e36-a301-13283baaf0ef.png">
 
 
 Load the Env Vars to thumbing-serverless-cdk-stack.ts file:
