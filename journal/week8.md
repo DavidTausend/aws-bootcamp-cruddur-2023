@@ -102,6 +102,16 @@ Go to thumbing-serverless-cdk/lib/import * as s3 from 'aws-cdk-lib/aws-s3' and a
       }
 
 
+Enter your env information on .env.example file:
+note: If you don't have the file please create it.
+
+    THUMBING_BUCKET_NAME="assets.hallotausend.com"
+    THUMBING_S3_FOLDER_INPUT="avatars/original"
+    THUMBING_S3_FOLDER_OUTPUT="avatars/processed"
+    THUMBING_WEBHOOK_URL="https://api.hallotausend.com/webhooks/avatar"
+    THUMBING_TOPIC_NAME="cruddur-assets"
+    THUMBING_FUNCTION_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/lambdas/process-images"
+
 Then run the following command on the terminal to double check the deployment:
 
     cdk synth
