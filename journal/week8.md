@@ -196,6 +196,10 @@ Create test.js file in lambdas/process-images folder and add the following code:
     main()
 
 
+./bin/db/setup
+./bin/ddb/schema-load
+./bin/ddb/seed
+
 Source:
 https://www.youtube.com/watch?v=YiSNlK4bk90&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=70
 https://www.youtube.com/watch?v=YiSNlK4bk90&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=71
