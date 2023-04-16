@@ -17,7 +17,6 @@ tasks:
     command: |
       export GITPOD_IP=$(curl ifconfig.me)
       source  "$THEIA_WORKSPACE_ROOT/bin/rds/update-sg-rule"
-      source  "$THEIA_WORKSPACE_ROOT/bin/ecr/login"
   #Install npm
   - name: react-js
     command: |
@@ -43,6 +42,9 @@ tasks:
       cd thumbing-serverless-cdk
       cp .env.example .env
       npm i
+  - name: docker
+    before: |
+      source "$THEIA_WORKSPACE_ROOT/bin/ecr/login"
 vscode:
   extensions:
    - 42Crunch.vscode-openapi
