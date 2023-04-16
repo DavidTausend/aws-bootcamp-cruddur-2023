@@ -4,7 +4,7 @@ export default function EditProfileButton(props) {
   const pop_profile_form = (event) => {
     event.preventDefault();
     props.setPopped(true);
-    return false; 
+    return false;
   }
 
   return (
