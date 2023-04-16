@@ -18,4 +18,4 @@ SELECT
   ) array_row) as activities
 FROM public.users
 WHERE
-  users.id = %(handle)s
+  users.handle = %(handle)s
