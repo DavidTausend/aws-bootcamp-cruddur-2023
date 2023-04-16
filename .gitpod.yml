@@ -43,7 +43,7 @@ tasks:
       cp .env.example .env
       npm i
   - name: docker
-    before: |
+    command: |
       source "$THEIA_WORKSPACE_ROOT/bin/ecr/login"
 vscode:
   extensions:
