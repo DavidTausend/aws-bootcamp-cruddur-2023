@@ -44,7 +44,8 @@ tasks:
       npm i
   - name: docker
     command: |
-      source "$THEIA_WORKSPACE_ROOT/bin/ecr/login"
+      source  "$THEIA_WORKSPACE_ROOT/bin/ecr/login"
+      source  "$THEIA_WORKSPACE_ROOT/bin/rds/update-sg-rule"
 vscode:
   extensions:
    - 42Crunch.vscode-openapi
