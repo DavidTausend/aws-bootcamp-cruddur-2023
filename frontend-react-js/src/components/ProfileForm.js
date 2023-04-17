@@ -53,7 +53,6 @@ export default function ProfileForm(props) {
   }
 
   const close = (event)=> {
-    console.log('close',event.target)
     if (event.target.classList.contains("profile_popup")) {
       props.setPopped(false)
     }
