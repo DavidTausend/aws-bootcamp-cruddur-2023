@@ -33,8 +33,8 @@ export default function UserFeedPage() {
       });
       let resJson = await res.json();
       if (res.status === 200) {
-        setProfile(resJson)
-        setActivities(resJson)
+        setProfile(resJson.profile)
+        setActivities(resJson.activities)
       } else {
         console.log(res)
       }
@@ -63,7 +63,7 @@ export default function UserFeedPage() {
           setPopped={setPoppedProfile} 
         />
         <div className='activity_feed'>
-          <ProfileHeading setprofile={setPoppedProfile} profile={profile} />
+          <ProfileHeading setPopped={setPoppedProfile} profile={profile} />
           
           <ActivityFeed activities={activities} /> 
         </div>
