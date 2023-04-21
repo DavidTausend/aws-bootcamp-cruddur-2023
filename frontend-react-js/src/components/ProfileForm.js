@@ -2,36 +2,36 @@ import './ProfileForm.css';
 import React from "react";
 import process from 'process';
 import {getAccessToken} from 'lib/CheckAuth';
+import { ConsoleSpanExporter } from '@opentelemetry/sdk-trace-web';
 
 
 export default function ProfileForm(props) {
-  const [presignedurl, setPresignedurl] = React.useState(0);
-  const [bio, setBio] = React.useState(0);
-  const [displayName, setDisplayName] = React.useState(0);
+  const [presignedurl, setPresignedurl] = React.useState('');
+  const [bio, setBio] = React.useState('');
+  const [displayName, setDisplayName] = React.useState('');
 
   React.useEffect(()=>{
-    console.log('useEffects',props)
+    if (props.profile.bio === null)
+      setBio('');
     setBio(props.profile.bio);
     setDisplayName(props.profile.display_name);
   }, [props.profile])
 
   const s3uploadkey = async (event)=> {
     try {
-      console.log('s3uploadkey')
-      const backend_url = "https://icercqmzs0.execute-api.eu-central-1.amazonaws.com/avatars/key_upload"
+      const gateway_url = `${process.env.REACT_APP_API_GATEWAY_ENDPOINT_UR}/avatars/key_upload`
       await getAccessToken()
       const access_token = localStorage.getItem("access_token")
-      const res = await fetch(backend_url, {
+      const res = await fetch(gateway_url, {
         method: "POST",
         headers: {
-          'Origin': "https://3000-davidtausen-awsbootcamp-bfx5q0ihsot.ws-eu94.gitpod.io",
+          'Origin': "process.env.REACT_APP_FRONTEND_URL",
           'Authorization': `Bearer ${access_token}`,
           'Accept': 'application/json',
           'Content-Type': 'application/json'
-      }})
-      let data = await res.json();
+        }
+      })
       if (res.status === 200) {
-        console.log('presigned url',data)
         return data.url
       } else {
         console.log(res)
@@ -51,7 +51,7 @@ export default function ProfileForm(props) {
     const preview_image_url = URL.createObjectURL(file)
     console.log(filename,size,type)
     const presignedurl = await s3uploadkey()
-    console.log('pp', presignedurl)
+    console.log('Undefined Error',presignedurl)
 
     try {
       console.log('s3upload')
