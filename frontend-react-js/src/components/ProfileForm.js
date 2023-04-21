@@ -3,6 +3,7 @@ import React from "react";
 import process from 'process';
 import {getAccessToken} from 'lib/CheckAuth';
 import { ConsoleSpanExporter } from '@opentelemetry/sdk-trace-web';
+import { json } from 'react-router-dom';
 
 
 export default function ProfileForm(props) {
@@ -17,13 +18,18 @@ export default function ProfileForm(props) {
     setDisplayName(props.profile.display_name);
   }, [props.profile])
 
-  const s3uploadkey = async (event)=> {
+  const s3uploadkey = async (extension)=> {
+    console.log('ext',extension)
     try {
       const gateway_url = `${process.env.REACT_APP_API_GATEWAY_ENDPOINT_UR}/avatars/key_upload`
       await getAccessToken()
       const access_token = localStorage.getItem("access_token")
+      const json = {
+        extension: extension
+      }
       const res = await fetch(gateway_url, {
         method: "POST",
+        body: JSON.stringify(json),
         headers: {
           'Origin': "process.env.REACT_APP_FRONTEND_URL",
           'Authorization': `Bearer ${access_token}`,
@@ -31,6 +37,7 @@ export default function ProfileForm(props) {
           'Content-Type': 'application/json'
         }
       })
+      let data = await res.json();
       if (res.status === 200) {
         return data.url
       } else {
@@ -50,7 +57,9 @@ export default function ProfileForm(props) {
     const type = file.type
     const preview_image_url = URL.createObjectURL(file)
     console.log(filename,size,type)
-    const presignedurl = await s3uploadkey()
+    const fileparts = filename.split('.')
+    const extension = fileparts[fileparts.lenght-1 ]
+    const presignedurl = await s3uploadkey(cognito_user_uuid)
     console.log('Undefined Error',presignedurl)
 
     try {
