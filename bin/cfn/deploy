@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+set -e # Stop the excution of the script if it fails
+
+CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/template.yaml"
+
+aws cloudformation deploy \
+    --stack-name "my-cluster" \
+    --template-file $CFN_PATH \
+    --no-execute-changeset \
+    --capabilities CAPABILITY_NAMED_IAM
+
+#aws cloudformation validate-template --template-body file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/template.yaml
+
+#​pip install cfn-lint
