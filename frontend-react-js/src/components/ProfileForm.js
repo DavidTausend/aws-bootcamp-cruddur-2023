@@ -26,7 +26,7 @@ export default function ProfileForm(props) {
         method: "POST",
         body: JSON.stringify(json),
         headers: {
-          'Origin': "process.env.REACT_APP_FRONTEND_URL",
+          'Origin': process.env.REACT_APP_FRONTEND_URL,
           'Authorization': `Bearer ${access_token}`,
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -134,7 +134,6 @@ export default function ProfileForm(props) {
             </div>
           </div>
           <div className="popup_content">
-
 
           <input type="file" name="avatarupload" onChange={s3upload}/>
          
