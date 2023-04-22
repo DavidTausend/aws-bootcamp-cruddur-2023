@@ -2,6 +2,8 @@
 
 Serverless Image Processing refers to a computing approach where image processing tasks, such as image resizing, cropping, filtering, and other transformations, are performed using serverless computing architectures.
 
+On this week we will be using CDK with typscript:
+
 Create a directory for CDK in main folder:
 
     mkdir thumbing-serverless-cdk
