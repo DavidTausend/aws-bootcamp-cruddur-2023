@@ -2,26 +2,21 @@ import './ProfileForm.css';
 import React from "react";
 import process from 'process';
 import {getAccessToken} from 'lib/CheckAuth';
-import { ConsoleSpanExporter } from '@opentelemetry/sdk-trace-web';
-import { json } from 'react-router-dom';
 
 
 export default function ProfileForm(props) {
-  const [presignedurl, setPresignedurl] = React.useState('');
   const [bio, setBio] = React.useState('');
   const [displayName, setDisplayName] = React.useState('');
 
   React.useEffect(()=>{
-    if (props.profile.bio === null)
-      setBio('');
-    setBio(props.profile.bio);
+    setBio(props.profile.bio || '');
     setDisplayName(props.profile.display_name);
   }, [props.profile])
 
   const s3uploadkey = async (extension)=> {
     console.log('ext',extension)
     try {
-      const gateway_url = `${process.env.REACT_APP_API_GATEWAY_ENDPOINT_UR}/avatars/key_upload`
+      const gateway_url = `${process.env.REACT_APP_API_GATEWAY_ENDPOINT_URL}/avatars/key_upload`
       await getAccessToken()
       const access_token = localStorage.getItem("access_token")
       const json = {
@@ -51,15 +46,14 @@ export default function ProfileForm(props) {
   const s3upload = async (event)=> {
     console.log('event',event)
     const file = event.target.files[0]
-    console.log('file',file)
     const filename = file.name
     const size = file.size
     const type = file.type
     const preview_image_url = URL.createObjectURL(file)
     console.log(filename,size,type)
     const fileparts = filename.split('.')
-    const extension = fileparts[fileparts.lenght-1 ]
-    const presignedurl = await s3uploadkey(cognito_user_uuid)
+    const extension = fileparts[fileparts.length-1]
+    const presignedurl = await s3uploadkey(extension)
     console.log('Undefined Error',presignedurl)
 
     try {
@@ -72,7 +66,7 @@ export default function ProfileForm(props) {
       }})
       let data = await res.json();
       if (res.status === 200) {
-        setPresignedurl(data.url)
+        
       } else {
         console.log(res)
       }
