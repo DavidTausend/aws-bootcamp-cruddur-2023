@@ -149,6 +149,8 @@ add the following json code to the permissions of the backend-flask cluster:
             ]
         }
 
+## Add a test stage in CodePipeline
+
 
 
 Source:
@@ -156,3 +158,4 @@ https://www.youtube.com/watch?v=DLYfI0ehMZE&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgN
 https://www.youtube.com/watch?v=DLYfI0ehMZE&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=82
 https://www.youtube.com/watch?v=DLYfI0ehMZE&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=83
 https://docs.aws.amazon.com/codebuild/latest/userguide/how-to-create-pipeline.html
+https://docs.aws.amazon.com/codebuild/latest/userguide/how-to-create-pipeline-add-test.html
