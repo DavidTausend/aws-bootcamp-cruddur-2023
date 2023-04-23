@@ -3,6 +3,7 @@
 
 On this week we build a CI/CD, that stands for Continuous Integration/Continuous Deployment, the development software we help us to streamline the process of building, testing, and deploying software.
 
+## Create Codepipeline and Codebuild
 
 As fitst step go to AWS and look for Codepipeline, then create the codepipeline with the following values:
 
@@ -84,6 +85,69 @@ You will notice that the deployment becuase it is need some other configurations
 
 <img width="1433" alt="Week9-Codepipeline" src="https://user-images.githubusercontent.com/125006062/233820244-161caadf-44cc-4db6-9f57-49418b309403.png">
 
+
+## Issue documentation
+
+### Codebuild access denied when running pipeline
+
+Error log:
+
+      [Container] 2023/04/23 08:31:04 Running command aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $IMAGE_URL
+
+      An error occurred (AccessDeniedException) when calling the GetAuthorizationToken operation: User: arn:aws:sts::250283220840:assumed-role/codebuild-cruddur-backend--service-role/AWSCodeBuild-3158ce99-75d4-4547-87a6-87a6080d7969 is not authorized to perform: ecr:GetAuthorizationToken on resource: * because no identity-based policy allows the ecr:GetAuthorizationToken action
+      Error: Cannot perform an interactive login from a non TTY device
+
+      [Container] 2023/04/23 08:31:16 Command did not exit successfully aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $IMAGE_URL exit status 1
+      [Container] 2023/04/23 08:31:16 Phase complete: INSTALL State: FAILED
+      [Container] 2023/04/23 08:31:16 Phase context status code: COMMAND_EXECUTION_ERROR Message: Error while executing command: aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $IMAGE_URL. Reason: exit status 1
+
+
+Error summary:
+The error clearly indicates that our codebuild doesn’t have sufficient permission to connect with ecr cluster backend.
+
+Easy solutions:
+
+1. Go to the AWS Management Console and navigate to the IAM service.
+2. Click on "Roles" from the left-hand menu and search for the IAM role associated with the CodeBuild project, in my case the name is codebuild-cruddur-backend--service-role.
+3. Click on the IAM role to view its details.
+4. Click on the "Attach policies" button.
+5. Search for the policy AmazonEC2ContainerRegistryPowerUser and select it.
+6. Click on the "Attach policy" button to attach the policy to the IAM role.
+
+<img width="1432" alt="Week9-PermissionsResolved" src="https://user-images.githubusercontent.com/125006062/233832192-db7963e6-9935-44df-b33d-bc87afbb0dec.png">
+
+or
+
+add the following json code to the permissions of the backend-flask cluster:
+
+        {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Sid": "codebuild"
+                    "Effect": "Allow",
+                    "Action": [
+                        "ecr:GetAuthorizationToken",
+                        "ecr:BatchCheckLayerAvailability",
+                        "ecr:GetDownloadUrlForLayer",
+                        "ecr:GetRepositoryPolicy",
+                        "ecr:DescribeRepositories",
+                        "ecr:ListImages",
+                        "ecr:DescribeImages",
+                        "ecr:BatchGetImage",
+                        "ecr:GetLifecyclePolicy",
+                        "ecr:GetLifecyclePolicyPreview",
+                        "ecr:ListTagsForResource",
+                        "ecr:DescribeImageScanFindings",
+                        "ecr:InitiateLayerUpload",
+                        "ecr:UploadLayerPart",
+                        "ecr:CompleteLayerUpload",
+                        "ecr:PutImage"
+                    ],
+                    "Resource": "*"
+                }
+            ]
+        }
 
 
 
