@@ -57,6 +57,8 @@ aws cloudformation validate-template --template-body file:///workspace/aws-bootc
 
 pip install cfn-lint
 
+cargo install cfn-guard
+
 
 Source:
 https://www.youtube.com/watch?v=BRmEG4zicM0&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=85
