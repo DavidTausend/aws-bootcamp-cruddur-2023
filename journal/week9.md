@@ -3,6 +3,7 @@
 
 On this week we build a CI/CD, that stands for Continuous Integration/Continuous Deployment, the development software we help us to streamline the process of building, testing, and deploying software.
 
+
 As fitst step go to AWS and look for Codepipeline, then create the codepipeline with the following values:
 
 Note: as a good practice always check the adavance settings:
@@ -38,6 +39,7 @@ Select just the repository that you wish to connect with aws, in this case will 
 Finish the connection clicking connect:
 
 <img width="879" alt="Week9-GithubApp" src="https://user-images.githubusercontent.com/125006062/233819885-875e6e66-432e-47b6-91ca-418b84db80aa.png">
+
 
 If the connection was susessful with appaer "ready to connect": 
 
@@ -78,9 +80,11 @@ Review the settings and create the pipeline:
 <img width="1440" alt="Week9-ReviewConfiguration" src="https://user-images.githubusercontent.com/125006062/233820224-2089a6c8-e800-47c5-a68f-560382083e22.png">
 
 
-You will notice that the deployment becuase it is need some other configurations:
+You will notice that the deployment becuase it is need some other configurations.Therefore, click edit:
 
 <img width="1433" alt="Week9-Codepipeline" src="https://user-images.githubusercontent.com/125006062/233820244-161caadf-44cc-4db6-9f57-49418b309403.png">
+
+
 
 
 Source:
