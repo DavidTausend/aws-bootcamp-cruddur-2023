@@ -44,5 +44,11 @@ To check if the stack was created go the Cloudformation on AWS:
 <img width="1365" alt="Week10-MyCluster" src="https://user-images.githubusercontent.com/125006062/233837949-59832862-6e67-495b-9e11-5bdd6ae18e2b.png">
 
 
+Open your cluster, select change sets name and click execute change set, then click :
+
+<img width="596" alt="Week10-ExecuteChangeSet" src="https://user-images.githubusercontent.com/125006062/233838830-7f2ac9a0-1fa9-406e-839f-3b7b065136b5.png">
+
+
+
 Source:
 https://www.youtube.com/watch?v=BRmEG4zicM0&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=85
