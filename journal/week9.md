@@ -152,4 +152,7 @@ add the following json code to the permissions of the backend-flask cluster:
 
 
 Source:
+https://www.youtube.com/watch?v=DLYfI0ehMZE&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=81
+https://www.youtube.com/watch?v=DLYfI0ehMZE&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=82
+https://www.youtube.com/watch?v=DLYfI0ehMZE&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=83
 https://docs.aws.amazon.com/codebuild/latest/userguide/how-to-create-pipeline.html
