@@ -103,7 +103,7 @@ Error log:
 
 
 Error summary:
-The error clearly indicates that our codebuild doesn’t have sufficient permission to connect with ecr cluster backend.
+The error clearly indicates that our codebuild doesn’t have sufficient permission to connect with ecr cluster backend-flask.
 
 Easy solutions:
 
