@@ -9,5 +9,7 @@ Resources:
       CapacityProvider: []
 
 #Parameters:
+#Mappings:
 #Resources: 
 #Outputs:
+#Metadata:

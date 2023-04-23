@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 set -e # Stop the excution of the script if it fails
 
-CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/template.yaml"
+CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/template.yml"
 
 aws cloudformation deploy \
     --stack-name "my-cluster" \
