@@ -36,7 +36,9 @@ To automate the process of creating lets create a bash script unter bin/cfn/depl
         --no-execute-changeset \
         --capabilities CAPABILITY_NAMED_IAM
     
-    
+<img width="869" alt="Week10-CreateStack" src="https://user-images.githubusercontent.com/125006062/233837842-bf7646c1-7325-426a-b442-47822e37565c.png">
+
+
 To check if the stack was created go the Cloudformation on AWS:
 
 
