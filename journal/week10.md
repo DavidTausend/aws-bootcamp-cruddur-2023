@@ -41,6 +41,7 @@ To automate the process of creating lets create a bash script unter bin/cfn/depl
 
 To check if the stack was created go the Cloudformation on AWS:
 
+<img width="1365" alt="Week10-MyCluster" src="https://user-images.githubusercontent.com/125006062/233837949-59832862-6e67-495b-9e11-5bdd6ae18e2b.png">
 
 
 Source:
