@@ -64,7 +64,6 @@ export default function ProfileForm(props) {
         headers: {
           'Content-Type': type
       }})
-      let data = await res.json();
       if (res.status === 200) {
         
       } else {

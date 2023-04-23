@@ -12,7 +12,6 @@ export default function ProfileAvatar(props) {
     <div 
     className="profile-avatar"
     style={styles}
-    
     ></div>
   );
 }
