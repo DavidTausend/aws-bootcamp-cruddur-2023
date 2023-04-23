@@ -49,6 +49,14 @@ Open your cluster, select change sets name, then click twice execute change set 
 <img width="596" alt="Week10-ExecuteChangeSet" src="https://user-images.githubusercontent.com/125006062/233838830-7f2ac9a0-1fa9-406e-839f-3b7b065136b5.png">
 
 
+Validate the Cloudformation teamplate at this location on local machine:
+
+aws cloudformation validate-template --template-body file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/template.yml
+
+
+
+pip install cfn-lint
+
 
 Source:
 https://www.youtube.com/watch?v=BRmEG4zicM0&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=85
