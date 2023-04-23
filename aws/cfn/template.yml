@@ -6,7 +6,8 @@ Resources:
     Type: 'AWS::ECS::Cluster'
     Properties:
       ClusterName: MyCluster
-      CapacityProvider: ["NEARGATE"]
+      CapacityProvider: 
+        - FARGATE
 
 #Parameters:
 #Mappings:
