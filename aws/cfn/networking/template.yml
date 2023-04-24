@@ -1,0 +1,58 @@
+AWSTemplateFormatVersion: 2010-09-09
+"yaml.customTags": ["!Ref", "!GetAtt"]
+#VPC
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties: 
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      InstanceTenancy: default
+      Tags:
+        - Key: Name
+          Value: CruddurVPC
+  #IGW
+  IGW:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: CruddurIGW
+    AttachIGW:
+      Type: AWS::EC2::VPCGatewayAttachment
+      Properties:
+        VpcId: !Ref VPC
+        InternetGatewayId: !Ref IGW
+  #Route tables
+  myRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref myVPC
+      Tags:
+        - Key: Name
+          Value: CruddurRT
+  #Route
+  RouteToIGW:
+    #https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html
+    Type: AWS::EC2::Route
+    DependsOn: AtthachIGW
+    Properties:
+       RouteTableId: !Ref RouteTable
+       GatewayId: !Ref IGW
+       DestinationCidrBlock: 0.0.0.0/0
+  RouteToLocal:
+    #https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html
+    Type: AWS::EC2::Route
+    DependsOn: AtthachIGW
+    Properties:
+       RouteTableId: !Ref RouteTable
+       GatewayId: "local"
+       DestinationCidrBlock: 10.0.0.0/16
+        
+        
+
+#Subnets
+#Subnet A
+#Subnet B
+#Subnet C
