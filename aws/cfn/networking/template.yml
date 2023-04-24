@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-"yaml.customTags": ["!Ref", "!GetAtt"]
+
 #VPC
 Resources:
   VPC:
@@ -19,16 +19,16 @@ Resources:
       Tags:
         - Key: Name
           Value: CruddurIGW
-    AttachIGW:
-      Type: AWS::EC2::VPCGatewayAttachment
-      Properties:
-        VpcId: !Ref VPC
-        InternetGatewayId: !Ref IGW
+  AttachIGW:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref IGW
   #Route tables
-  myRouteTable:
+  RouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
-      VpcId: !Ref myVPC
+      VpcId: !Ref VPC
       Tags:
         - Key: Name
           Value: CruddurRT
@@ -36,22 +36,12 @@ Resources:
   RouteToIGW:
     #https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html
     Type: AWS::EC2::Route
-    DependsOn: AtthachIGW
+    DependsOn: AttachIGW
     Properties:
        RouteTableId: !Ref RouteTable
        GatewayId: !Ref IGW
        DestinationCidrBlock: 0.0.0.0/0
-  RouteToLocal:
-    #https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html
-    Type: AWS::EC2::Route
-    DependsOn: AtthachIGW
-    Properties:
-       RouteTableId: !Ref RouteTable
-       GatewayId: "local"
-       DestinationCidrBlock: 10.0.0.0/16
         
-        
-
 #Subnets
 #Subnet A
 #Subnet B
