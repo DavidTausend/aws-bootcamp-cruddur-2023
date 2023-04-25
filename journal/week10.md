@@ -55,6 +55,19 @@ aws cloudformation validate-template --template-body file:///workspace/aws-bootc
 
 
 
+## Issues documentations
+
+When I started to tag with the command!Ref on the yaml file, I got the following error message: "Unresolved tag: !Ref".
+
+Solution: 
+
+1. Open the user settings by clicking on the gear icon in the bottom left corner of the window.
+2. Scroll down to the "Extensions" section and click on "YAML".
+3. Scroll down to the "Custom Tags" section and click on "Add Item".
+4. In the "Value" field, enter !Ref and click "Save".
+
+After following these steps, you should be able to use the !Ref tag in your YAML files in Gitpod without getting the "Unresolved tag: !Ref" error.
+
 pip install cfn-lint
 
 cargo install cfn-guard
