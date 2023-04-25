@@ -11,7 +11,7 @@ def handler(event:, context:)
     {
       headers: {
         "Access-Control-Allow-Headers": "*, Authorization",
-        "Access-Control-Allow-Origin": "REACT_APP_FRONTEND_URL",
+        "Access-Control-Allow-Origin": "https://davidtausen-awsbootcamp-xjyjcqlhmyr.ws-eu95.gitpod.io",
         "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
       },
       statusCode: 200
@@ -39,7 +39,7 @@ def handler(event:, context:)
     { 
       headers: {
         "Access-Control-Allow-Headers": "*, Authorization",
-        "Access-Control-Allow-Origin": "REACT_APP_FRONTEND_URL",
+        "Access-Control-Allow-Origin": "https://davidtausen-awsbootcamp-xjyjcqlhmyr.ws-eu95.gitpod.io",
         "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
       },
       statusCode: 200,

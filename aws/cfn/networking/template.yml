@@ -1,10 +1,9 @@
 AWSTemplateFormatVersion: 2010-09-09
 
 Parameters:
-  VpcCidrblock: 
-      Type: string
+  VpcCidrBlock: 
+      Type: String
       Default: 10.0.0.0/16
-  Availabilityzones:
   Az1:
     Type: AWS::EC2::AvailabilityZone::Name
     Default: eu-central-1a
@@ -30,13 +29,13 @@ Resources:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpc.html
     Type: AWS::EC2::VPC
     Properties: 
-      CidrBlock: 10.0.0.0/16
+      CidrBlock: !Ref VpcCidrBlock
       EnableDnsHostnames: true
       EnableDnsSupport: true
       InstanceTenancy: default
       Tags:
         - Key: Name
-          Value: CruddurVPC
+          Value: !Sub "${AWS::StackName}VPC"
   # IGW
   IGW:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-internetgateway.html
@@ -44,7 +43,7 @@ Resources:
     Properties:
       Tags:
         - Key: Name
-          Value: CruddurIGW
+          Value: !Sub "${AWS::StackName}IGW"
   AttachIGW:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
@@ -58,7 +57,7 @@ Resources:
       VpcId: !Ref VPC
       Tags:
         - Key: Name
-          Value: CruddurRT
+          Value: !Sub "${AWS::StackName}RT"
   # Route
   RouteToIGW:
     # https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html
@@ -79,7 +78,7 @@ Resources:
        VpcId: !Ref VPC
        Tags: 
         - Key: Name
-          Value: CruddurSubnetPubA 
+          Value: !Sub "${AWS::StackName}SubnetPubA"
   SubnetPubB:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html
      Type: AWS::EC2::Subnet
@@ -91,7 +90,7 @@ Resources:
        VpcId: !Ref VPC
        Tags: 
         - Key: Name
-          Value: CruddurSubnetPubB
+          Value: !Sub "${AWS::StackName}SubnetPubB"
   SubnetPubC:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html
      Type: AWS::EC2::Subnet
@@ -103,7 +102,7 @@ Resources:
        VpcId: !Ref VPC
        Tags: 
         - Key: Name
-          Value: CruddurSubnetPubC
+          Value: !Sub "${AWS::StackName}SubnetPubC"
   SubnetPrivA:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html
      Type: AWS::EC2::Subnet
@@ -115,7 +114,7 @@ Resources:
        VpcId: !Ref VPC
        Tags: 
         - Key: Name
-          Value: CruddurSubnetPrivA
+          Value: !Sub "${AWS::StackName}SubnetPrivA"
   SubnetPrivB:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html
      Type: AWS::EC2::Subnet
@@ -127,7 +126,7 @@ Resources:
        VpcId: !Ref VPC
        Tags: 
         - Key: Name
-          Value: CruddurSubnetPrivB
+          Value: !Sub "${AWS::StackName}SubnetPrivB"
   SubnetPrivC:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html
      Type: AWS::EC2::Subnet
@@ -139,7 +138,7 @@ Resources:
        VpcId: !Ref VPC
        Tags: 
         - Key: Name
-          Value: CruddurSubnetPrivC
+          Value: !Sub "${AWS::StackName}SubnetPrivC"
   SubnetPubARTAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
@@ -170,7 +169,35 @@ Resources:
     Properties:
       SubnetId: !Ref SubnetPrivC
       RouteTableId: !Ref RouteTable
-#Subnets
-#Subnet A
-#Subnet B
-#Subnet C
+Outputs:
+  VpcId:
+    Value: !Ref VPC
+    Export:
+      Name: VpcId
+  VpcCidrBlock:
+    Value: !GetAtt VPC.CidrBlock
+    Export:
+      Name: VpcCidrBlock
+  SubnetCidrBlocks:
+    Value: !Join [",", !Ref SubnetCidrBlocks]
+    Export:
+      Name: SubnetCidrBlocks
+  SubnetIds:
+    Value: !Join 
+      - ","
+      - - !Ref SubnetPubA
+        - !Ref SubnetPubB
+        - !Ref SubnetPubC
+        - !Ref SubnetPrivA
+        - !Ref SubnetPrivB
+        - !Ref SubnetPrivC
+    Export:
+      Name: SubnetIds
+  AvailabilityZones:
+    Value: !Join 
+      - ","
+      - - !Ref Az1
+        - !Ref Az2
+        - !Ref Az3
+    Export:
+      Name: AvailabilityZones
