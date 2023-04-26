@@ -1,6 +1,23 @@
 AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  The networking and cluster configuration to support fargate container
+  - ECS Fargate Cluster
+  - Application load balance
+    - Only ipv4
+    - internet facing
+  -ALB security Group
+  - HTTPS Listerner
+    - Send naked domain to frontend target group
+    - Send api. subdomain to backend target group
+  - HTTP Listerner
+    - redirects to HTTPS Listerner
+  - Backend target group
+  - Fronted target group
 
-#Paramenters:
+
+Paramenters:
+  CerficationArn:
+    Type: String
 Resources:
   FargateCluster: 
     #https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-cluster.html
@@ -18,6 +35,43 @@ Resources:
          Logging: DEFAULT
       ServiceConnectDefaults:
         Namespace: cruddur
-       
+ALB:
+ #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-loadbalancer.html
+ Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
+ Properties:
+  Name: !Sub Cluster "${AWS::StackName}ALB"
+  Type: application
+  IpAddressType: ipv4
+  scheme: internet-facing
+  SecurityGroups:
+    - security groups ids
+  Subnets:
+  LoadBalancerAttributes:
+    - Name: routing.http2.enabled
+      Value: true
+    - Name: routung.http.preserve_host_header.enabled
+      Value: false
+    - Name: deletion_protection.enabled
+      Value: true
+    - Name: load_balancing.cross_zone.enabled
+      Value: true
+    # incase we want to turn logs  
+    #- Name: access_logs.s3.enabled
+     # Value: false
+    #- Name: access-logs.s3.bucket
+     # Value: bucket-name
+    #- Name: access_logs.s3.prefix
+     # Value:
+HTTPSListerner:
+  #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html
+  Type: AWS::ElasticLoadBalancingV2::Listener
+  Properties: 
+    Certificates:
+      - CertificateArn: !Ref CerificateArn
+    Defaultactions:
+      -
+    Loadbalancearn: !Ref ALB
+    Port: 443
+    Protocol: HTTPS
 
 #Outputs:
