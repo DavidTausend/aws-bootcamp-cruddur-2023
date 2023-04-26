@@ -1,4 +1,17 @@
 AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  The base networking componets for our stack:
+  - VPC
+    - Sets DNS hostnames for EC2 instances
+    - Only IPV4, IPV6 is disabled
+  - InternetGateway
+  - Route Table
+    - Route to the IGW
+    - Route to Local
+  - 6 Subnets Explicity Associated to Route table
+    - 3 Public Subnets numbered 1 to 3
+    - 3 Private Subnets numbered 1 to 3
+
 
 Parameters:
   VpcCidrBlock: 

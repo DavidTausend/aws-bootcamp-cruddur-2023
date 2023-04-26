@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+#Paramenters:
+Resources:
+  FargateCluster: 
+    #https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-cluster.html
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: !Sub Cluster "${AWS::StackName}FargateCluster"
+      CapacityProvider: 
+        - FARGATE
+      ClusterSettings:
+        - Name:
+          Value: enabled
+      Configuration:
+        ExecuteCommandConfiguration:
+         #KmskeyId: !Ref KmsKeyId
+         Logging: DEFAULT
+      ServiceConnectDefaults:
+        Namespace: cruddur
+       
+
+#Outputs:
