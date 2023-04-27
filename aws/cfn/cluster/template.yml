@@ -18,6 +18,25 @@ Description: |
 Paramenters:
   CerficationArn:
     Type: String
+  FrontendPort:
+    Type: Number
+    Default: 3000
+  BackendPort:
+    Type: Number
+    Default: 4567
+  FrontendHealthCheckIntervalSeconds:
+    Type: Number
+  FrontendHealthCheckPath: String
+  FrontendHealthCheckPort: String
+  FrontendHealthCheckProtocol: String
+  FrontendHealthCheckTimeoutSeconds: Integer
+  FrontendHealthyThresholdCount: Integer
+  BackendHealthCheckIntervalSeconds:
+  BackendHealthCheckPath: String
+  BackendHealthCheckPort: String
+  BackendHealthCheckProtocol: String
+  BackendHealthCheckTimeoutSeconds: Integer
+  BackendHealthyThresholdCount: Integer
 Resources:
   FargateCluster: 
     #https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-cluster.html
@@ -125,7 +144,34 @@ HTTPListener:
 BackendTG:
   #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html
   Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  Properties:
+    Name: !Sub  "${AWS::StackName}BackendTG"
+    Port: !Ref  BackendPort
 FrontendTG:
   #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html      
   Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  Properties:
+    Name: !Sub "${AWS::StackName}FrontendTG"
+    Port: !Ref  FrontendPort
+    HealthCheckProtocol: HTTP
+    HealthCheckEnabled: true
+    HealthCheckIntervalSeconds: Integer
+    HealthCheckPath: String
+    HealthCheckPort: String
+    HealthCheckTimeoutSeconds: Integer
+    HealthyThresholdCount: Integer
+    IpAddressType: String
+  Matcher: 
+    Matcher
+  Protocol: String
+  ProtocolVersion: String
+  Tags: 
+    - Tag
+  TargetGroupAttributes: 
+    - TargetGroupAttribute
+  Targets: 
+    - TargetDescription
+  TargetType: String
+  UnhealthyThresholdCount: Integer
+  VpcId: String
 #Outputs:
