@@ -2,27 +2,7 @@
 
 Decentralized authentication refers to a method of authentication that does not rely on a central authority or server to verify the identity of a user. Instead, it uses a decentralized network or system of nodes to verify the user's identity.
 
-Decentralized authentication can be achieved through various technologies, such as blockchain and distributed ledger technology (DLT), which enable the creation of a network of nodes that collectively verify user identities. In this system, each node maintains a copy of the user's identity data and can verify the authenticity of the user's identity without relying on a central server or authority.
-
-One advantage of decentralized authentication is that it can increase security and privacy by reducing the risk of a single point of failure or a data breach. Since there is no central authority or server to compromise, it is much harder for an attacker to gain access to user data or impersonate a user.
-
-Decentralized authentication also allows for greater user control over their own identity data, as users can maintain ownership of their data and choose who has access to it. This can help prevent identity theft and give users greater control over their online presence.
-
-Overall, decentralized authentication is a promising approach to online identity verification that can improve security, privacy, and user control.
-
-## AWS Cognito
-
-it's a fully managed authentication, authorization, and user management service provided by Amazon Web Services (AWS). It enables developers to add user sign-up, sign-in, and access control to web and mobile applications quickly and easily.
-
-With Amazon Cognito, developers can easily integrate popular social identity providers, such as Google, Facebook, and Amazon, and enable user authentication with email and password, phone number, or multi-factor authentication (MFA). Additionally, Amazon Cognito provides support for enterprise identity providers through Security Assertion Markup Language (SAML) 2.0 integration.
-
-Amazon Cognito also offers features such as user profile data storage, configurable password policies, and integration with AWS Lambda for custom authentication flows. It also supports Amazon CloudFront signed URLs and AWS Identity and Access Management (IAM) roles, making it easy to control access to application resources.
-
-Overall, Amazon Cognito makes it easy for developers to add user authentication and access control to their applications while maintaining security and scalability.
-
 ## AWS Cognito good practices
-
-Amazon Cognito is a fully managed service by Amazon Web Services (AWS) that provides user authentication and authorization for applications. To ensure the security of your Amazon Cognito setup, it's important to follow best practices. Here are some security best practices for Amazon Cognito:
 
 + Use a unique user pool for each application: It's recommended to create a separate user pool for each application rather than sharing a single user pool across multiple applications. This approach provides better isolation of user data and allows for more granular access control.
 
