@@ -64,7 +64,9 @@ Solution:
 1. Open the user settings by clicking on the gear icon in the bottom left corner of the window.
 2. Scroll down to the "Extensions" section and click on "YAML".
 3. Scroll down to the "Custom Tags" section and click on "Add Item".
-4. In the "Value" field, enter !Ref and click "Save".
+4. In the "Value" field, enter the following values and click "Save".
+
+<img width="500" alt="Bildschirmfoto 2023-04-24 um 7 54 38 PM" src="https://user-images.githubusercontent.com/125006062/235367554-39bd711a-9305-4a08-9232-c3ef86dab3c1.png">
 
 After following these steps, you should be able to use the !Ref tag in your YAML files in Gitpod without getting the "Unresolved tag: !Ref" error.
 
