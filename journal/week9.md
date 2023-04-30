@@ -151,11 +151,32 @@ add the following json code to the permissions of the backend-flask cluster:
 
 ## Add a test stage in CodePipeline
 
- After the Source stage, choose Add stage.
+After the Source stage, choose Add stage.
+
+For Stage name, enter the name of the test stage (for example, Test). If you choose a different name, use it throughout this procedure.
+
+ <img width="1073" alt="Week9-AddTest" src="https://user-images.githubusercontent.com/125006062/235369034-c21ab4a1-b806-4c34-8171-ddaf26f64ec9.png">
  
- For Stage name, enter the name of the test stage (for example, Test). If you choose a different name, use it throughout this procedure.
+In the selected stage, choose Add action.
  
- In the selected stage, choose Add action.
+In Edit action, for Action name, enter a name for the action (for example, Test). 
+ 
+For Action provider, under Test, choose CodeBuild.
+ 
+Choose the name of the build project and skip to the next step in this procedure.
+ 
+If you already have a build project you want to use, for Project name, choose the name of the build project and skip to the next step in this procedure.
+
+Choose Save.
+ 
+Choose Release change.
+
+After the pipeline runs successfully, you can get the test results. In the Test stage of the pipeline, choose the CodeBuild hyperlink to open the related build project page in the CodeBuild console.
+
+On the build project page, in Build history, choose the Build run hyperlink.
+
+On the build run page, in Build logs, choose the View entire log hyperlink to open the build log in the Amazon CloudWatch console.
+Scroll through the build log to view the test results.
 
 
 
