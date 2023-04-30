@@ -151,6 +151,12 @@ add the following json code to the permissions of the backend-flask cluster:
 
 ## Add a test stage in CodePipeline
 
+ After the Source stage, choose Add stage.
+ 
+ For Stage name, enter the name of the test stage (for example, Test). If you choose a different name, use it throughout this procedure.
+ 
+ In the selected stage, choose Add action.
+
 
 
 Source:
