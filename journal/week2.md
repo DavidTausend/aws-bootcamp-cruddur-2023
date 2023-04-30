@@ -11,72 +11,18 @@ A distributed tracing system typically consists of three main components:
 3. Trace analysis: This involves analyzing the collected traces to identify patterns, diagnose problems, and optimize the performance of the system. This can involve visualizing the trace data as a graph or timeline, searching for specific events or attributes, and using statistical analysis or machine learning to identify anomalies or trends.
 Distributed tracing is especially useful for microservices architectures, where services are typically deployed as independent units and communicate with each other over a network. In such systems, problems can arise due to network delays, service failures, or misconfigured components, and it can be challenging to diagnose the root cause of a problem without a complete view of the request path.
 
-By using distributed tracing, developers and operators can gain insights into the health and performance of the entire system, rather than just individual components. This can help to identify and fix problems quickly, improve the overall user experience, and ensure the reliability and scalability of the system.
 
 ## Xray
 
-AWS X-Ray is a service offered by Amazon Web Services (AWS) that provides observability capabilities for distributed applications, helping developers understand, analyze, and debug complex distributed systems. X-Ray allows developers to trace requests across various microservices and components of a distributed application, providing insights into how requests flow through the system and identifying performance bottlenecks and errors.
-
-Key features of AWS X-Ray include:
-
-+ Distributed tracing: X-Ray allows developers to trace requests as they flow through a distributed application, capturing information such as request origin, service calls, and response times. This provides end-to-end visibility into the flow of requests and enables troubleshooting of performance issues and errors.
-
-+ Service maps: X-Ray automatically generates service maps that visualize the connections and dependencies between different components of a distributed application. This helps developers understand the architecture and interactions between services, making it easier to identify potential issues and optimize performance.
-
-+ Trace analysis: X-Ray provides powerful tools for analyzing traces, including filtering and aggregation capabilities, which allow developers to drill down into specific traces or groups of traces based on criteria such as service name, error type, or response time. This makes it easier to identify patterns and trends in trace data, aiding in troubleshooting and performance optimization.
-
-+ Integration with AWS services: X-Ray integrates with other AWS services such as AWS Lambda, Amazon EC2, Amazon ECS, and AWS Step Functions, making it easy to add tracing capabilities to different types of applications running on AWS. X-Ray also provides SDKs for various programming languages, making it possible to instrument custom applications and capture trace data.
-
-+ Insights and visualizations: X-Ray provides a range of visualizations and insights, including service maps, timeline views, and histograms, that help developers understand the behavior and performance of their distributed applications. These visualizations provide actionable insights that can aid in identifying and resolving issues.
-
-AWS X-Ray is a powerful observability service that provides distributed tracing, service maps, trace analysis, and visualizations to help developers understand and optimize the behavior and performance of distributed applications running on AWS. It integrates with other AWS services and provides SDKs for custom applications, making it a valuable tool for building and operating distributed systems in the AWS ecosystem.
+This services will provide observability capabilities for distributed applications, helping developers understand, analyze, and debug complex distributed systems and also allows us to trace requests across various microservices and components of a distributed application, providing insights into how requests flow through the system and identifying performance bottlenecks and errors.
 
 
 ## Rollbar
 
 Rollbar is a cloud-based error monitoring and exception tracking service that helps developers identify, diagnose, and resolve errors and exceptions in their software applications. It provides observability capabilities by collecting and analyzing error data in real-time, allowing developers to gain insights into the health and performance of their applications.
 
-Key features of Rollbar include:
-
-+ Real-time error monitoring: Rollbar continuously monitors applications in real-time, capturing and analyzing errors, exceptions, and crashes across various programming languages, frameworks, and environments. It provides detailed error reports with information such as error messages, stack traces, and request data, allowing developers to quickly identify and understand the root causes of errors.
-
-+ Custom error tracking: Rollbar allows developers to define custom error tracking rules, enabling them to capture and track application-specific errors and exceptions. This makes it possible to monitor and analyze errors that are specific to a particular application or business logic, providing valuable insights into application behavior and performance.
-
-+ Alerting and notifications: Rollbar provides customizable alerting and notification features that allow developers to set up notifications when specific errors or exceptions occur, based on criteria such as error severity, error rate, or error type. This enables developers to quickly respond to critical errors and take necessary actions to resolve them.
-
-+ Integration with other tools: Rollbar integrates with various development and collaboration tools such as Slack, Jira, GitHub, and PagerDuty, allowing developers to seamlessly incorporate error monitoring into their existing workflows. This makes it easy to track and manage errors alongside other development activities.
-
-+ Analytics and reporting: Rollbar provides analytics and reporting features that help developers gain insights into error trends, error rates, and error impact over time. This information can aid in identifying patterns, understanding error patterns, and prioritizing error resolution efforts.
-
-+ Security and privacy: Rollbar takes security and privacy seriously, providing features such as data encryption, role-based access control, and compliance with industry standards such as GDPR and HIPAA. This ensures that error data is secure and protected, and complies with relevant data protection regulations.
-
-Rollbar is a cloud-based error monitoring and exception tracking service that provides real-time error monitoring, custom error tracking, alerting, integration with other tools, analytics, and security features. It helps developers gain observability into their applications' error behavior, enabling them to quickly identify, diagnose, and resolve errors, and ensure the reliability and performance of their software applications.
-
-## Cloudwatch
-
-CloudWatch is a monitoring and observability service offered by Amazon Web Services (AWS) that provides real-time monitoring, logging, and alerting for AWS resources and applications. CloudWatch enables developers and operators to gain insights into the operational health and performance of their AWS resources, applications, and services.
-
-Key features of CloudWatch include:
-
-+ Monitoring: CloudWatch provides real-time monitoring capabilities for various AWS resources, including EC2 instances, RDS databases, Lambda functions, and more. It collects and aggregates metrics, logs, and events, providing a unified view of the operational health and performance of AWS resources.
-
-+ Dashboards: CloudWatch allows users to create customizable dashboards that provide visualizations of metrics and logs, making it easy to monitor the performance and health of AWS resources at a glance. Dashboards can be shared across teams, providing a common view of operational data.
-
-+ Alarms: CloudWatch enables users to set up alarms based on thresholds and conditions, allowing them to receive notifications when certain conditions are met or exceeded. Alarms can trigger actions such as sending notifications, stopping or terminating instances, or invoking Lambda functions, allowing users to take automated actions based on monitored metrics.
-
-+ Logs: CloudWatch provides centralized logging capabilities, allowing users to collect, store, and analyze logs from various AWS resources and applications. CloudWatch Logs allows users to search, filter, and analyze logs in real-time, making it easier to troubleshoot issues and gain insights into application behavior.
-
-+ Events: CloudWatch Events enables users to monitor and respond to changes and events in their AWS environment. Users can set up rules to detect changes in AWS resources, such as EC2 instance launches or RDS database modifications, and trigger automated actions in response to these events.
-
-+ Integration with AWS services: CloudWatch integrates with many AWS services, providing native monitoring capabilities for AWS resources and services. It also supports custom metrics and logs, allowing users to instrument their applications and send custom data to CloudWatch for monitoring and analysis.
-
-+ Insights and analytics: CloudWatch provides powerful analytics capabilities, including anomaly detection, machine learning-powered insights, and log query language, allowing users to gain deep insights into operational data and troubleshoot issues more efficiently.
-
-+ CloudWatch is a comprehensive observability service provided by AWS that offers monitoring, logging, alerting, events, and analytics capabilities for AWS resources and applications. It enables users to gain insights into the operational health and performance of their AWS environment, helping them troubleshoot issues, optimize performance, and ensure the reliability of their applications and services.
 
 ## Observability vs Monitoring
-
-Observability and monitoring are two important concepts in the field of cloud computing, and specifically in the context of AWS. They both involve the process of collecting and analyzing data to gain insights into the health, performance, and behavior of applications and systems running on AWS, but they have some key differences.
 
 Observability refers to the ability to understand and gain insights into the internal state of complex systems by examining their external outputs. In other words, observability focuses on the ability to understand how a system is behaving and performing from the outside, without necessarily needing deep knowledge of its internal workings. In the context of AWS, observability can be achieved through various services such as Amazon CloudWatch, AWS X-Ray, and AWS CloudTrail.
 
@@ -84,7 +30,6 @@ On the other hand, monitoring involves the collection and analysis of data from 
 
 While observability and monitoring share some similarities, such as collecting and analyzing data to gain insights into system behavior, there are key differences between the two concepts. Observability emphasizes understanding system behavior from the outside, while monitoring focuses on tracking predefined metrics and conditions from within the system. Observability allows for more flexible and dynamic analysis of system behavior, while monitoring provides a more structured approach to tracking predefined metrics and conditions.
 
-Observability and monitoring are important concepts in the context of AWS, with observability focusing on understanding system behavior from the outside and monitoring focusing on tracking predefined metrics and conditions from within the system. Both concepts are critical for ensuring the health, performance, and reliability of applications and systems running on AWS.
 
 Source: 
 https://www.youtube.com/watch?v=bOf4ITxAcXc&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=31
