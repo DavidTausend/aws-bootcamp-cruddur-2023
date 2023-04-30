@@ -162,14 +162,20 @@ In the selected stage, choose Add action.
 In Edit action, for Action name, enter a name for the action (for example, Test). 
  
 For Action provider, under Test, choose CodeBuild.
+
+For Input artifacts, select the source value to test.
  
-Choose the name of the build project and skip to the next step in this procedure.
- 
-If you already have a build project you want to use, for Project name, choose the name of the build project and skip to the next step in this procedure.
+Choose the name of the build project and click "done".
+
+<img width="1222" alt="Week9-TestStage" src="https://user-images.githubusercontent.com/125006062/235370259-e22bf471-ad9c-46f3-92bd-48bb5d799e21.png">
+
 
 Choose Save.
  
 Choose Release change.
+
+<img width="1152" alt="Week9-TestSuccessful" src="https://user-images.githubusercontent.com/125006062/235370328-9b11f3cb-3003-4dda-8368-0f0b956b2db9.png">
+
 
 After the pipeline runs successfully, you can get the test results. In the Test stage of the pipeline, choose the CodeBuild hyperlink to open the related build project page in the CodeBuild console.
 
