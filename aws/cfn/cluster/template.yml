@@ -1,10 +1,12 @@
 AWSTemplateFormatVersion: 2010-09-09
+
 Description: |
   The networking and cluster configuration to support fargate container
   - ECS Fargate Cluster
-  - Application load balance
+  - Application load balance (ALB)
     - Only ipv4
     - internet facing
+    -certificate attached from Amazon Certification Manager (ACM)
   -ALB security Group
   - HTTPS Listerner
     - Send naked domain to frontend target group
@@ -95,13 +97,13 @@ ALB:
   IpAddressType: ipv4
   scheme: internet-facing
   SecurityGroups:
-    !Ref ALBSG
+    !GetAtt ALBSG.GroupID
   Subnets:
   VpcId:
     Fn::Split:
       - ","
       - Fn::ImportValue:
-          !Sub "${NetworkingStack}SubnetIds"
+          !Sub "${NetworkingStack}PublicSubnetIds"
   LoadBalancerAttributes:
     - Key: routing.http2.enabled
       Value: true
@@ -166,6 +168,9 @@ HTTPListener:
     Properties:
       GroupName: !Sub "${AWS::StackName}AlbSG"
       GroupDescription: Public Facing SG for our Cruddur ALB
+      VpcId:
+       Fn::ImportValue:
+        !Sub "${NetworkingStack}VpcId"
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 80

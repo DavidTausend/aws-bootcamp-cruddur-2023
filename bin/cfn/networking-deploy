@@ -2,11 +2,18 @@
 set -e # Stop the excution of the script if it fails
 
 CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/networking/template.yml"
+CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/networking/config.toml"
 
 cfn-lint $CFN_PATH
+
+BUCKET=$(cfn-toml key deploy.bucke -t $CONFIG_PATH)
+REGION=$(cfn-toml key deploy.region -t $CONFIG_PATH)
+STACK_NAME=$(cfn-toml key deploy.stack_name -t $CONFIG_PATH)
+
 aws cloudformation deploy \
-    --stack-name "CrdNet" \
-    --s3-bucket "$CFN_BUCKET" \
+    --stack-name $STACK_NAME \
+    --region $REGION \
+    --s3-bucket "$BUCKET" \
     --template-file $CFN_PATH \
     --no-execute-changeset \
     --tags group=cruddur-networking \
