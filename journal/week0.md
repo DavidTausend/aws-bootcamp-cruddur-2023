@@ -48,7 +48,7 @@ Source: https://docs.aws.amazon.com/health/latest/ug/cloudwatch-events-health.ht
 
 ## The Well Architected Tool
 
-The Well-Architected Tool in Amazon Web Services (AWS) is designed to help us to review architecture and identify areas for improvement, based on the six pillars of the AWS Well-Architected Framework: operational excellence, security, reliability, performance efficiency, cost optimization and Sustainability.
+It is designed to help us to review architecture and identify areas for improvement, based on the six pillars of the AWS Well-Architected Framework: operational excellence, security, reliability, performance efficiency, cost optimization and Sustainability.
 
 I was able to determine my priorities and the assess of my workload based on the six piller of AWS Well-Architected and determine where I can make some improvements to optimize your architecture:
 
