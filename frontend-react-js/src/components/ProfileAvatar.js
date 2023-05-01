@@ -1,17 +1,18 @@
 import './ProfileAvatar.css';
 
-export default function ProfileAvatar(props) {
-  const backgroundImage = `url("https://assets.hallotausend.com/avatars/${props.id}.jpg")`;
+export default function ProfileAvatar({ id }) {
+  const backgroundImage = id != null ? `url("https://assets.hallotausend.com/avatars/${id}.jpg")` : "none";
+
   const styles = {
-    backgroundImage: backgroundImage,
+    backgroundImage,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   };
 
   return (
     <div 
-    className="profile-avatar"
-    style={styles}
+      className="profile-avatar"
+      style={styles}
     ></div>
   );
 }
