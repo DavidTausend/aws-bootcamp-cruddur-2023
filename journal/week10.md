@@ -59,6 +59,9 @@ aws cloudformation validate-template --template-body file:///workspace/aws-bootc
 
 When I started to tag with the command!Ref on the yaml file, I got the following error message: "Unresolved tag: !Ref".
 
+<img width="498" alt="Week10-!RefProblem" src="https://user-images.githubusercontent.com/125006062/235428288-1689078d-85f3-4616-b00d-5d552164fc4d.png">
+
+
 Solution: 
 
 1. Open the user settings by clicking on the gear icon in the bottom left corner of the window.
