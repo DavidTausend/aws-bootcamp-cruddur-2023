@@ -21,7 +21,7 @@ Parameters:
     Type: String
     Description: This is our base layer of Networking components eg. VPC, Subnets,
     Default: CrdNet
-  CerticationArn:
+  CertificateArn:
     Type: String
   #Frontend ----
   FrontendPort:
@@ -44,6 +44,7 @@ Parameters:
     Default: 5
   FrontendHealthyThresholdCount: 
     Type: Number
+    Default: 2
   FrontendUnhealthyThresholdCount:
     Type: Number
     Default: 2
@@ -53,6 +54,7 @@ Parameters:
     Default: 4567
   BackendHealthCheckIntervalSeconds:
     Type: String
+    Default: 15
   BackendHealthCheckPath: 
     Type: String
     Default: "/api/health-check"
