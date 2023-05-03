@@ -16,7 +16,7 @@ Description: |
   - Backend target group
   - Fronted target group
 
-Paramenters:
+Parameters:
   NetworkingStack:
     Type: String
     Description: This is our base layer of Networking components eg. VPC, Subnets,
@@ -77,10 +77,10 @@ Resources:
     Type: AWS::ECS::Cluster
     Properties:
       ClusterName: !Sub "${AWS::StackName}FargateCluster"
-      CapacityProvider: 
+      CapacityProviders: 
         - FARGATE
       ClusterSettings:
-        - Name:
+        - Name: containerInsights
           Value: enabled
       Configuration:
         ExecuteCommandConfiguration:
@@ -95,9 +95,10 @@ ALB:
   Name: !Sub Cluster "${AWS::StackName}ALB"
   Type: application
   IpAddressType: ipv4
+   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-loadbalancer-loadbalancerattributes.html
   scheme: internet-facing
   SecurityGroups:
-    !GetAtt ALBSG.GroupID
+    !GetAtt ALBSG.GroupId
   Subnets:
   VpcId:
     Fn::Split:
@@ -113,9 +114,9 @@ ALB:
       Value: true
     - Key: load_balancing.cross_zone.enabled
       Value: true
-    # incase we want to turn logs  
-    #- Name: access_logs.s3.enabled
-     # Value: false
+    - Name: access_logs.s3.enabled
+      Value: false
+    # incase we want to turn logs 
     #- Name: access-logs.s3.bucket
      # Value: bucket-name
     #- Name: access_logs.s3.prefix
