@@ -195,8 +195,8 @@ BackendTG:
     HealthCheckIntervalSeconds: !Ref BackendHealthCheckIntervalSeconds
     HealthCheckPath: !Ref BackendHealthCheckPath
     HealthCheckPort: !Ref BackendHealthCheckPort
-    HealthCheckTimeoutSeconds: !Ref BackendHealthTimeoutSeconds
-    HealthyThresholdCount: !Ref BackendHealthCheckCount
+    HealthCheckTimeoutSeconds: !Ref BackendHealthCheckTimeoutSeconds
+    HealthyThresholdCount: !Ref BackendHealthyThresholdCount
     UnhealthyThresholdCount: !Ref BackendUhhealthyThresholdCount
     IpAddressType: ipv4
     Matcher: 
@@ -220,8 +220,8 @@ FrontendTG:
     HealthCheckIntervalSeconds: !Ref FrontendHealthCheckIntervalSeconds
     HealthCheckPath: !Ref FrontendHealthCheckPath
     HealthCheckPort: !Ref FrontendHealthCheckPort
-    HealthCheckTimeoutSeconds: !Ref FrontendHealthTimeoutSeconds
-    HealthyThresholdCount: !Ref FrontendHealthCheckCount
+    HealthCheckTimeoutSeconds: !Ref FrontendHealthCheckTimeoutSeconds
+    HealthyThresholdCount: !Ref FrontendHealthyThresholdCount
     UnhealthyThresholdCount: !Ref FrontendUhhealthyThresholdCount
     IpAddressType: ipv4
     Matcher: 
@@ -235,6 +235,10 @@ FrontendTG:
       Fn::ImportValue:
         !Sub "${NetworkingStack}VpcId"
 Outputs:
+  ClusterName:
+    Value: !Ref FargateCluster
+    Export:
+      Name: !Sub "${AWS::StackName}ClusterName"
   ALBSecurityGroupId:
     Value: !GetAtt ALBSG.GroupId
     Export:
