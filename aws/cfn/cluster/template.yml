@@ -21,7 +21,7 @@ Parameters:
     Type: String
     Description: This is our base layer of Networking components eg. VPC, Subnets,
     Default: CrdNet
-  CerficationArn:
+  CerticationArn:
     Type: String
   #Frontend ----
   FrontendPort:
@@ -160,7 +160,7 @@ HTTPListener:
             - .api.hallotausend.com
       Actions: 
       - Type: forward
-        TargerGroupArn: !Ref BackendTG
+        TargetGroupArn: !Ref BackendTG
       ListenerArn: !Ref HTTPSListener
       Priority: 1
   ALBSG: 
@@ -174,8 +174,8 @@ HTTPListener:
         !Sub "${NetworkingStack}VpcId"
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: 80
-          ToPort: 80
+          FromPort: 443
+          ToPort: 443
           CidrIp: 0.0.0.0/0
           Description: INTERNET HTTPS
       SecurityGroupEgress:
