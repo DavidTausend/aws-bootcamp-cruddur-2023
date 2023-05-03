@@ -180,7 +180,6 @@ HTTPListener:
           ToPort: 443
           CidrIp: 0.0.0.0/0
           Description: INTERNET HTTPS
-      SecurityGroupEgress:
         - IpProtocol: tcp
           FromPort: 80
           ToPort: 80
@@ -199,7 +198,7 @@ BackendTG:
     HealthCheckPort: !Ref BackendHealthCheckPort
     HealthCheckTimeoutSeconds: !Ref BackendHealthCheckTimeoutSeconds
     HealthyThresholdCount: !Ref BackendHealthyThresholdCount
-    UnhealthyThresholdCount: !Ref BackendUhhealthyThresholdCount
+    UnhealthyThresholdCount: !Ref BackendUnhealthyThresholdCount
     IpAddressType: ipv4
     Matcher: 
       HttpCode: 200
@@ -224,7 +223,7 @@ FrontendTG:
     HealthCheckPort: !Ref FrontendHealthCheckPort
     HealthCheckTimeoutSeconds: !Ref FrontendHealthCheckTimeoutSeconds
     HealthyThresholdCount: !Ref FrontendHealthyThresholdCount
-    UnhealthyThresholdCount: !Ref FrontendUhhealthyThresholdCount
+    UnhealthyThresholdCount: !Ref FrontendUnhealthyThresholdCount
     IpAddressType: ipv4
     Matcher: 
       HttpCode: 200

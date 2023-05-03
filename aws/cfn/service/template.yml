@@ -94,6 +94,8 @@ Resources:
     Type: AWS::ECS::Service
     Properties:
       Cluster:
+        Fn::ImportValue:
+          !Sub "${ClusterStack}Name"
       DeploymentConfiguration:
       DeploymentController:
       DesiredCount:
