@@ -14,7 +14,7 @@ Description: |
   - HTTP Listerner
     - redirects to HTTPS Listerner
   - Backend target group
-  - Fronted target group
+  - Frontend target group
 
 Parameters:
   NetworkingStack:
@@ -130,7 +130,7 @@ Resources:
       Port: 443
       LoadBalancerArn: !Ref ALB
       Certificates:
-        - CertificateArn: !Ref CerificateArn
+        - CertificateArn: !Ref CertificateArn
       DefaultActions:
         - Type: forward
           TargetGroupArn: !Ref FrontendTG
@@ -141,7 +141,7 @@ Resources:
       Protocol: "HTTP"
       Port: 80
       LoadBalancerArn: !Ref ALB
-    DefaultActions:
+      DefaultActions:
       - Type: redirect
         RedirectConfig:
           Protocol: "HTTPS"
