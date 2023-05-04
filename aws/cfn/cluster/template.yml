@@ -157,7 +157,7 @@ Resources:
     Properties:  
       Conditions: 
       - Field: host-header
-        HostHearderConfig:
+        HostHeaderConfig:
           Values: 
             - .api.hallotausend.com
       Actions: 
@@ -185,56 +185,56 @@ Resources:
           ToPort: 80
           CidrIp: 0.0.0.0/0
           Description: INTERNET HTTP
-BackendTG:
-  #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html
-  Type: AWS::ElasticLoadBalancingV2::TargetGroup
-  Properties:
-    Name: !Sub  "${AWS::StackName}BackendTG"
-    Port: !Ref  BackendPort
-    HealthCheckEnabled: true
-    HealthCheckProtocol: !Ref BackendHealthCheckProtocol
-    HealthCheckIntervalSeconds: !Ref BackendHealthCheckIntervalSeconds
-    HealthCheckPath: !Ref BackendHealthCheckPath
-    HealthCheckPort: !Ref BackendHealthCheckPort
-    HealthCheckTimeoutSeconds: !Ref BackendHealthCheckTimeoutSeconds
-    HealthyThresholdCount: !Ref BackendHealthyThresholdCount
-    UnhealthyThresholdCount: !Ref BackendUnhealthyThresholdCount
-    IpAddressType: ipv4
-    Matcher: 
-      HttpCode: 200
-    Protocol: HTTP
-    ProtocolVersion: HTTP2 
-    TargetGroupAttributes: 
-      - Key: deregistration_delay.timeout_seconds
-        Value: 0
-    VpcId:
-      Fn::ImportValue:
-        !Sub "${NetworkingStack}VpcId"
-FrontendTG:
-  #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html      
-  Type: AWS::ElasticLoadBalancingV2::TargetGroup
-  Properties:
-    Name: !Sub "${AWS::StackName}FrontendTG"
-    Port: !Ref  FrontendPort
-    HealthCheckEnabled: true
-    HealthCheckProtocol: !Ref FrontendHealthCheckProtocol
-    HealthCheckIntervalSeconds: !Ref FrontendHealthCheckIntervalSeconds
-    HealthCheckPath: !Ref FrontendHealthCheckPath
-    HealthCheckPort: !Ref FrontendHealthCheckPort
-    HealthCheckTimeoutSeconds: !Ref FrontendHealthCheckTimeoutSeconds
-    HealthyThresholdCount: !Ref FrontendHealthyThresholdCount
-    UnhealthyThresholdCount: !Ref FrontendUnhealthyThresholdCount
-    IpAddressType: ipv4
-    Matcher: 
-      HttpCode: 200
-    Protocol: HTTP
-    ProtocolVersion: HTTP2
-    TargetGroupAttributes: 
-      - Key: deregistration_delay.timeout_seconds
-        Value: 0
-    VpcId:
-      Fn::ImportValue:
-        !Sub "${NetworkingStack}VpcId"
+  BackendTG:
+    #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: !Sub  "${AWS::StackName}BackendTG"
+      Port: !Ref  BackendPort
+      HealthCheckEnabled: true
+      HealthCheckProtocol: !Ref BackendHealthCheckProtocol
+      HealthCheckIntervalSeconds: !Ref BackendHealthCheckIntervalSeconds
+      HealthCheckPath: !Ref BackendHealthCheckPath
+      HealthCheckPort: !Ref BackendHealthCheckPort
+      HealthCheckTimeoutSeconds: !Ref BackendHealthCheckTimeoutSeconds
+      HealthyThresholdCount: !Ref BackendHealthyThresholdCount
+      UnhealthyThresholdCount: !Ref BackendUnhealthyThresholdCount
+      IpAddressType: ipv4
+      Matcher: 
+        HttpCode: 200
+      Protocol: HTTP
+      ProtocolVersion: HTTP2 
+      TargetGroupAttributes: 
+        - Key: deregistration_delay.timeout_seconds
+          Value: 0
+      VpcId:
+        Fn::ImportValue:
+          !Sub "${NetworkingStack}VpcId"
+  FrontendTG:
+    #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html      
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: !Sub "${AWS::StackName}FrontendTG"
+      Port: !Ref  FrontendPort
+      HealthCheckEnabled: true
+      HealthCheckProtocol: !Ref FrontendHealthCheckProtocol
+      HealthCheckIntervalSeconds: !Ref FrontendHealthCheckIntervalSeconds
+      HealthCheckPath: !Ref FrontendHealthCheckPath
+      HealthCheckPort: !Ref FrontendHealthCheckPort
+      HealthCheckTimeoutSeconds: !Ref FrontendHealthCheckTimeoutSeconds
+      HealthyThresholdCount: !Ref FrontendHealthyThresholdCount
+      UnhealthyThresholdCount: !Ref FrontendUnhealthyThresholdCount
+      IpAddressType: ipv4
+      Matcher: 
+        HttpCode: 200
+      Protocol: HTTP
+      ProtocolVersion: HTTP2
+      TargetGroupAttributes: 
+        - Key: deregistration_delay.timeout_seconds
+          Value: 0
+      VpcId:
+        Fn::ImportValue:
+          !Sub "${NetworkingStack}VpcId"
 Outputs:
   ClusterName:
     Value: !Ref FargateCluster
