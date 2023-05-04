@@ -38,37 +38,37 @@ Parameters:
     Default: '250283220840.dkr.ecr.eu-central-1.amazonaws.com/backend-flask'
   EnvOtelServiceName:
     Type: String
-    Value: backend-flask
+    Default: backend-flask
   EnvOtelExporterOtlpEndpoint:
     Type: String
-    Value: https://api.honeycomb.io
+    Default: https://api.honeycomb.io
   EnvAWSCognitoUserPoolId:
     Type: String
-    Value: eu-central-1_rDpbtgw5E
+    Default: eu-central-1_rDpbtgw5E
   EnvCognitoUserPoolClientId:
     Type: String
-    Value: 2bsm1nf80lse6sgrntodvnkq01
+    Default: 2bsm1nf80lse6sgrntodvnkq01
   EnvFrontendUrl:
     Type: String
-    Value: "*"
+    Default: "*"
   EnvBackendUrl:
     Type: String
-    Value: "*"
+    Default: "*"
   SecretsAWSAccessKeyId:
     Type: String
-    Value: 'arn:aws:ssm:eu-central-1:250283220840:parameter/cruddur/backend-flask/AWS_ACCESS_KEY_ID'
+    Default: 'arn:aws:ssm:eu-central-1:250283220840:parameter/cruddur/backend-flask/AWS_ACCESS_KEY_ID'
   SecretsSecretAccessKey:
     Type: String
-    Value: 'arn:aws:ssm:eu-central-1:250283220840:parameter/cruddur/backend-flask/AWS_SECRET_ACCESS_KEY'
+    Default: 'arn:aws:ssm:eu-central-1:250283220840:parameter/cruddur/backend-flask/AWS_SECRET_ACCESS_KEY'
   SecretsConnectionUrl:
     Type: String
-    Value: 'arn:aws:ssm:eu-central-1:250283220840:parameter/cruddur/backend-flask/CONNECTION_URL'
+    Defaulte: 'arn:aws:ssm:eu-central-1:250283220840:parameter/cruddur/backend-flask/CONNECTION_URL'
   SecretsRollbarAccessToken:
     Type: String
-    Value: 'arn:aws:ssm:eu-central-1:250283220840:parameter/cruddur/backend-flask/ROLLBAR_ACCESS_TOKEN'
+    Default: 'arn:aws:ssm:eu-central-1:250283220840:parameter/cruddur/backend-flask/ROLLBAR_ACCESS_TOKEN'
   SecretsOtelExporterOltpHeaders:
     Type: String
-    ValueFrom: 'arn:aws:ssm:eu-central-1:250283220840:parameter/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS'
+    Default: 'arn:aws:ssm:eu-central-1:250283220840:parameter/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS'
 
 Resources: 
   ServiceSG: 
@@ -87,7 +87,6 @@ Resources:
              !Sub "${ClusterStack}ALBSecurityGroupId"
           FromPort: 80
           ToPort: 80
-          CidrIp: 0.0.0.0/0
           Description: ALB HTTP
   FargetService:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html
@@ -98,10 +97,11 @@ Resources:
           !Sub "${ClusterStack}Name"
       DeploymentConfiguration:
       DeploymentController:
-      DesiredCount:
+        Type: ECS  
+      DesiredCount: 1
       EnableExecuteCommand: true
       EnableExcecuteCommand: true
-      HealthCheckGracePeriodSeconds:
+      HealthCheckGracePeriodSeconds: 0
       LaunchType: Fargate 
       LoadBalancers:
         - TargetGroupArn: "arn:aws:elasticloadbalancing:eu-central-1:250283220840:targetgroup/cruddur-backend-flask-tg/94383c86f1959633"
@@ -125,18 +125,18 @@ Resources:
           ContainerName: backend-flask
           ContainerPort: !Ref ConteinerPort
       ServiceName: !Ref ServiceName
-      TaskDefintion: !Ref TaskFamily
+      TaskDefintion: !Ref TaskDefinition
 
   TasDefinition:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html
     Type: AWS::ECS::TaskDefinition
     Properties:
       Family: !Ref TaskFamily
-      ExecutionRoleArn: !Ref ExecutionRole
-      TaskRoleArn: !Ref TaskRole
+      ExecutionRoleArn: !GetAtt ExecutionRole.Arn
+      TaskRoleArn: !GetAtt TaskRole.Arn
       NetworkMode: 'awsvpc'
-      Cpu: '512'
-      Memory: "512"
+      Cpu: !Ref ServiceCpu
+      Memory: !Ref ServiceMemory
       RequiresCompatibilities:
         - FARGATE
       ContainerDefinitions:
@@ -168,7 +168,7 @@ Resources:
             LogDriver: awslogs
             Options:
               awslogs-group: cruddur
-              awslogs-region: ${AWS::Region}
+              awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: !Ref ServiceName
           Environment:
             - Name: OTEL_SERVICE_NAME
@@ -184,7 +184,7 @@ Resources:
             - Name: BACKEND_URL
               Value: !Ref EnvBackendUrl
             - Name: AWS_DEFAULT_REGION
-              Value: ${AWS::Region}
+              Value: !Ref AWS::Region
           Secrets:
             - Name: AWS_ACCESS_KEY_ID
               ValueFrom: !Ref SecretsAWSAccessKeyId
@@ -208,33 +208,30 @@ Resources:
             Principal:
               Service: "ecs-tasks.amazonaws.com"
             Action: "sts:AssumeRole"
+      Policies:
+        - PolicyName: "cruddur-ececution-policy"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: VisualEditor0
+                Effect: Allow
+                Action:
+                  - ecr:GetAuthorizationToken
+                  - ecr:BatchCheckLayerAvailability
+                  - ecr:GetDownloadUrlForLayer
+                  - ecr:BatchGetImage
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: "*"
+              - Sid: VisualEditor1
+                Effect: Allow
+                Action:
+                  - ssm:GetParameters
+                  - ssm:GetParameter
+                Resource: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cruddur/${ServiceName}/*'        
       ManagedPolicyArns:
         - !Sub arn:aws:iam::${AWS::AccountId}:policy/${!Ref ExecutionPolicy}
         - arn:aws:iam::123456789012:policy/CloudWatchLogsFullAcces
-  ExecutionPolicy:
-  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html
-    Type: AWS::IAM::Policy
-    Properties:
-      Description: "cruddur-ececution-policy"
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Sid: VisualEditor0
-            Effect: Allow
-            Action:
-              - ecr:GetAuthorizationToken
-              - ecr:BatchCheckLayerAvailability
-              - ecr:GetDownloadUrlForLayer
-              - ecr:BatchGetImage
-              - logs:CreateLogStream
-              - logs:PutLogEvents
-            Resource: "*"
-          - Sid: VisualEditor1
-            Effect: Allow
-            Action:
-              - ssm:GetParameters
-              - ssm:GetParameter
-            Resource: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cruddur/${ServiceName}/*'
 TaskRole:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
     Type: "AWS::IAM::Role"
@@ -247,23 +244,20 @@ TaskRole:
             Principal:
               Service: "ecs-tasks.amazonaws.com"
             Action: "sts:AssumeRole"
+      Policies: 
+        - PolicyName: "cruddur-task-policy"
+          PolicyDocument:
+            Version: "2012-10-17" 
+            Statement:
+              - Sid: VisualEditor0
+                Effect: Allow
+                Action:
+                    ssmmessages:CreateControlChannel
+                    ssmmessages:CreateDataChannel
+                    ssmmessages:OpenControlChannel
+                    ssmmessages:OpenDataChannel
+                Resource: "*"
       ManagedPolicyArns:
         - !Sub "arn:aws:iam::${AWS::AccountId}:policy/${TaskPolicy}"
         - arn:aws:iam::123456789012:policy/CloudWatchLogsFullAcces
         - arn:aws:iam::123456789012:policy/AWSXRayDaemonWriteAccess
-TaskPolicy:
-  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html
-    Type: AWS::IAM::Policy
-    Properties:
-      Description: "cruddur-task-policy"
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Sid: VisualEditor0
-            Effect: Allow
-            Action:
-                ssmmessages:CreateControlChannel
-                ssmmessages:CreateDataChannel
-                ssmmessages:OpenControlChannel
-                ssmmessages:OpenDataChannel
-            Resource: "*"
