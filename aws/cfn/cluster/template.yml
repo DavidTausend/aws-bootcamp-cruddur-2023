@@ -90,59 +90,59 @@ Resources:
          Logging: DEFAULT
       ServiceConnectDefaults:
         Namespace: cruddur
-ALB:
- #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-loadbalancer.html
- Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
- Properties:
-  Name: !Sub Cluster "${AWS::StackName}ALB"
-  Type: application
-  IpAddressType: ipv4
-   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-loadbalancer-loadbalancerattributes.html
-  scheme: internet-facing
-  SecurityGroups:
-    !GetAtt ALBSG.GroupId
-  Subnets:
-  VpcId:
-    Fn::Split:
-      - ","
-      - Fn::ImportValue:
-          !Sub "${NetworkingStack}PublicSubnetIds"
-  LoadBalancerAttributes:
-    - Key: routing.http2.enabled
-      Value: true
-    - Key: routung.http.preserve_host_header.enabled
-      Value: false
-    - Key: deletion_protection.enabled
-      Value: true
-    - Key: load_balancing.cross_zone.enabled
-      Value: true
-    - Name: access_logs.s3.enabled
-      Value: false
-    # incase we want to turn logs 
-    #- Name: access-logs.s3.bucket
-     # Value: bucket-name
-    #- Name: access_logs.s3.prefix
-     # Value:
-HTTPSListener:
-  #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html
-  Type: AWS::ElasticLoadBalancingV2::Listener
-  Properties: 
-    Protocol: HTTPS
-    Port: 443
-    Loadbalancearn: !Ref ALB
-    Certificates:
-      - CertificateArn: !Ref CerificateArn
+  ALB:
+  #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-loadbalancer.html
+  Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
+  Properties:
+    Name: !Sub Cluster "${AWS::StackName}ALB"
+    Type: application
+    IpAddressType: ipv4
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-loadbalancer-loadbalancerattributes.html
+    scheme: internet-facing
+    SecurityGroups:
+      !GetAtt ALBSG.GroupId
+    Subnets:
+    VpcId:
+      Fn::Split:
+        - ","
+        - Fn::ImportValue:
+            !Sub "${NetworkingStack}PublicSubnetIds"
+    LoadBalancerAttributes:
+      - Key: routing.http2.enabled
+        Value: true
+      - Key: routung.http.preserve_host_header.enabled
+        Value: false
+      - Key: deletion_protection.enabled
+        Value: true
+      - Key: load_balancing.cross_zone.enabled
+        Value: true
+      - Name: access_logs.s3.enabled
+        Value: false
+      # incase we want to turn logs 
+      #- Name: access-logs.s3.bucket
+      # Value: bucket-name
+      #- Name: access_logs.s3.prefix
+      # Value:
+  HTTPSListener:
+    #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties: 
+      Protocol: HTTPS
+      Port: 443
+      Loadbalancearn: !Ref ALB
+      Certificates:
+        - CertificateArn: !Ref CerificateArn
+      Defaultactions:
+        - Type: forward
+          TargerGroupArn: !Ref FrontendTG
+  HTTPListener:
+    #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties: 
+      Protocol: HTTP
+      Port: 80
+      Loadbalancearn: !Ref ALB
     Defaultactions:
-      - Type: forward
-        TargerGroupArn: !Ref FrontendTG
-HTTPListener:
-  #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html
-  Type: AWS::ElasticLoadBalancingV2::Listener
-  Properties: 
-    Protocol: HTTP
-    Port: 80
-    Loadbalancearn: !Ref ALB
-  Defaultactions:
       - Type: redirect
         RedirectConfig:
           Protocol: "HTTPS"
