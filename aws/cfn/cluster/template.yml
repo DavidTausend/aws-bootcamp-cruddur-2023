@@ -98,9 +98,9 @@ Resources:
       Type: application
       IpAddressType: ipv4
       # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-loadbalancer-loadbalancerattributes.html
-      scheme: internet-facing
+      Scheme: internet-facing
       SecurityGroups:
-        !GetAtt ALBSG.GroupId
+        - !GetAtt ALBSG.GroupId
       Subnets:
       VpcId:
         Fn::Split:
@@ -110,13 +110,13 @@ Resources:
       LoadBalancerAttributes:
         - Key: routing.http2.enabled
           Value: true
-        - Key: routung.http.preserve_host_header.enabled
+        - Key: routing.http.preserve_host_header.enabled
           Value: false
         - Key: deletion_protection.enabled
           Value: true
         - Key: load_balancing.cross_zone.enabled
           Value: true
-        - Name: access_logs.s3.enabled
+        - Key: access_logs.s3.enabled
           Value: false
         # incase we want to turn logs 
         #- Name: access-logs.s3.bucket
