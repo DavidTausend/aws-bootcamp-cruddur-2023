@@ -5,7 +5,6 @@ Description: |
   Execution Role
   Task Role
 
-
 Parameters:
   NetworkingStack:
     Type: String
@@ -125,7 +124,7 @@ Resources:
           ContainerName: backend-flask
           ContainerPort: !Ref ConteinerPort
       ServiceName: !Ref ServiceName
-      TaskDefintion: !Ref TaskDefinition
+      TaskDefinition: !Ref TaskDefinition
 
   TasDefinition:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html
@@ -258,6 +257,5 @@ TaskRole:
                     ssmmessages:OpenDataChannel
                 Resource: "*"
       ManagedPolicyArns:
-        - !Sub "arn:aws:iam::${AWS::AccountId}:policy/${TaskPolicy}"
         - arn:aws:iam::123456789012:policy/CloudWatchLogsFullAcces
         - arn:aws:iam::123456789012:policy/AWSXRayDaemonWriteAccess

@@ -19,5 +19,5 @@ aws cloudformation deploy \
     --template-file $CFN_PATH \
     --no-execute-changeset \
     --tags group=cruddur-backend-flask \
-    --parameter-overrides $PARAMETERS \
     --capabilities CAPABILITY_NAMED_IAM
+    #--parameter-overrides $PARAMETERS \
