@@ -1,100 +1,99 @@
 AWSTemplateFormatVersion: 2010-09-09
 
 Description: |
-  The networking and cluster configuration to support fargate container
+  The networking and cluster configuration to support fargate containers
   - ECS Fargate Cluster
-  - Application load balance (ALB)
-    - Only ipv4
+  - Application Load Balanacer (ALB)
+    - ipv4 only
     - internet facing
-    -certificate attached from Amazon Certification Manager (ACM)
-  -ALB security Group
+    - certificate attached from Amazon Certification Manager (ACM)
+  - ALB Security Group
   - HTTPS Listerner
-    - Send naked domain to frontend target group
-    - Send api. subdomain to backend target group
+    - send naked domain to frontend Target Group
+    - send api. subdomain to backend Target Group
   - HTTP Listerner
     - redirects to HTTPS Listerner
-  - Backend target group
-  - Frontend target group
-
+  - Backend Target Group
+  - Frontend Target Group
 Parameters:
   NetworkingStack:
     Type: String
-    Description: This is our base layer of Networking components eg. VPC, Subnets,
+    Description: This is our base layer of networking components eg. VPC, Subnets
     Default: CrdNet
   CertificateArn:
     Type: String
-  #Frontend ----
+  #Frontend ------
   FrontendPort:
     Type: Number
     Default: 3000
   FrontendHealthCheckIntervalSeconds:
     Type: Number
     Default: 15
-  FrontendHealthCheckPath: 
+  FrontendHealthCheckPath:
     Type: String
     Default: "/"
-  FrontendHealthCheckPort: 
+  FrontendHealthCheckPort:
     Type: String
     Default: 80
-  FrontendHealthCheckProtocol: 
+  FrontendHealthCheckProtocol:
     Type: String
     Default: HTTP
-  FrontendHealthCheckTimeoutSeconds: 
+  FrontendHealthCheckTimeoutSeconds:
     Type: Number
     Default: 5
-  FrontendHealthyThresholdCount: 
+  FrontendHealthyThresholdCount:
     Type: Number
     Default: 2
   FrontendUnhealthyThresholdCount:
     Type: Number
     Default: 2
-  #Backend ------  
+  #Backend ------
   BackendPort:
     Type: Number
     Default: 4567
   BackendHealthCheckIntervalSeconds:
     Type: String
     Default: 15
-  BackendHealthCheckPath: 
+  BackendHealthCheckPath:
     Type: String
     Default: "/api/health-check"
-  BackendHealthCheckPort: 
+  BackendHealthCheckPort:
     Type: String
     Default: 80
-  BackendHealthCheckProtocol: 
+  BackendHealthCheckProtocol:
     Type: String
     Default: HTTP
-  BackendHealthCheckTimeoutSeconds: 
+  BackendHealthCheckTimeoutSeconds:
     Type: Number
     Default: 5
-  BackendHealthyThresholdCount: 
+  BackendHealthyThresholdCount:
     Type: Number
     Default: 2
   BackendUnhealthyThresholdCount:
     Type: Number
     Default: 2
 Resources:
-  FargateCluster: 
-    #https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-cluster.html
+  FargateCluster:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-cluster.html
     Type: AWS::ECS::Cluster
     Properties:
       ClusterName: !Sub "${AWS::StackName}FargateCluster"
-      CapacityProviders: 
+      CapacityProviders:
         - FARGATE
       ClusterSettings:
         - Name: containerInsights
           Value: enabled
       Configuration:
         ExecuteCommandConfiguration:
-         #KmsKeyId: !Ref KmsKeyId
-         Logging: DEFAULT
+          # KmsKeyId: !Ref KmsKeyId
+          Logging: DEFAULT
       ServiceConnectDefaults:
         Namespace: cruddur
   ALB:
-  #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-loadbalancer.html
-    Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
-    Properties:
-      Name: !Sub Cluster "${AWS::StackName}ALB"
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-loadbalancer.html
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties: 
+      Name: !Sub "${AWS::StackName}ALB"
       Type: application
       IpAddressType: ipv4
       # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-loadbalancer-loadbalancerattributes.html
@@ -117,79 +116,79 @@ Resources:
           Value: true
         - Key: access_logs.s3.enabled
           Value: false
-        # incase we want to turn logs 
-        #- Name: access-logs.s3.bucket
-        # Value: bucket-name
-        #- Name: access_logs.s3.prefix
-        # Value:
+        # In-case we want to turn on logs
+        # - Name: access_logs.s3.bucket
+        #   Value: bucket-name
+        # - Name: access_logs.s3.prefix
+        #   Value: ""
   HTTPSListener:
-    #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html
     Type: AWS::ElasticLoadBalancingV2::Listener
-    Properties: 
+    Properties:
       Protocol: HTTPS
       Port: 443
       LoadBalancerArn: !Ref ALB
-      Certificates:
+      Certificates: 
         - CertificateArn: !Ref CertificateArn
       DefaultActions:
         - Type: forward
-          TargetGroupArn: !Ref FrontendTG
+          TargetGroupArn:  !Ref FrontendTG
   HTTPListener:
-    #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html
     Type: AWS::ElasticLoadBalancingV2::Listener
-    Properties: 
-      Protocol: "HTTP"
-      Port: 80
-      LoadBalancerArn: !Ref ALB
-      DefaultActions:
-      - Type: redirect
-        RedirectConfig:
-          Protocol: "HTTPS"
-          Port: 443
-          Host: "#{host}"
-          Path: "/#{path}"
-          Query: "#{query}"
-          StatusCode: "HTTP_301"
-  ApiALBListenerRule:
-    #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenerrule.html
+    Properties:
+        Protocol: HTTP
+        Port: 80
+        LoadBalancerArn: !Ref ALB
+        DefaultActions:
+          - Type: redirect
+            RedirectConfig:
+              Protocol: "HTTPS"
+              Port: 443
+              Host: "#{host}"
+              Path: "/#{path}"
+              Query: "#{query}"
+              StatusCode: "HTTP_301"
+  ApiALBListernerRule:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenerrule.html
     Type: AWS::ElasticLoadBalancingV2::ListenerRule
-    Properties:  
+    Properties:
       Conditions: 
-      - Field: host-header
-        HostHeaderConfig:
-          Values: 
-            - .api.hallotausend.com
+        - Field: host-header
+          HostHeaderConfig: 
+            Values: 
+              - api.cruddur.com
       Actions: 
-      - Type: forward
-        TargetGroupArn: !Ref BackendTG
+        - Type: forward
+          TargetGroupArn:  !Ref BackendTG
       ListenerArn: !Ref HTTPSListener
       Priority: 1
-  ALBSG: 
-    #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html
+  ALBSG:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupName: !Sub "${AWS::StackName}AlbSG"
       GroupDescription: Public Facing SG for our Cruddur ALB
       VpcId:
-       Fn::ImportValue:
-        !Sub "${NetworkingStack}VpcId"
+        Fn::ImportValue:
+          !Sub ${NetworkingStack}VpcId
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 443
           ToPort: 443
-          CidrIp: 0.0.0.0/0
+          CidrIp: '0.0.0.0/0'
           Description: INTERNET HTTPS
         - IpProtocol: tcp
           FromPort: 80
           ToPort: 80
-          CidrIp: 0.0.0.0/0
+          CidrIp: '0.0.0.0/0'
           Description: INTERNET HTTP
   BackendTG:
-    #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: !Sub  "${AWS::StackName}BackendTG"
-      Port: !Ref  BackendPort
+      Name: !Sub "${AWS::StackName}BackendTG"
+      Port: !Ref BackendPort
       HealthCheckEnabled: true
       HealthCheckProtocol: !Ref BackendHealthCheckProtocol
       HealthCheckIntervalSeconds: !Ref BackendHealthCheckIntervalSeconds
@@ -202,7 +201,7 @@ Resources:
       Matcher: 
         HttpCode: 200
       Protocol: HTTP
-      ProtocolVersion: HTTP2 
+      ProtocolVersion: HTTP2
       TargetGroupAttributes: 
         - Key: deregistration_delay.timeout_seconds
           Value: 0
@@ -210,11 +209,11 @@ Resources:
         Fn::ImportValue:
           !Sub "${NetworkingStack}VpcId"
   FrontendTG:
-    #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html      
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
       Name: !Sub "${AWS::StackName}FrontendTG"
-      Port: !Ref  FrontendPort
+      Port: !Ref FrontendPort
       HealthCheckEnabled: true
       HealthCheckProtocol: !Ref FrontendHealthCheckProtocol
       HealthCheckIntervalSeconds: !Ref FrontendHealthCheckIntervalSeconds
