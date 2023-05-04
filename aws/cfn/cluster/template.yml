@@ -102,7 +102,6 @@ Resources:
       SecurityGroups:
         - !GetAtt ALBSG.GroupId
       Subnets:
-      VpcId:
         Fn::Split:
           - ","
           - Fn::ImportValue:
@@ -139,7 +138,7 @@ Resources:
     #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties: 
-      Protocol: HTTP
+      Protocol: "HTTP"
       Port: 80
       LoadBalancerArn: !Ref ALB
     DefaultActions:
