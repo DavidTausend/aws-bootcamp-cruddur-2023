@@ -87,13 +87,13 @@ Resources:
           FromPort: 80
           ToPort: 80
           Description: ALB HTTP
-  FargetService:
+  FargateService:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html
     Type: AWS::ECS::Service
     Properties:
       Cluster:
         Fn::ImportValue:
-          !Sub "${ClusterStack}Name"
+          !Sub "${ClusterStack}ClusterName"
       DeploymentConfiguration:
       DeploymentController:
         Type: ECS  
