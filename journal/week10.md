@@ -73,10 +73,6 @@ Solution:
 
 After following these steps, you should be able to use the !Ref tag in your YAML files in Gitpod without getting the "Unresolved tag: !Ref" error.
 
-pip install cfn-lint
-
-cargo install cfn-guard
-
 
 Source:
 https://www.youtube.com/watch?v=BRmEG4zicM0&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=85
