@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-  Tasl Definition File
+  Task Definition File
   Fargate Service
   Execution Role
   Task Role
@@ -126,7 +126,7 @@ Resources:
       ServiceName: !Ref ServiceName
       TaskDefinition: !Ref TaskDefinition
 
-  TasDefinition:
+  TaskDefinition:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html
     Type: AWS::ECS::TaskDefinition
     Properties:
@@ -148,7 +148,7 @@ Resources:
               ContainerPort: 2000
               Protocol: udp
         - Name: backend-flask
-          Image: !Ref ErcImage
+          Image: !Ref EcrImage
           Essential: true
           HealthCheck:
             Command:
