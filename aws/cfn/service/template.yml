@@ -129,7 +129,7 @@ Resources:
           - DiscorveryName: backend-flask
             PortName: backend-flask
             ClientAliasses:
-              - Port: 4567
+              - Port: !Ref ContainerPort
       #ServiceRegistries:
       #  - RegistryArn: !Sub "arn:aws:servicediscovery:us-east-1:123456789012:service/srv-xmpl"
       #    Port: !Ref ConteinerPort
@@ -137,7 +137,6 @@ Resources:
       #    ContainerPort: !Ref ConteinerPort
       ServiceName: !Ref ServiceName
       TaskDefinition: !Ref TaskDefinition
-
   TaskDefinition:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html
     Type: AWS::ECS::TaskDefinition
