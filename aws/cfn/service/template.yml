@@ -100,7 +100,7 @@ Resources:
       DesiredCount: 1
       EnableExecuteCommand: true
       EnableExcecuteCommand: true
-      HealthCheckGracePeriodSeconds: 0
+      HealthCheckGracePeriodSeconds: 100
       LaunchType: Fargate 
       LoadBalancers:
         - TargetGroupArn: 
@@ -270,3 +270,9 @@ TaskRole:
       ManagedPolicyArns:
         - arn:aws:iam::123456789012:policy/CloudWatchLogsFullAcces
         - arn:aws:iam::123456789012:policy/AWSXRayDaemonWriteAccess
+
+Outputs:
+  ServiceSecurityGroupId:
+    Value: !GetAtt ServiceSG.GroupId
+    Export:
+      Name: !Sub "${AWS::StackName}ServiceSecurityGroupId"
