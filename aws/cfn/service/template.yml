@@ -103,7 +103,9 @@ Resources:
       HealthCheckGracePeriodSeconds: 0
       LaunchType: Fargate 
       LoadBalancers:
-        - TargetGroupArn: "arn:aws:elasticloadbalancing:eu-central-1:250283220840:targetgroup/cruddur-backend-flask-tg/94383c86f1959633"
+        - TargetGroupArn: 
+            Fn::ImportValue:
+              !Sub "${ClusterStack}BackendTGArn"
           ContainerName: backend-flask
           ContainerPort: !Ref ConteinerPort
       NetworkConfiguration:
@@ -118,11 +120,21 @@ Resources:
                   !Sub "${NetworkingStack}PublicSubnetIds"
       PlatformVersion: LATEST
       PropagateTags: SERVICE
-      ServiceRegistries:
-        - RegistryArn: !Sub "arn:aws:servicediscovery:us-east-1:123456789012:service/srv-xmpl"
-          Port: !Ref ConteinerPort
-          ContainerName: backend-flask
-          ContainerPort: !Ref ConteinerPort
+      ServiceConnectConfiguration:
+        Enabled: true
+        Namespace:  "cruddur"
+        # TODO - If you want to log 
+        # LogConfiguration
+        Services:
+          - DiscorveryName: backend-flask
+            PortName: backend-flask
+            ClientAliasses:
+              - Port: 4567
+      #ServiceRegistries:
+      #  - RegistryArn: !Sub "arn:aws:servicediscovery:us-east-1:123456789012:service/srv-xmpl"
+      #    Port: !Ref ConteinerPort
+      #    ContainerName: backend-flask
+      #    ContainerPort: !Ref ConteinerPort
       ServiceName: !Ref ServiceName
       TaskDefinition: !Ref TaskDefinition
 
