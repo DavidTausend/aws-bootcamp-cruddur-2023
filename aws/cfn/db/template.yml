@@ -6,6 +6,10 @@ Description: |
   - DBSubnetGroup
 
 Parameters:
+  NetworkingStack:
+    Type: String
+    Description: This is our base layer of Networking components eg. VPC, Subnets.
+    Default: CrdNet
   BackupRetentionPeriod:
   Type: Number
   Default: 0
@@ -35,6 +39,13 @@ Resources:
   DBSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
     Properties:
+      DBSubnetGroupName: !Sub "${AWS::StackName}DBSubnetGroup"
+      DBSubnetGroupDescription: !Sub "${AWS::StackName}DBSubnetGroup"
+      SubnetIds: 
+        Fn::Split:
+          - ","
+          - "Fn::ImportValue":
+              !Sub "${NetworkingStack}Subnetlist"
   Database:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnetgroup.html
   Type: AWS::RDS::DBInstance
