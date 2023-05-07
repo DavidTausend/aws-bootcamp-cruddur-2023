@@ -1,0 +1,71 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  The primary Postgress RDS Database for the application
+  - RDS Instance
+  - Database Security Group
+  - DBSubnetGroup
+
+Parameters:
+  BackupRetentionPeriod:
+  Type: Number
+  Default: 0
+  DBInstanceClass:
+    Type: String
+    Default: db.t4g.micro
+  DBInstanceIdentifier:
+    Type: String
+    Default: cruddur-instance
+  DBName:
+    Type: String
+    Default: cruddur
+  DeletionProtection:
+    Type: String
+    AllowedValues:
+      - true
+      - false
+    Default: true
+  EngineVersion:
+    Type: String
+    #  DB Proxy only supports very specific versions of Postgres
+    #  https://stackoverflow.com/questions/63084648/which-rds-db-instances-are-supported-for-db-proxy
+    Default: '15.2'  
+Resources:
+  RDSPostgresSG:
+  
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+  Database:
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnetgroup.html
+  Type: AWS::RDS::DBInstance
+  # https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html
+  DeletionPolicy: 'Snapshot'
+  # https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/UserGuide/aws-attribute-updatereplacepolicy.html
+  UpdateReplacePolicy: 'Snapshot'
+  Properties:
+    AllocatedStorage: '20'
+    AllowMajorVersionUpgrade: true
+    AutoMinorVersionUpgrade: true
+    BackupRetentionPeriod: !Ref BackupRetentionPeriod
+    DBInstanceClass: !Ref DBInstanceClass
+    DBInstanceIdentifier: !Ref DBInstanceIdentifier
+    DBName: !Ref DBName
+    DBSubnetGroupName: !Ref DBSubnetGroup
+    DeletionProtection: !Ref DeletionProtection
+    EnablePerformanceInsights:
+    Engine: Postgres
+    EngineVersion: !Ref EngineVersion
+# Must be 1 to 63 letters or numbers.
+# First character must be a letter.
+# Can't be a reserved word for the chosen database engine.
+    MasterUsername: 
+# Constraints: Must contain from 8 to 128 characters.
+    MasterUserPassword: !Ref
+    PubliclyAccessible:
+    VPCSecurityGroups:
+    - !GetAtt RDSPostgresSG.GroupId
+#Outputs:
+#  ServiceSecurityGroupId:
+#    Value: !GetAtt ServiceSG.GroupId
+#    Export:
+#      Name: !Sub "${AWS::StackName}ServiceSecurityGroupId"
