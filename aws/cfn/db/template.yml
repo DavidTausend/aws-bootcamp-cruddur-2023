@@ -10,6 +10,10 @@ Parameters:
     Type: String
     Description: This is our base layer of Networking components eg. VPC, Subnets.
     Default: CrdNet
+  ClusterStack:
+    Type: String
+    Description: This is our FargateCluster
+    Default: CrdCluster
   BackupRetentionPeriod:
   Type: Number
   Default: 0
@@ -33,19 +37,35 @@ Parameters:
     #  DB Proxy only supports very specific versions of Postgres
     #  https://stackoverflow.com/questions/63084648/which-rds-db-instances-are-supported-for-db-proxy
     Default: '15.2'  
+  MasterUsername:
+    Type: String
+  MasterUserPassword:
+    Type: String
+    NoEcho: true
 Resources:
   RDSPostgresSG:
-  
+    #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: !Sub "${AWS::StackName}AlbSG"
+      GroupDescription: Public Facing SG for our Cruddur ALB
+      VpcId:
+       Fn::ImportValue:
+        !Sub "${NetworkingStack}VpcId"
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          SourceSecurityGroupId:
+            Fn::ImportValue:
+             !Sub "${ClusterStack}ServiceSecurityGroupId"
+          FromPort: 5432
+          ToPort: 5432
+          Description: ALB HTTP
   DBSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
     Properties:
       DBSubnetGroupName: !Sub "${AWS::StackName}DBSubnetGroup"
       DBSubnetGroupDescription: !Sub "${AWS::StackName}DBSubnetGroup"
-      SubnetIds: 
-        Fn::Split:
-          - ","
-          - "Fn::ImportValue":
-              !Sub "${NetworkingStack}Subnetlist"
+      SubnetIds: { 'Fn::Split' : [ ','  , { "Fn::ImportValue": { "Fn::Sub": "${NetworkingStack}PublicSubnetIds" }}] }
   Database:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnetgroup.html
   Type: AWS::RDS::DBInstance
@@ -69,10 +89,10 @@ Resources:
 # Must be 1 to 63 letters or numbers.
 # First character must be a letter.
 # Can't be a reserved word for the chosen database engine.
-    MasterUsername: 
+    MasterUsername: !Ref MasterUsername
 # Constraints: Must contain from 8 to 128 characters.
-    MasterUserPassword: !Ref
-    PubliclyAccessible:
+    MasterUserPassword: !Ref MasterUserPassword
+    PubliclyAccessible: true
     VPCSecurityGroups:
     - !GetAtt RDSPostgresSG.GroupId
 #Outputs:
