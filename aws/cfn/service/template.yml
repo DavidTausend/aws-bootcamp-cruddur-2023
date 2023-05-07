@@ -95,7 +95,8 @@ Resources:
         AwsvpcConfiguration:
           AssignPublicIp: ENABLED
           SecurityGroups:
-            - !GetAtt ServiceSG.GroupId
+            - Fn::ImportValue:
+                !Sub "${ClusterStack}ServiceSecurityGroupId"
           Subnets:
             Fn::Split:
               - ","
@@ -253,9 +254,3 @@ TaskRole:
       ManagedPolicyArns:
         - arn:aws:iam::123456789012:policy/CloudWatchLogsFullAcces
         - arn:aws:iam::123456789012:policy/AWSXRayDaemonWriteAccess
-
-Outputs:
-  ServiceSecurityGroupId:
-    Value: !GetAtt ServiceSG.GroupId
-    Export:
-      Name: !Sub "${AWS::StackName}ServiceSecurityGroupId"
