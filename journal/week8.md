@@ -209,7 +209,7 @@ Solution: I empty the cdk init with this command rm -rf *, then I install again 
 
 2. API Trigger not working in lambda authorizer.
 
-I checked multiple times the videos, google searches, ChartGPT, office hours. Then I rebuild again the API Gateway and the lambda authorizer, but I got the same issue.
+I checked multiple times the videos, google searches, ChartGPT, office hours. Then I rebuild again the API Gateway and the lambda authorizer, but I got the same issue. I know something is wrong with the API Gateway or lambda permission, therefore, it doesn't trigger the API.
 
 Source:
 https://www.youtube.com/watch?v=YiSNlK4bk90&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=70
