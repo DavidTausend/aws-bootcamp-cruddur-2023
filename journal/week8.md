@@ -191,7 +191,7 @@ Create test.js file in lambdas/process-images folder and add the following code:
     main()
 
 
-##Issues
+## Issues documentation
 
 1. CDK: ENOENT: no such file or directory, open 'cdk.out/manifest.json'
 
