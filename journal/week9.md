@@ -86,7 +86,7 @@ You will notice that the deployment becuase it is need some other configurations
 <img width="1433" alt="Week9-Codepipeline" src="https://user-images.githubusercontent.com/125006062/233820244-161caadf-44cc-4db6-9f57-49418b309403.png">
 
 
-## Issue documentation
+## Issues documentation
 
 ### Codebuild access denied when running pipeline
 
@@ -149,7 +149,9 @@ add the following json code to the permissions of the backend-flask cluster:
             ]
         }
 
-## Add a test stage in CodePipeline
+## Homework challenge
+
+### Add a test stage in CodePipeline
 
 After the Source stage, choose Add stage.
 
