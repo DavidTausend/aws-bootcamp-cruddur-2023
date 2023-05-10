@@ -191,9 +191,21 @@ Create test.js file in lambdas/process-images folder and add the following code:
     main()
 
 
-./bin/db/setup
-./bin/ddb/schema-load
-./bin/ddb/seed
+##Issues
+
+1. CDK: ENOENT: no such file or directory, open 'cdk.out/manifest.json'
+
+This error occurred because I believe that I couse some misconfiguration in the cdk files. Therefore, I tried different solutions from google, chartGTP but it didn't work, even F4dy tried to help me out without any luck. 
+
+Solution: I empty the cdk init with this command rm -rf *, then I install again the cdk init app --language typescript.
+
+![Bildschirmfoto_2023-04-12_um_8 17 24_AM_2](https://github.com/DavidTausend/aws-bootcamp-cruddur-2023/assets/125006062/01f057e5-56fd-4b59-b8e2-2c89a5b38713)
+
+<img width="1439" alt="Bildschirmfoto_2023-04-12_um_10 03 03_PM" src="https://github.com/DavidTausend/aws-bootcamp-cruddur-2023/assets/125006062/b39bfe1e-2f1a-41ee-a31b-84d8d6c4e6ca">
+
+<img width="1440" alt="Bildschirmfoto_2023-04-13_um_8 12 35_PM" src="https://github.com/DavidTausend/aws-bootcamp-cruddur-2023/assets/125006062/2e874090-c972-4227-a0db-aa6e94424153">
+
+<img width="441" alt="Bildschirmfoto 2023-05-10 um 4 30 57 PM" src="https://github.com/DavidTausend/aws-bootcamp-cruddur-2023/assets/125006062/c36fa429-3a95-4a4d-820d-82f479a88448">
 
 Source:
 https://www.youtube.com/watch?v=YiSNlK4bk90&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=70
