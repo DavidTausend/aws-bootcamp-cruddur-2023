@@ -207,6 +207,10 @@ Solution: I empty the cdk init with this command rm -rf *, then I install again 
 
 <img width="441" alt="Bildschirmfoto 2023-05-10 um 4 30 57 PM" src="https://github.com/DavidTausend/aws-bootcamp-cruddur-2023/assets/125006062/c36fa429-3a95-4a4d-820d-82f479a88448">
 
+2. API Trigger not working in lambda authorizer.
+
+I checked multiple times the videos, google searches, ChartGPT, office hours. Then I rebuild again the API Gateway and the lambda authorizer, but I got the same issue.
+
 Source:
 https://www.youtube.com/watch?v=YiSNlK4bk90&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=70
 https://www.youtube.com/watch?v=YiSNlK4bk90&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=71
