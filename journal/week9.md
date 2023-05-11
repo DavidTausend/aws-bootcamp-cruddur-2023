@@ -3,6 +3,15 @@
 
 On this week we build a CI/CD, that stands for Continuous Integration/Continuous Deployment, the development software we help us to streamline the process of building, testing, and deploying software.
 
+## CI/CD Security
+
++ Use AWS Identity and Access Management (IAM) to control access to resources.
++ Implement security controls, such as network segmentation and firewalls, to protect the pipeline.
++ Use encryption to protect data in transit and at rest.
++ Implement security testing throughout the pipeline to catch vulnerabilities early.
++ Use containerization to isolate and secure application components.
++ Monitor the pipeline for suspicious activity and implement alerts and automation to respond to incidents.
+
 ## Create Codepipeline and Codebuild
 
 As fitst step go to AWS and look for Codepipeline, then create the codepipeline with the following values:
