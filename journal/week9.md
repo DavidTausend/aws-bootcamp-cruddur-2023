@@ -3,6 +3,7 @@
 
 On this week we build a CI/CD, that stands for Continuous Integration/Continuous Deployment, the development software we help us to streamline the process of building, testing, and deploying software.
 
+
 ## CI/CD Security
 
 + Use AWS Identity and Access Management (IAM) to control access to resources.
@@ -11,6 +12,7 @@ On this week we build a CI/CD, that stands for Continuous Integration/Continuous
 + Implement security testing throughout the pipeline to catch vulnerabilities early.
 + Use containerization to isolate and secure application components.
 + Monitor the pipeline for suspicious activity and implement alerts and automation to respond to incidents.
+
 
 ## Create Codepipeline and Codebuild
 
