@@ -192,5 +192,7 @@ Source:
 https://www.youtube.com/watch?v=DLYfI0ehMZE&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=81
 https://www.youtube.com/watch?v=DLYfI0ehMZE&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=82
 https://www.youtube.com/watch?v=DLYfI0ehMZE&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=83
+https://www.youtube.com/watch?v=-8zEyHdBJDA&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=84&pp=iAQB
 https://docs.aws.amazon.com/codebuild/latest/userguide/how-to-create-pipeline.html
 https://docs.aws.amazon.com/codebuild/latest/userguide/how-to-create-pipeline-add-test.html
+
