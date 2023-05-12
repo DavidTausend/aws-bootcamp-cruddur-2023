@@ -15,6 +15,7 @@ Resources:
           AttributeType: S
         - AttributeName: sk
           AttributeType: S
+      TableClass: STANDARD
       KeySchema: 
         - AttributeName: pk
           KeyType: HASH
@@ -44,9 +45,8 @@ Resources:
     # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
     Type: AWS::Serverless::Function
     Properties:
-      Handler: handler
-      Runtime: runtime
-      Policies: AWSLambdaDynamoDBExecutionRole
+      Handler: lambda_function-lambda_handler
+      Runtime: python3.8
       Events:
         Stream:
           Type: DynamoDB
@@ -55,4 +55,46 @@ Resources:
             BatchSize: 100
             StartingPosition: TRIM_HORIZON
 
- 
+  LambdaLogGroup:
+    Type: "AWS::Logs::LogGroup"
+    Properties:
+      LogGroupName: "/aws/lambda/cruddur-messaging-stream"
+      RetentionInDays: 14
+  LambdaLogStream:
+    Type: "AWS::logs::LogStream"
+    Properties:
+      LogGroupName: !Ref LambdaLogGroup
+      LogStreamName: "LabdaExecution"
+
+  LambdaExecutionPolicy:
+    Type: "AWS::IAM::Policy"  
+    Properties:
+      PolicyName: "LambdaExecutionPolicy"
+      PolicyDocument:
+        Version: "2012-10-17"  
+        Statement:
+          - Effect: Allow
+            Action: "logs:CreateLogGroup"
+            Resource: !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccoiuntId}:*"
+
+          - Effect: Allow
+            Action:
+              - "logs:CreateLogStream"
+              - "logs:PutLogEvents"
+            Resource: !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccoiuntId}:log-group:/aws/lambda/cruddur-messaging-steam-2:*"
+          - Effect: Allow
+            Action:
+              - "ec2:CreateNetworkInterface"
+              - "ec2:DeleteNetworkInterface"
+              - "ec2:DescribeNetworkInterfaces"
+            Resource: "*"
+          - Effect: Allow
+            Action:
+              - "dynamodb:PutItem"
+              - "dynamodb:DeleteItem"
+              - "dynamodb:Query"
+            Resource:
+              - "arn:aws:dynamodb:eu-central-1:250283220840:table/cruddur-messages"
+              - "arn:aws:dynamodb:eu-central-1:250283220840:table/cruddur-messages/index/message-group-sk-index"
+      Roles:
+        - !Ref LambdaExecutionRole
