@@ -65,7 +65,19 @@ Resources:
     Properties:
       LogGroupName: !Ref LambdaLogGroup
       LogStreamName: "LabdaExecution"
-
+  ExecutionRole:
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: "CruddurServiceExecutionRole"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: "lambda.amazonaws.com"
+            Action: "sts:AssumeRole"
+      Policies:
   LambdaExecutionPolicy:
     Type: "AWS::IAM::Policy"  
     Properties:
