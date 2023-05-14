@@ -2,7 +2,7 @@
 set -e # Stop the excution of the script if it fails
 
 FUNC_DIR="/workspace/aws-bootcamp-cruddur-2023/aws/lambdas/cruddur-messaging-stream"
-TEAMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/template.yml"
+TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/template.yml"
 CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/config.toml.yml"
 ARTIFACT_BUCKET="cfn-artifacts-hallotausend.com"
 
@@ -33,7 +33,7 @@ sam package \
 PACKAGED_TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/packaged.yml"
 
 # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-deploy.html
-sam deploy
+sam deploy \
     --template-file $PACKAGED_TEMPLATE_PATH \
     --config-file $CONFIG_PATH \
     --stack-name "CrdDdb" \
