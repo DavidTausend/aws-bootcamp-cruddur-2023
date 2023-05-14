@@ -1,9 +1,9 @@
 #! /usr/bin/env bash
 set -e # Stop the excution of the script if it fails
 
-FUNC_DIR="/workspace/aws-bootcamp-cruddur-2023/aws/lambdas/cruddur-messaging-stream"
+FUNC_DIR="/workspace/aws-bootcamp-cruddur-2023/aws/lambdas/cruddur-messaging-stream/"
 TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/template.yml"
-CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/config.toml.yml"
+CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/config.toml"
 ARTIFACT_BUCKET="cfn-artifacts-hallotausend.com"
 
 sam validate -t $TEMPLATE_PATH
