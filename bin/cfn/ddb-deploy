@@ -8,17 +8,18 @@ ARTIFACT_BUCKET="cfn-artifacts-hallotausend.com"
 
 sam validate -t $TEMPLATE_PATH
 
+echo "== build"
 # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-build.html
 sam build \
 --use-container \
 --config-file $CONFIG_PATH \
---template $TEAMPLATE_PATH \
+--template $TEMPLATE_PATH \
 --base-dir $FUNC_DIR 
 #--paramenter-overrides
 
-TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/template.yml"
 OUTPUT_TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/packaged.yml"
 
+echo "== package"
 # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-package.html
 # user container
 # use container is for building the lambda in a container
@@ -26,16 +27,17 @@ OUTPUT_TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/packag
 sam package \
     --s3-bucket $ARTIFACT_BUCKET \
     --config-file $CONFIG_PATH \
-    --output-template-path $OUTPUT_TEMPLATE_PATH \
+    --output-template-file $OUTPUT_TEMPLATE_PATH \
     --template-file $TEAMPLATE_PATH \
     --s3-prefix "ddb"
 
 PACKAGED_TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/packaged.yml"
 
+echo="== deploy"
 # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-deploy.html
 sam deploy \
     --template-file $PACKAGED_TEMPLATE_PATH \
     --config-file $CONFIG_PATH \
     --stack-name "CrdDdb" \
     --tags group=cruddur-ddb \
-    --capabilities "CAPABILITY_NAME_IAM"
+    --capabilities "CAPABILITY_NAMED_IAM"
