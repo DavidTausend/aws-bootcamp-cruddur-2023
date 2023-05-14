@@ -1,18 +1,34 @@
 #! /usr/bin/env bash
 set -e # Stop the excution of the script if it fails
 
-FUNCTION_FOLDER="/workspace/aws-bootcamp-cruddur-2023/aws/lambdas/cruddur-messaging-stream"
-
+FUNC_DIR="/workspace/aws-bootcamp-cruddur-2023/aws/lambdas/cruddur-messaging-stream"
+TEAMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/template.yml"
+CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/config.toml.yml"
+ARTIFACT_BUCKET="cfn-artifacts-hallotausend.com"
 # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-build.html
-sam build
---template
---paramenter-overrides
---build-dir
---base-dir
---region $AWS_DEFAULT_REGION
+sam build \
+--config-file $CONFIG_PATH \
+--template-file $TEAMPLATE_PATH \
+--base-dir $FUNC_DIR 
+#--paramenter-overrides
+
+TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/template.yml"
+OUTPUT_TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/packaged.yml"
 
 # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-package.html
-sam package
+sam package \
+    --s3-bucket $ARTIFACT_BUCKET \
+    --config-file $CONFIG_PATH \
+    --output-template-path $OUTPUT_TEMPLATE_PATH \
+    --template-file $TEAMPLATE_PATH \
+    --s3-prefix "ddb"
+
+PACKAGED_TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/packaged.yml"
 
 # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-deploy.html
 sam deploy
+    --template-file $PACKAGED_TEMPLATE_PATH \
+    --config-file $CONFIG_PATH \
+    --stack-name "CrdDdb" \
+    --tags group=cruddur-ddb \
+    --capabilities "CAPABILITY_IAM"
