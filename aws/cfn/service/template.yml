@@ -254,3 +254,9 @@ TaskRole:
       ManagedPolicyArns:
         - arn:aws:iam::123456789012:policy/CloudWatchLogsFullAcces
         - arn:aws:iam::123456789012:policy/AWSXRayDaemonWriteAccess
+
+Outputs:
+  ServiceName:
+    Value: !GetAtt FargateService.Name
+    Export: 
+      Name: !Sub "${AWS::StackName}ServiceName"
