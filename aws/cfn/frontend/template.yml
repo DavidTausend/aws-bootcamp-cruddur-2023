@@ -1,0 +1,11 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  - CloudFront Distribution
+  - S3 Bucket for www.
+  - S3 Bucket for naked domain
+  - Bucket Policy
+
+Parameters:
+
+Resources:
+ 
