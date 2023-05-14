@@ -3,7 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 Description: |
   - DynamoDB Table
   - DynamoDB Stream
-Paramenters:
+Parameters:
   PythonRuntime:
     Type: String
     Default: python3.9
@@ -38,13 +38,13 @@ Resources:
       DeletionProtectionEnabled: true
       GlobalSecondaryIndexes:
         - IndexName: message-group-sk-index
-        - KeySchema:
+          KeySchema:
             - AttributeName: message_group_uuid
               KeyType: HASH
             - AttributeName: sk
               KeyType: RANGE
           Projection: 
-            ProjectionTpe: ALL
+            ProjectionType: ALL
           ProvisionedThroughput: 
           ReadCapacityUnits: 5
           WriteCapacityUnits: 5
@@ -55,10 +55,8 @@ Resources:
     # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
     Type: AWS::Serverless::Function
     Properties:
-      Architectures: arm64
-      CoderUri: ????
-      InlineCode: ???
-      PackageType: ZIP
+      CoderUri: ./aws/lambdas/cruddur-messaging-stream
+      PackageType: Zip
       Handler: lambda_handler
       Runtime: !Ref PythonRuntime
       Role: !GetAtt ExecutionRole.Arn
@@ -80,10 +78,10 @@ Resources:
       LogGroupName: "/aws/lambda/cruddur-messaging-stream"
       RetentionInDays: 14
   LambdaLogStream:
-    Type: "AWS::logs::LogStream"
+    Type: "AWS::Logs::LogStream"
     Properties:
       LogGroupName: !Ref LambdaLogGroup
-      LogStreamName: "LabdaExecution"
+      LogStreamName: "LambdaExecution"
   ExecutionRole:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
     Type: "AWS::IAM::Role"
@@ -99,28 +97,30 @@ Resources:
       Policies:
         - PolicyName: "LambdaExecutionPolicy"
           PolicyDocument:
-          Version: "2012-10-17"  
-          Statement:
-            - Effect: Allow
-              Action: "logs:CreateLogGroup"
-              Resource: !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccoiuntId}:*"
-
-            - Effect: Allow
-              Action:
-                - "logs:CreateLogStream"
-                - "logs:PutLogEvents"
-              Resource: !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccoiuntId}:log-group:/aws/lambda/cruddur-messaging-steam-2:*"
-            - Effect: Allow
-              Action:
-                - "ec2:CreateNetworkInterface"
-                - "ec2:DeleteNetworkInterface"
-                - "ec2:DescribeNetworkInterfaces"
-              Resource: "*"
-            - Effect: Allow
-              Action:
-                - "dynamodb:PutItem"
-                - "dynamodb:DeleteItem"
-                - "dynamodb:Query"
-              Resource:
-                - "arn:aws:dynamodb:eu-central-1:250283220840:table/cruddur-messages"
-                - "arn:aws:dynamodb:eu-central-1:250283220840:table/cruddur-messages/index/message-group-sk-index"
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action: "logs:CreateLogGroup"
+                Resource: !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*"
+              - Effect: "Allow"
+                Action:
+                  - "logs:CreateLogStream"
+                  - "logs:PutLogEvents"
+                Resource: !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${LambdaLogGroup}:*"
+              - Effect: "Allow"
+                Action:
+                  - "ec2:CreateNetworkInterface"
+                  - "ec2:DeleteNetworkInterface"
+                  - "ec2:DescribeNetworkInterfaces"
+                Resource: "*"
+              - Effect: "Allow"
+                Action:
+                  - "lambda:InvokeFunction"
+                Resource: "*"
+              - Effect: "Allow"
+                Action:
+                  - "dynamodb:DescribeStream"
+                  - "dynamodb:GetRecords"
+                  - "dynamodb:GetShardIterator"
+                  - "dynamodb:ListStreams"
+                Resource: "*"

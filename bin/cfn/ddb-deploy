@@ -5,8 +5,12 @@ FUNC_DIR="/workspace/aws-bootcamp-cruddur-2023/aws/lambdas/cruddur-messaging-str
 TEAMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/template.yml"
 CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/config.toml.yml"
 ARTIFACT_BUCKET="cfn-artifacts-hallotausend.com"
+
+sam validate -t $TEMPLATE_PATH
+
 # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-build.html
 sam build \
+--use-container \
 --config-file $CONFIG_PATH \
 --template-file $TEAMPLATE_PATH \
 --base-dir $FUNC_DIR 
@@ -16,6 +20,9 @@ TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/template.yml"
 OUTPUT_TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/packaged.yml"
 
 # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-package.html
+# user container
+# use container is for building the lambda in a container
+# it's still using the runtimes and it's not a custom runtime
 sam package \
     --s3-bucket $ARTIFACT_BUCKET \
     --config-file $CONFIG_PATH \
