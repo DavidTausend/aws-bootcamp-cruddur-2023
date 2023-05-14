@@ -14,6 +14,7 @@ aws cloudformation deploy \
     --stack-name $STACK_NAME \
     --region $REGION \
     --s3-bucket "$BUCKET" \
+    --s3-prefix networking \
     --template-file $CFN_PATH \
     --no-execute-changeset \
     --tags group=cruddur-networking \
