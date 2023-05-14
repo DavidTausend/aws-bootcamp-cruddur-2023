@@ -2,3 +2,9 @@
 bucket = 'cfn-artifacts-hallotausend.com'
 region = 'eu-central-1'
 stack_name = 'CrdSrvFrontend'
+
+[parameters]
+CertificateArn = 'arn:aws:acm:us-east-1:250283220840:certificate/292e595f-03a1-4935-a277-5feb9d8528bc'
+WwwBucketName = 'www.hallotausend.com'
+RootBucketName = 'hallotausend.com'
+HostedZoneId = 'Z08086502E2JWN76T27HU'
