@@ -6,6 +6,37 @@ Description: |
   - Bucket Policy
 
 Parameters:
+  WwwBucketName:
+    Type: String
+    Default: www.hallotausend.com
+  NakedBucketName:
+    Type: String
+    Default: www.hallotausend.com
+
 
 Resources:
- 
+  # This will redirect to the naked domain
+ WWWWBucket:
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html
+  Type: "AWS::S3::Bucket"
+  Properties:
+    BucketName: !Ref WwwBucketName
+    WebsiteConfiguration:
+      RedirectAllRequestsTo: 
+        HostName: !Ref NakedBucketName
+ NakeBucket:
+   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html
+  Type: "AWS::S3::Bucket"
+  #DeletionPolicy: Retain
+  Properties:
+    BucketName: !Ref NakedBucketName
+    WebsiteConfiguration:
+      IndexDocument: index.html
+      ErrorDocument: error.html
+  Distribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      Aliases:
+        - !Ref NakedBucketName
+      Comment: 
+     
