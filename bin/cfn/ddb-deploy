@@ -12,7 +12,7 @@ sam validate -t $TEMPLATE_PATH
 sam build \
 --use-container \
 --config-file $CONFIG_PATH \
---template-file $TEAMPLATE_PATH \
+--template $TEAMPLATE_PATH \
 --base-dir $FUNC_DIR 
 #--paramenter-overrides
 
@@ -38,4 +38,4 @@ sam deploy \
     --config-file $CONFIG_PATH \
     --stack-name "CrdDdb" \
     --tags group=cruddur-ddb \
-    --capabilities "CAPABILITY_IAM"
+    --capabilities "CAPABILITY_NAME_IAM"
