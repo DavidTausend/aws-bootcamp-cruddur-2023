@@ -72,9 +72,9 @@ Resources:
             Stream: !GetAtt DynamoDBTable.StreamArn
             # TODO - Does our lambda more then record? 
             BatchSize: 1
+            # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-dynamodb.html#sam-function-dynamodb-startingposition
             # TODO - This this the right value?
             StartingPosition: LATEST
-
   LambdaLogGroup:
     Type: "AWS::Logs::LogGroup"
     Properties:
@@ -87,16 +87,16 @@ Resources:
       LogStreamName: "LambdaExecution"
   ExecutionRole:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
-    Type: "AWS::IAM::Role"
+    Type: AWS::IAM::Role
     Properties:
-      RoleName: "CruddurDdbStreamExecRole"
+      RoleName: CruddurDdbStreamExecRole
       AssumeRolePolicyDocument:
-        Version: "2012-10-17"
+        Version: '2012-10-17'
         Statement:
-          - Effect: "Allow"
+          - Effect: 'Allow'
             Principal:
-              Service: "lambda.amazonaws.com"
-            Action: "sts:AssumeRole"
+              Service: 'lambda.amazonaws.com'
+            Action: 'sts:AssumeRole'
       Policies:
         - PolicyName: "LambdaExecutionPolicy"
           PolicyDocument:
