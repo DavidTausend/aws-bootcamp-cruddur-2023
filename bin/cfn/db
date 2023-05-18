@@ -16,7 +16,7 @@ aws cloudformation deploy \
     --s3-bucket $BUCKET \
     --s3-prefix db \
     --region $REGION \
-    --template-file $CFN_PATH \
+    --template-file "$CFN_PATH" \
     --no-execute-changeset \
     --tags group=cruddur-db \
     --parameter-overrides $PARAMETERS MasterUserPassword=$DB_PASSWORD \
