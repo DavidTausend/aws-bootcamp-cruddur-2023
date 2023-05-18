@@ -16,5 +16,6 @@ echo $LATEST_TASK_DEFINITION_ARN
 aws ecs create-service \
 --cluster $CLUSTER_NAME \
 --service-name $SERVICE_NAME \
---desired-count 
---task-definition $LATEST_TASK_DEFINITION_ARN 
+--desired-count 1 \
+--task-definition $LATEST_TASK_DEFINITION_ARN \
+--network-configuration "awsvpcConfiguration={subnets=[subnet-12345678],securityGroups=[sg-12345678],assignPublicIp=ENABLED}"
