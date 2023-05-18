@@ -202,7 +202,7 @@ Resources:
               Service: 'ecs-tasks.amazonaws.com'
             Action: 'sts:AssumeRole'
       Policies:
-        - PolicyName: 'cruddur-ececution-policy'
+        - PolicyName: 'cruddur-execution-policy'
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
@@ -223,7 +223,7 @@ Resources:
                   - 'ssm:GetParameter'
                 Resource: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cruddur/${ServiceName}/*'        
       ManagedPolicyArns:
-        - arn:aws:iam:aws:policy/CloudWatchLogsFullAcces
+        - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
 TaskRole:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
     Type: AWS::IAM::Role
@@ -244,13 +244,13 @@ TaskRole:
               - Sid: 'VisualEditor0'
                 Effect: 'Allow'
                 Action:
-                    ssmmessages:CreateControlChannel
-                    ssmmessages:CreateDataChannel
-                    ssmmessages:OpenControlChannel
-                    ssmmessages:OpenDataChannel
+                  -  ssmmessages:CreateControlChannel
+                  -  ssmmessages:CreateDataChannel
+                  -  ssmmessages:OpenControlChannel
+                  -  ssmmessages:OpenDataChannel
                 Resource: '*'
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/CloudWatchLogsFullAcces
+        - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
         - arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess
 
 Outputs:
