@@ -203,7 +203,7 @@ Resources:
     #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: !Sub "${AWS::StackName}BackendTG"
+      #Name: !Sub "${AWS::StackName}BackendTG"
       Port: !Ref BackendPort
       HealthCheckEnabled: true
       HealthCheckProtocol: !Ref BackendHealthCheckProtocol
@@ -263,7 +263,7 @@ Outputs:
     Export:
       Name: !Sub "${AWS::StackName}ClusterName"
   ServiceSecurityGroupId:
-    Value: !GetAtt ServSG.GroupId
+    Value: !GetAtt ServiceSG.GroupId
     Export:
       Name: !Sub "${AWS::StackName}ServiceSecurityGroupId"
   ALBSecurityGroupId:
