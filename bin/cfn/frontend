@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
 set -e # Stop the excution of the script if it fails
 
-CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/fronted/template.yml"
-CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/fronted/config.toml"
+CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/frontend/template.yml"
+CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/frontend/config.toml"
 
 cfn-lint $CFN_PATH
 
@@ -16,7 +16,7 @@ aws cloudformation deploy \
     --s3-bucket $BUCKET \
     --s3-prefix frontend \
     --region $REGION \
-    --template-file $CFN_PATH \
+    --template-file "$CFN_PATH" \
     --no-execute-changeset \
     --tags group=cruddur-frontend \
     --parameter-overrides $PARAMETERS \
