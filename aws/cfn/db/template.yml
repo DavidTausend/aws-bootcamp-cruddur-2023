@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-  The primary Postgress RDS Database for the application
+  The primary Postgres RDS Database for the application
   - RDS Instance
   - Database Security Group
   - DBSubnetGroup
@@ -50,8 +50,8 @@ Resources:
       GroupName: !Sub "${AWS::StackName}RDSSG"
       GroupDescription: Public Facing SG for our Cruddur ALB
       VpcId:
-       Fn::ImportValue:
-        !Sub ${NetworkingStack}VpcId
+        Fn::ImportValue:
+          !Sub ${NetworkingStack}VpcId
       SecurityGroupIngress:
         - IpProtocol: tcp
           SourceSecurityGroupId:
@@ -83,8 +83,8 @@ Resources:
       DBName: !Ref DBName
       DBSubnetGroupName: !Ref DBSubnetGroup
       DeletionProtection: !Ref DeletionProtection
-      EnablePerformanceInsights:
-      Engine: Postgres
+      EnablePerformanceInsights: true
+      Engine: postgres
       EngineVersion: !Ref EngineVersion
 # Must be 1 to 63 letters or numbers.
 # First character must be a letter.
