@@ -77,13 +77,12 @@ Resources:
       Cluster:
         Fn::ImportValue:
           !Sub "${ClusterStack}ClusterName"
-      DeploymentConfiguration:
       DeploymentController:
         Type: ECS  
       DesiredCount: 1
+      EnableECSManagedTags: true
       EnableExecuteCommand: true
-      EnableExcecuteCommand: true
-      HealthCheckGracePeriodSeconds: 100
+      HealthCheckGracePeriodSeconds: 0
       LaunchType: Fargate 
       LoadBalancers:
         - TargetGroupArn: 
