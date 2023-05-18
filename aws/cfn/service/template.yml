@@ -88,8 +88,8 @@ Resources:
         - TargetGroupArn: 
             Fn::ImportValue:
               !Sub "${ClusterStack}BackendTGArn"
-          ContainerName: backend-flask
-          ContainerPort: !Ref ConteinerPort
+          ContainerName: 'backend-flask'
+          ContainerPort: !Ref ContainerPort
       NetworkConfiguration:
         AwsvpcConfiguration:
           AssignPublicIp: ENABLED
@@ -155,103 +155,103 @@ Resources:
           PortMappings:
             - Name: !Ref ContainerName
               ContainerPort: !Ref ContainerPort
-              Protocol: tcp
-              AppProtocol: http
+              Protocol: 'tcp'
+              AppProtocol: 'http'
           LogConfiguration:
-            LogDriver: awslogs
+            LogDriver: 'awslogs'
             Options:
-              awslogs-group: cruddur
+              awslogs-group: 'cruddur'
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: !Ref ServiceName
           Environment:
-            - Name: OTEL_SERVICE_NAME
+            - Name: 'OTEL_SERVICE_NAME'
               Value: !Ref EnvOtelServiceName
-            - Name: OTEL_EXPORTER_OTLP_ENDPOINT
+            - Name: 'OTEL_EXPORTER_OTLP_ENDPOINT'
               Value: !Ref EnvOtelExporterOtlpEndpoint
-            - Name: AWS_COGNITO_USER_POOL_ID
+            - Name: 'AWS_COGNITO_USER_POOL_ID'
               Value: !Ref EnvAWSCognitoUserPoolId
-            - Name: AWS_COGNITO_USER_POOL_CLIENT_ID
+            - Name: 'AWS_COGNITO_USER_POOL_CLIENT_ID'
               Value: !Ref EnvCognitoUserPoolClientId
-            - Name: FRONTEND_URL
+            - Name: 'FRONTEND_URL'
               Value: !Ref EnvFrontendUrl
-            - Name: BACKEND_URL
+            - Name: 'BACKEND_URL'
               Value: !Ref EnvBackendUrl
-            - Name: AWS_DEFAULT_REGION
+            - Name: 'AWS_DEFAULT_REGION'
               Value: !Ref AWS::Region
           Secrets:
-            - Name: AWS_ACCESS_KEY_ID
+            - Name: 'AWS_ACCESS_KEY_ID'
               ValueFrom: !Ref SecretsAWSAccessKeyId
-            - Name: AWS_SECRET_ACCESS_KEY
+            - Name: 'AWS_SECRET_ACCESS_KEY'
               ValueFrom: !Ref SecretsSecretAccessKey
-            - Name: CONNECTION_URL
+            - Name: 'CONNECTION_URL'
               ValueFrom: !Ref SecretsConnectionUrl
-            - Name: ROLLBAR_ACCESS_TOKEN
+            - Name: 'ROLLBAR_ACCESS_TOKEN'
               ValueFrom: !Ref SecretsRollbarAccessToken
-            - Name: OTEL_EXPORTER_OTLP_HEADERS
+            - Name: 'OTEL_EXPORTER_OTLP_HEADERS'
               ValueFrom: !Ref SecretsOtelExporterOltpHeaders
   ExecutionRole:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
-    Type: "AWS::IAM::Role"
+    Type: AWS::IAM::Role
     Properties:
-      RoleName: "CruddurServiceExecutionRole"
+      RoleName: CruddurServiceExecutionRole
       AssumeRolePolicyDocument:
-        Version: "2012-10-17"
+        Version: '2012-10-17'
         Statement:
-          - Effect: "Allow"
+          - Effect: 'Allow'
             Principal:
-              Service: "ecs-tasks.amazonaws.com"
-            Action: "sts:AssumeRole"
+              Service: 'ecs-tasks.amazonaws.com'
+            Action: 'sts:AssumeRole'
       Policies:
-        - PolicyName: "cruddur-ececution-policy"
+        - PolicyName: 'cruddur-ececution-policy'
           PolicyDocument:
-            Version: "2012-10-17"
+            Version: '2012-10-17'
             Statement:
-              - Sid: VisualEditor0
-                Effect: Allow
+              - Sid: 'VisualEditor0'
+                Effect: 'Allow'
                 Action:
-                  - ecr:GetAuthorizationToken
-                  - ecr:BatchCheckLayerAvailability
-                  - ecr:GetDownloadUrlForLayer
-                  - ecr:BatchGetImage
-                  - logs:CreateLogStream
-                  - logs:PutLogEvents
-                Resource: "*"
-              - Sid: VisualEditor1
-                Effect: Allow
+                  - 'ecr:GetAuthorizationToken'
+                  - 'ecr:BatchCheckLayerAvailability'
+                  - 'ecr:GetDownloadUrlForLayer'
+                  - 'ecr:BatchGetImage'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: '*'
+              - Sid: 'VisualEditor1'
+                Effect: 'Allow'
                 Action:
-                  - ssm:GetParameters
-                  - ssm:GetParameter
+                  - 'ssm:GetParameters'
+                  - 'ssm:GetParameter'
                 Resource: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cruddur/${ServiceName}/*'        
       ManagedPolicyArns:
-        - arn:aws:iam:policy/CloudWatchLogsFullAcces
+        - arn:aws:iam:aws:policy/CloudWatchLogsFullAcces
 TaskRole:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
-    Type: "AWS::IAM::Role"
+    Type: AWS::IAM::Role
     Properties:
-      RoleName: "CruddurServiceTaskRole"
+      RoleName: CruddurServiceTaskRole
       AssumeRolePolicyDocument:
-        Version: "2012-10-17"
+        Version: '2012-10-17'
         Statement:
-          - Effect: "Allow"
+          - Effect: 'Allow'
             Principal:
-              Service: "ecs-tasks.amazonaws.com"
-            Action: "sts:AssumeRole"
+              Service: 'ecs-tasks.amazonaws.com'
+            Action: 'sts:AssumeRole'
       Policies: 
-        - PolicyName: "cruddur-task-policy"
+        - PolicyName: 'cruddur-task-policy'
           PolicyDocument:
-            Version: "2012-10-17" 
+            Version: '2012-10-17'
             Statement:
-              - Sid: VisualEditor0
-                Effect: Allow
+              - Sid: 'VisualEditor0'
+                Effect: 'Allow'
                 Action:
                     ssmmessages:CreateControlChannel
                     ssmmessages:CreateDataChannel
                     ssmmessages:OpenControlChannel
                     ssmmessages:OpenDataChannel
-                Resource: "*"
+                Resource: '*'
       ManagedPolicyArns:
-        - arn:aws:iam::123456789012:policy/CloudWatchLogsFullAcces
-        - arn:aws:iam::123456789012:policy/AWSXRayDaemonWriteAccess
+        - arn:aws:iam::aws:policy/CloudWatchLogsFullAcces
+        - arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess
 
 Outputs:
   ServiceName:
