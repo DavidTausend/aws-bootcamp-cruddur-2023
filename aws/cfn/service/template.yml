@@ -16,7 +16,7 @@ Parameters:
     Default: CrdCluster
   ContainerPort:
     Type: Number
-    Default: '4567'
+    Default: 4567
   ServiceCpu: 
     Type: String
     Default: '256'
@@ -122,7 +122,7 @@ Resources:
       TaskDefinition: !Ref TaskDefinition
   TaskDefinition:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html
-    Type: AWS::ECS::TaskDefinition
+    Type: 'AWS::ECS::TaskDefinition'
     Properties:
       Family: !Ref TaskFamily
       ExecutionRoleArn: !GetAtt ExecutionRole.Arn

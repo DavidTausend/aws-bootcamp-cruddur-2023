@@ -15,8 +15,8 @@ Parameters:
     Description: This is our FargateCluster
     Default: CrdCluster
   BackupRetentionPeriod:
-  Type: Number
-  Default: 0
+    Type: Number
+    Default: 0
   DBInstanceClass:
     Type: String
     Default: db.t4g.micro
@@ -36,7 +36,7 @@ Parameters:
     Type: String
     #  DB Proxy only supports very specific versions of Postgres
     #  https://stackoverflow.com/questions/63084648/which-rds-db-instances-are-supported-for-db-proxy
-    Default: '15.2'  
+    Default: '15.2'
   MasterUsername:
     Type: String
   MasterUserPassword:
@@ -47,16 +47,16 @@ Resources:
     #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: !Sub "${AWS::StackName}AlbSG"
+      GroupName: !Sub "${AWS::StackName}RDSSG"
       GroupDescription: Public Facing SG for our Cruddur ALB
       VpcId:
        Fn::ImportValue:
-        !Sub "${NetworkingStack}VpcId"
+        !Sub ${NetworkingStack}VpcId
       SecurityGroupIngress:
         - IpProtocol: tcp
           SourceSecurityGroupId:
             Fn::ImportValue:
-             !Sub "${ClusterStack}ServiceSecurityGroupId"
+             !Sub ${ClusterStack}ServiceSecurityGroupId
           FromPort: 5432
           ToPort: 5432
           Description: ALB HTTP
@@ -67,34 +67,34 @@ Resources:
       DBSubnetGroupDescription: !Sub "${AWS::StackName}DBSubnetGroup"
       SubnetIds: { 'Fn::Split' : [ ','  , { "Fn::ImportValue": { "Fn::Sub": "${NetworkingStack}PublicSubnetIds" }}] }
   Database:
-  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnetgroup.html
-  Type: AWS::RDS::DBInstance
-  # https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html
-  DeletionPolicy: 'Snapshot'
-  # https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/UserGuide/aws-attribute-updatereplacepolicy.html
-  UpdateReplacePolicy: 'Snapshot'
-  Properties:
-    AllocatedStorage: '20'
-    AllowMajorVersionUpgrade: true
-    AutoMinorVersionUpgrade: true
-    BackupRetentionPeriod: !Ref BackupRetentionPeriod
-    DBInstanceClass: !Ref DBInstanceClass
-    DBInstanceIdentifier: !Ref DBInstanceIdentifier
-    DBName: !Ref DBName
-    DBSubnetGroupName: !Ref DBSubnetGroup
-    DeletionProtection: !Ref DeletionProtection
-    EnablePerformanceInsights:
-    Engine: Postgres
-    EngineVersion: !Ref EngineVersion
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnetgroup.html
+    Type: AWS::RDS::DBInstance
+    # https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html
+    DeletionPolicy: 'Snapshot'
+    # https://docs.aws.amazon.com/de_de/AWSCloudFormation/latest/UserGuide/aws-attribute-updatereplacepolicy.html
+    UpdateReplacePolicy: 'Snapshot'
+    Properties:
+      AllocatedStorage: '20'
+      AllowMajorVersionUpgrade: true
+      AutoMinorVersionUpgrade: true
+      BackupRetentionPeriod: !Ref BackupRetentionPeriod
+      DBInstanceClass: !Ref DBInstanceClass
+      DBInstanceIdentifier: !Ref DBInstanceIdentifier
+      DBName: !Ref DBName
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      DeletionProtection: !Ref DeletionProtection
+      EnablePerformanceInsights:
+      Engine: Postgres
+      EngineVersion: !Ref EngineVersion
 # Must be 1 to 63 letters or numbers.
 # First character must be a letter.
 # Can't be a reserved word for the chosen database engine.
-    MasterUsername: !Ref MasterUsername
+      MasterUsername: !Ref MasterUsername
 # Constraints: Must contain from 8 to 128 characters.
-    MasterUserPassword: !Ref MasterUserPassword
-    PubliclyAccessible: true
-    VPCSecurityGroups:
-    - !GetAtt RDSPostgresSG.GroupId
+      MasterUserPassword: !Ref MasterUserPassword
+      PubliclyAccessible: true
+      VPCSecurityGroups:
+      - !GetAtt RDSPostgresSG.GroupId
 #Outputs:
 #  ServiceSecurityGroupId:
 #    Value: !GetAtt ServiceSG.GroupId
