@@ -1,5 +1,5 @@
 {
-    "cluster": "CrdClusterFargateCluster ",
+    "cluster": "CrdClusterFargateCluster",
     "launchType": "FARGATE",
     "desiredCount": 1,
     "enableECSManagedTags": true,
