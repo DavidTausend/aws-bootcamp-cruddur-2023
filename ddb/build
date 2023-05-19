@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 set -e # Stop the excution of the script if it fails
 
-FUNC_DIR="/workspace/aws-bootcamp-cruddur-2023/ddb/function"
+FUNC_DIR="/workspace/aws-bootcamp-cruddur-2023/ddb/function/"
 TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/ddb/template.yml"
 CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/ddb/config.toml"
 

@@ -2,7 +2,7 @@
 set -e # Stop the excution of the script if it fails
 
 ARTIFACT_BUCKET="cfn-artifacts-hallotausend.com"
-TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/template.yml"
+TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/template.yaml"
 OUTPUT_TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/packaged.yml"
 CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/ddb/config.toml"
 
