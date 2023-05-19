@@ -15,7 +15,7 @@
       "awsvpcConfiguration": {
         "assignPublicIp": "ENABLED",
         "securityGroups": [
-          "sg-0d2bd394a4f4c5d73"
+          "sg-01b98abdb7227a808"
         ],
         "subnets": [
           "subnet-0dfa3d55eeae45c8e",

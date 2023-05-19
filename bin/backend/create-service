@@ -1,7 +1,7 @@
 #! /usr/bin/bash
 
 CLUSTER_NAME="CrdClusterFargateCluster"
-SERVICE_NAME="backend-flask"
+SERVICE_NAME="backend-flask1"
 TASK_DEFINTION_FAMILY="backend-flask"
 
 
@@ -18,4 +18,4 @@ aws ecs create-service \
 --service-name $SERVICE_NAME \
 --desired-count 1 \
 --task-definition $LATEST_TASK_DEFINITION_ARN \
---network-configuration "awsvpcConfiguration={subnets=[subnet-12345678],securityGroups=[sg-12345678],assignPublicIp=ENABLED}"
+--network-configuration "awsvpcConfiguration={subnets=["subnet-0dfa3d55eeae45c8e","subnet-087126c9253c0d15c","subnet-0c969734f3a20b118"],securityGroups=[sg-01b98abdb7227a808]}"
