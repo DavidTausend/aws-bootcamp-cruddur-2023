@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'aws_s3_website_sync'
+ 
