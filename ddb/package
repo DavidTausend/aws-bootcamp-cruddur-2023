@@ -1,0 +1,19 @@
+#! /usr/bin/env bash
+set -e # Stop the excution of the script if it fails
+
+ARTIFACT_BUCKET="cfn-artifacts-hallotausend.com"
+TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/template.yaml"
+OUTPUT_TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/packaged.yml"
+CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/ddb/config.toml"
+
+echo "== package"
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-package.html
+# user container
+# use container is for building the lambda in a container
+# it's still using the runtimes and it's not a custom runtime
+sam package \
+    --s3-bucket $ARTIFACT_BUCKET \
+    --config-file $CONFIG_PATH \
+    --output-template-file $OUTPUT_TEMPLATE_PATH \
+    --template-file $TEMPLATE_PATH \
+    --s3-prefix "ddb"

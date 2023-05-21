@@ -4,8 +4,8 @@ from boto3.dynamodb.conditions import Key, Attr
 
 dynamodb = boto3.resource(
  'dynamodb',
- region_name='ca-central-1',
- endpoint_url="http://dynamodb.ca-central-1.amazonaws.com"
+ region_name='eu-central-1',
+ endpoint_url="http://dynamodb.eu-central-1.amazonaws.com"
 )
 
 def lambda_handler(event, context):

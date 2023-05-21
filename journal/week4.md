@@ -1,6 +1,6 @@
 # Week 4 — Postgres and RDS
 
-PostgreSQL, commonly referred to as Postgres, is an open-source relational database management system (RDBMS) that emphasizes on features such as extensibility and SQL compliance. It was first released in 1996 and has since then gained popularity as a robust, reliable and scalable database system.
+PostgreSQL is an open-source relational database management system (RDBMS) that emphasizes on features such as extensibility and SQL compliance. It was first released in 1996 and has since then gained popularity as a robust, reliable and scalable database system.
 
 Amazon RDS (Relational Database Service) is a managed database service provided by Amazon Web Services (AWS) that makes it easy to set up, operate, and scale a relational database in the cloud. RDS provides fully managed database services for several popular relational database engines including PostgreSQL. With RDS, users can easily deploy, operate and scale their PostgreSQL databases in the cloud with features such as automated backups, easy database scaling, and high availability.
 

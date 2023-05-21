@@ -1,0 +1,8 @@
+[deploy]
+bucket = 'cfn-artifacts-hallotausend.com'
+region = 'eu-central-1'
+stack_name = 'CrdSrvBackendFlask'
+
+[parameters]
+EnvFrontendUrl = 'https://hallotausend.com'
+EnvBackendUrl = 'https://api.hallotausend.com'

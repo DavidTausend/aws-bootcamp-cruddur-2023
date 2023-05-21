@@ -6,8 +6,11 @@ Resources:
     Type: 'AWS::ECS::Cluster'
     Properties:
       ClusterName: MyCluster
-      CapacityProvider: []
+      CapacityProvider: 
+        - FARGATE
 
 #Parameters:
+#Mappings:
 #Resources: 
 #Outputs:
+#Metadata:

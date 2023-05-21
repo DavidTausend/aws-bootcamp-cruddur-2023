@@ -1,0 +1,8 @@
+[deploy]
+bucket = 'cfn-artifacts-hallotausend.com'
+region = 'eu-central-1'
+stack_name = 'CrdCluster'
+
+[parameters]
+CertificateArn = 'arn:aws:acm:eu-central-1:250283220840:certificate/808ae318-c4af-4e18-8f62-07c3bf5660b6'
+NetworkingStack = 'CrdNet'

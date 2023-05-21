@@ -1,0 +1,9 @@
+[deploy]
+bucket = 'cfn-artifacts-hallotausend.com'
+region = 'eu-central-1'
+stack_name = 'CrdSyncRole'
+
+[parameters]
+GitHubOrg = 'DavidTausend'
+RepositoryName = 'aws-bootcamp-cruddur-2023'
+OIDCProviderArn = ''

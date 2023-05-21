@@ -3,6 +3,17 @@
 
 On this week we build a CI/CD, that stands for Continuous Integration/Continuous Deployment, the development software we help us to streamline the process of building, testing, and deploying software.
 
+
+## CI/CD Security
+
++ Use AWS Identity and Access Management (IAM) to control access to resources.
++ Implement security controls, such as network segmentation and firewalls, to protect the pipeline.
++ Use encryption to protect data in transit and at rest.
++ Implement security testing throughout the pipeline to catch vulnerabilities early.
++ Use containerization to isolate and secure application components.
++ Monitor the pipeline for suspicious activity and implement alerts and automation to respond to incidents.
+
+
 ## Create Codepipeline and Codebuild
 
 As fitst step go to AWS and look for Codepipeline, then create the codepipeline with the following values:
@@ -86,7 +97,7 @@ You will notice that the deployment becuase it is need some other configurations
 <img width="1433" alt="Week9-Codepipeline" src="https://user-images.githubusercontent.com/125006062/233820244-161caadf-44cc-4db6-9f57-49418b309403.png">
 
 
-## Issue documentation
+## Issues documentation
 
 ### Codebuild access denied when running pipeline
 
@@ -149,7 +160,50 @@ add the following json code to the permissions of the backend-flask cluster:
             ]
         }
 
+## Homework challenge
+
+### Add a test stage in CodePipeline
+
+After the Source stage, choose Add stage.
+
+For Stage name, enter the name of the test stage (for example, Test). If you choose a different name, use it throughout this procedure.
+
+ <img width="1073" alt="Week9-AddTest" src="https://user-images.githubusercontent.com/125006062/235369034-c21ab4a1-b806-4c34-8171-ddaf26f64ec9.png">
+ 
+In the selected stage, choose Add action.
+ 
+In Edit action, for Action name, enter a name for the action (for example, Test). 
+ 
+For Action provider, under Test, choose CodeBuild.
+
+For Input artifacts, select the source value to test.
+ 
+Choose the name of the build project and click "done".
+
+<img width="1222" alt="Week9-TestStage" src="https://user-images.githubusercontent.com/125006062/235370259-e22bf471-ad9c-46f3-92bd-48bb5d799e21.png">
+
+
+Choose Save.
+ 
+Choose Release change.
+
+<img width="1152" alt="Week9-TestSuccessful" src="https://user-images.githubusercontent.com/125006062/235370328-9b11f3cb-3003-4dda-8368-0f0b956b2db9.png">
+
+
+After the pipeline runs successfully, you can get the test results. In the Test stage of the pipeline, choose the CodeBuild hyperlink to open the related build project page in the CodeBuild console.
+
+On the build project page, in Build history, choose the Build run hyperlink.
+
+On the build run page, in Build logs, choose the View entire log hyperlink to open the build log in the Amazon CloudWatch console.
+Scroll through the build log to view the test results.
+
 
 
 Source:
+https://www.youtube.com/watch?v=DLYfI0ehMZE&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=81
+https://www.youtube.com/watch?v=DLYfI0ehMZE&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=82
+https://www.youtube.com/watch?v=DLYfI0ehMZE&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=83
+https://www.youtube.com/watch?v=-8zEyHdBJDA&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=84&pp=iAQB
 https://docs.aws.amazon.com/codebuild/latest/userguide/how-to-create-pipeline.html
+https://docs.aws.amazon.com/codebuild/latest/userguide/how-to-create-pipeline-add-test.html
+
