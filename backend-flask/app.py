@@ -32,7 +32,7 @@ app = Flask(__name__)
 # initalization
 init_xray(app)
 with app.app_context():
-  rollbar = init_rollbar()
+  rollbar = init_rollbar(app)
 init_honeycomb(app)
 
 # CloudWatch --------
