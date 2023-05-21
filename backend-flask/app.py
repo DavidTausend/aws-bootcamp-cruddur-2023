@@ -120,6 +120,13 @@ with app.app_context():
       # send exceptions from `app` to rollbar, using flask's signal system.
       got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
 
+
+def model_json(model):
+  if model['errors'] is not None:
+    return model['errors'], 422
+  else:
+    return model['data'], 200
+
 @app.route('/api/health-check')
 def health_check():
   return {'success': True, 'ver': 1}, 200
@@ -194,7 +201,7 @@ def default_home_feed(e):
 @jwt_required(on_error=default_home_feed)
 def data_home():
   #Cognito
-  data = HomeActivities.run(cognito_user_id=claims['username'])
+  data = HomeActivities.run(cognito_user_id=g.cognito_user_id)
   return data, 200
 
 @app.route("/api/activities/notifications", methods=['GET'])
@@ -207,10 +214,7 @@ def data_notifications():
 #@xray_recorder.capture('activities_users')
 def data_handle(handle):
   model = UserActivities.run(handle)
-  if model['errors'] is not None:
-    return model['errors'], 422
-  else:
-    return model['data'], 200
+  return return_model(model)
 
 @app.route("/api/activities/search", methods=['GET'])
 def data_search():
