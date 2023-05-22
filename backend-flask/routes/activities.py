@@ -1,16 +1,10 @@
-#general
-import os
-import sys
-
 #flask
-from flask import Flask
 from flask import request, g
-from flask_cors import cross_origin
-from flask import current_app as app
 
 #decorators
 from aws_xray_sdk.core import xray_recorder
 from lib.cognito_jwt_token import jwt_required
+from flask_cors import cross_origin
 
 # services
 from services.notifications_activities import *
@@ -18,6 +12,10 @@ from services.home_activities import *
 from services.create_activity import *
 from services.search_activities import *
 from services.show_activity import *
+from services.create_reply import *
+
+#route helpers
+from lib.helpers import model_json
 
 def load(app):
   def default_home_feed(e):
