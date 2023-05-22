@@ -34,6 +34,7 @@ init_xray(app)
 with app.app_context():
   rollbar = init_rollbar(app)
 init_honeycomb(app)
+init_cors(app)
 
 # CloudWatch --------
 #@app.after_request
