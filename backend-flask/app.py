@@ -14,7 +14,7 @@ from lib.helpers import model_json
 import routes.general
 import routes.activities
 import routes.users
-import routers.messages
+import routes.messages
 
 app = Flask(__name__) 
 

@@ -40,10 +40,10 @@ def load(app):
     if message_group_uuid == None:
     # Create for the first time
       model = CreateMessage.run(
-      mode="create",
-      message=message,
-      cognito_user_id=g.cognito_user_id,
-      user_receiver_handle=user_receiver_handle
+        mode="create",
+        message=message,
+        cognito_user_id=g.cognito_user_id,
+        user_receiver_handle=user_receiver_handle
       )
     else:
     # Push onto existing Message Group

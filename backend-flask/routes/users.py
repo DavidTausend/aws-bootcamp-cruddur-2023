@@ -1,6 +1,5 @@
-from services.users_short import *
-from services.update_profile import *
-from services.user_activities import *
+## flask
+from flask import request, g
 
 # decorators
 from aws_xray_sdk.core import xray_recorder
