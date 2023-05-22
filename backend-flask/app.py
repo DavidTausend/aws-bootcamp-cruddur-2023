@@ -88,10 +88,10 @@ def data_create_message():
   else:
   # Push onto existing Message Group
     model = CreateMessage.run(
-    mode="update",
-    message=message,
-    message_group_uuid=message_group_uuid,
-    cognito_user_id=g.cognito_user_id
+      mode="update",
+      message=message,
+      message_group_uuid=message_group_uuid,
+      cognito_user_id=g.cognito_user_id
     )
   return model_json(model)
 
