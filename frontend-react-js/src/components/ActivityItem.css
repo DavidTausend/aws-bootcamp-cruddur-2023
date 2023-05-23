@@ -5,6 +5,21 @@
   overflow: hidden;
   padding: 16px;
 }
+
+.replies {
+  padding-left: 24px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.replies .activity_itme{
+  background: var(--fg);
+}
+
+.activity_main {
+  padding: 16px;
+
+}
+
 .activity_item:last-child {
   border-bottom: none;
 }
