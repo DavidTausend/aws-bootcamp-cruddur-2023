@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 from lib.db import db
 
 class CreateReply:
-  def run(message, user_handle, activity_uuid):
+  def run(message, cognito_user_id, activity_uuid):
     model = {
       'errors': None,
       'data': None
@@ -33,14 +33,14 @@ class CreateReply:
       model['data'] = object_json
     return model
 
-    def create_reply(cognito_user_id, activity_uuid, message):
+  def create_reply(cognito_user_id, activity_uuid, message):
       sql = db.template('activities','reply')
       uuid = db.query_commit(sql,{
         'cognito_user_id': cognito_user_id,
         'reply_to_activity_uuid': activity_id,
         'message': message,
     })
-    return uuid
+  return uuid
   def query_object_activity(uuid):
     sql = db.template('activities','object')
     return db.query_object_json(sql,{
