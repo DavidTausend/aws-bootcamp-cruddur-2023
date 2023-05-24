@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import {ReactComponent as Logo} from '../components/svg/logo.svg';
 import { Link } from "react-router-dom";
 import { Auth } from 'aws-amplify';
+import FormErrors from 'components/FormErrors';
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -45,8 +46,6 @@ export default function SignupPage() {
     }
     return false
   }
-
-  const errorElement = errors ? <div className='errors'>{errors}</div> : null;
 
   return (
     <article className='signup-article'>
@@ -100,7 +99,7 @@ export default function SignupPage() {
               />
             </div>
           </div>
-          {errorElement}
+          <FormErrors errors={errors} />
           <div className='submit'>
             <button type='submit'>Sign Up</button>
           </div>

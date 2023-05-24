@@ -2,10 +2,9 @@ import './ActivityForm.css';
 import React from "react";
 import process from 'process';
 import {ReactComponent as BombIcon} from './svg/bomb.svg';
-import {getAccessToken} from 'lib/CheckAuth';
 import {post} from 'components/FormErrors';
 import FormErrors from 'components/FormErrors';
-import { url } from 'inspector';
+
 
 export default function ActivityForm(props) {
   const [count, setCount] = React.useState(0);
@@ -21,6 +20,7 @@ export default function ActivityForm(props) {
 
   const onsubmit = async (event) => {
     event.preventDefault();
+    setErrors('')
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities`
     const  payload_data = {
       message: message,

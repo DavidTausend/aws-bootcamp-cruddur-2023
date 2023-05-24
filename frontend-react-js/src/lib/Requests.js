@@ -5,14 +5,19 @@ async function request(method,url,payload_data,success){
     try {
       await getAccessToken()
       const access_token = localStorage.getItem("access_token")
-      res = await fetch(url, {
+      attrs = {
       method: method,
         headers: {
           'Authorization': `Bearer ${access_token}`,
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload_data),
-      });
+        }
+      }
+
+      if(method !== 'GET'){
+        attrs.body = JSON.stringify(payload_data)
+      }
+       
+      res = await fetch(url, attrs)
       let data = await res.json();
       if (res.status === 200) {
         success()
@@ -33,7 +38,10 @@ export function put(url,payload_data,success){
     request('PUT',url,payload_data,success)
     
 }
-export function get(url,payload_data,success){
-    request('GET',url,payload_data,success)
+export function get(url,success){
+    request('GET',url,null,success)
     
+}
+export function destroy(url,payload_data,success){
+  request('DELETE',url,payload_data,success)
 }
