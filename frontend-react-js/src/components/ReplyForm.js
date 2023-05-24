@@ -51,8 +51,8 @@ export default function ReplyForm(props) {
         setMessage('')
         props.setPopped(false)
       } else {
-        conccole.log('got a different error code')
-        console.log(res)
+        setErrors(data)
+        console.log(res,data)
       }
     } catch (err) {
       setErrors(['generic_500'])
