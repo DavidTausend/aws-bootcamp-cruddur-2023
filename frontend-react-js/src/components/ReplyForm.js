@@ -79,7 +79,7 @@ export default function ReplyForm(props) {
   }
 
   if (props.popped === true) {
-    return (
+  return (
       <div className="popup_form_wrap reply_popup" onClick={close}>
         <div className="popup_form">
           <div className="popup_heading">
