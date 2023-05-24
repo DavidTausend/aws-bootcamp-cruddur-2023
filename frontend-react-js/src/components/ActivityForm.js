@@ -2,12 +2,15 @@ import './ActivityForm.css';
 import React from "react";
 import process from 'process';
 import {ReactComponent as BombIcon} from './svg/bomb.svg';
-import {getAccessToken} from '../lib/CheckAuth';
+import {getAccessToken} from 'lib/CheckAuth';
+
+import FormErrors from 'components/FormErrors';
 
 export default function ActivityForm(props) {
   const [count, setCount] = React.useState(0);
   const [message, setMessage] = React.useState('');
   const [ttl, setTtl] = React.useState('7-days');
+  const [errors, setErrors] = React.useState([]);
 
   const classes = []
   classes.push('count')
@@ -17,13 +20,14 @@ export default function ActivityForm(props) {
 
   const onsubmit = async (event) => {
     event.preventDefault();
+    let res
     try {
       const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities`
       console.log('onsubmit payload', message)
       await getAccessToken()
       const access_token = localStorage.getItem("access_token")
-      const res = await fetch(backend_url, {
-        method: "POST",
+      const attrs ={
+      method: "POST",
         headers: {
           'Authorization': `Bearer ${access_token}`,
           'Content-Type': 'application/json'
@@ -32,7 +36,8 @@ export default function ActivityForm(props) {
           message: message,
           ttl: ttl
         }),
-      });
+      }
+      res = await fetch(backend_url, attrs)
       let data = await res.json();
       if (res.status === 200) {
         // add activity to the feed
@@ -43,9 +48,11 @@ export default function ActivityForm(props) {
         setTtl('7-days')
         props.setPopped(false)
       } else {
+        setErrors(data)
         console.log(res)
       }
     } catch (err) {
+      setErrors(['generic_${res.status}'])
       console.log(err);
     }
   }
@@ -89,6 +96,7 @@ export default function ActivityForm(props) {
               <option value='1-hour'>1 hour </option>
             </select>
           </div>
+          <FormErrors errors={errors} />
         </div>
       </form>
     );

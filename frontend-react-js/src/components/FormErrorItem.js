@@ -2,8 +2,14 @@ export default function FormErrorItem(props) {
     const render_error = () => {
         switch (props.err_code){
             case 'generic_500':
-              return "An error has occured"
+              return "An internal server error has occured"
               break;
+            case 'generic_403':
+                return "You are not authorized to perform this action"
+                break;  
+            case 'generic_401':
+                return "You are not authenicated to perform this action"
+                break; 
             //Replies
             case 'cognito_user_id_blank':
               return "The user was not provided"
@@ -29,8 +35,8 @@ export default function FormErrorItem(props) {
               return "The display name cannot be blank"
               break;
             default: 
-              // In teh case for error return from cognito they
-              // directly 
+              // In the case for error return from cognito they
+              // directly return the error so we just display itP
               return props.err_code
               break;
         }

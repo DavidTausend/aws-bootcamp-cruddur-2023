@@ -19,11 +19,12 @@ export default function ReplyForm(props) {
 
   const onsubmit = async (event) => {
     event.preventDefault();
+    let res
     try {
       const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/${props.activity.uuid}/reply`
       await getAccessToken()
       const access_token = localStorage.getItem("access_token")
-      const res = await fetch(backend_url, {
+      res = await fetch(backend_url, {
         method: "POST",
         headers: {
           'Authorization': `Bearer ${access_token}`,
@@ -55,7 +56,7 @@ export default function ReplyForm(props) {
         console.log(res,data)
       }
     } catch (err) {
-      setErrors(['generic_500'])
+      setErrors(['generic_${res.status}'])
       }
       console.log(err);
     }
