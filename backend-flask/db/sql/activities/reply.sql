@@ -10,5 +10,5 @@ VALUES (
     LIMIT 1
   ),
   %(message)s,
-  %(reply_to_activity_uuid)s
+  CAST(%(reply_to_activity_uuid)s AS UUID)
 ) RETURNING uuid;

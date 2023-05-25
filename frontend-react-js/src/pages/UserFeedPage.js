@@ -1,58 +1,55 @@
-import './UserFeedPage.css';
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
-
-import DesktopNavigation  from 'components/DesktopNavigation';
-import DesktopSidebar     from 'components/DesktopSidebar';
+import DesktopNavigation from 'components/DesktopNavigation';
+import DesktopSidebar from 'components/DesktopSidebar';
 import ActivityFeed from 'components/ActivityFeed';
 import ActivityForm from 'components/ActivityForm';
-import {checkAuth} from 'lib/CheckAuth';
+import { checkAuth } from 'lib/CheckAuth';
 import ProfileHeading from 'components/ProfileHeading';
 import ProfileForm from 'components/ProfileForm';
-import {get} from 'lib/Requests';
+import { get } from 'lib/Requests';
 
 export default function UserFeedPage() {
-  const [activities, setActivities] = React.useState([]);
-  const [profile, setProfile] = React.useState([]);
-  const [popped, setPopped] = React.useState([]);
-  const [poppedProfile, setPoppedProfile] = React.useState([]);
-  const [user, setUser] = React.useState(null);
+  const [activities, setActivities] = useState([]);
+  const [profile, setProfile] = useState([]);
+  const [popped, setPopped] = useState([]);
+  const [poppedProfile, setPoppedProfile] = useState([]);
+  const [user, setUser] = useState(null);
   const dataFetchedRef = React.useRef(false);
 
   const params = useParams();
 
   const loadData = async () => {
-    const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/@${params.handle}`
-    get(url,null,function(data){
-      console.log('setprofile',data.profile)
-      setProfile(data.profile)
-      setActivities(data.activities)
-    })
+    const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/@${params.handle}`;
+    get(url, null, function (data) {
+      console.log('setprofile', data.profile);
+      setProfile(data.profile);
+      setActivities(data.activities);
+    });
   };
-  
-  React.useEffect(()=>{
+
+  useEffect(() => {
     //prevents double call
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
 
     loadData();
     checkAuth(setUser);
-  }, [])
+  }, [loadData]);
 
   return (
     <article>
       <DesktopNavigation user={user} active={'profile'} setPopped={setPopped} />
       <div className='content'>
         <ActivityForm popped={popped} setActivities={setActivities} />
-        <ProfileForm 
+        <ProfileForm
           profile={profile}
-          popped={poppedProfile} 
-          setPopped={setPoppedProfile} 
+          popped={poppedProfile}
+          setPopped={setPoppedProfile}
         />
         <div className='activity_feed'>
           <ProfileHeading setPopped={setPoppedProfile} profile={profile} />
-          
-          <ActivityFeed activities={activities} /> 
+          <ActivityFeed activities={activities} />
         </div>
       </div>
       <DesktopSidebar user={user} />
