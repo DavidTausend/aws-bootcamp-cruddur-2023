@@ -8,12 +8,11 @@ import FormErrors from 'components/FormErrors';
 export default function ProfileForm(props) {
   const [bio, setBio] = React.useState('');
   const [displayName, setDisplayName] = React.useState('');
-
+  const [errors, setErrors] = React.useState([]);
   React.useEffect(()=>{
     setBio(props.profile.bio || '');
     setDisplayName(props.profile.display_name);
   }, [props.profile])
-
   const s3uploadkey = async (extension)=> {
     console.log('ext',extension)
     try {
@@ -43,7 +42,6 @@ export default function ProfileForm(props) {
       console.log(err);
     }
   }
-
   const s3upload = async (event)=> {
     console.log('event',event)
     const file = event.target.files[0]
@@ -55,8 +53,6 @@ export default function ProfileForm(props) {
     const fileparts = filename.split('.')
     const extension = fileparts[fileparts.length-1]
     const presignedurl = await s3uploadkey(extension)
-    console.log('Undefined Error--->',presignedurl)
-
     try {
       console.log('s3upload')
       const res = await fetch(presignedurl, {
@@ -74,35 +70,33 @@ export default function ProfileForm(props) {
       console.log(err);
     }
   }
-  
+
   const onsubmit = async (event) => {
     event.preventDefault();
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/profile/update`
-    payload_data ={
+    const payload_data = {
       bio: bio,
       display_name: displayName
     }
-    put(url,payload_data,setErrors,function(data){
+    put(url,payload_data,function(data){
       setBio(null)
       setDisplayName(null)
       props.setPopped(false)
+      setErrors(data.errors || []);
     })
   }
 
   const bio_onchange = (event) => {
     setBio(event.target.value);
   }
-
   const display_name_onchange = (event) => {
     setDisplayName(event.target.value);
   }
-
   const close = (event)=> {
     if (event.target.classList.contains("profile_popup")) {
       props.setPopped(false)
     }
   }
-
   if (props.popped === true) {
     return (
       <div className="popup_form_wrap profile_popup" onClick={close}>
@@ -117,8 +111,8 @@ export default function ProfileForm(props) {
             </div>
           </div>
           <div className="popup_content">
-            <input type="file" name="avatarupload" onChange={s3upload}/>
-         
+            <input type="file" name="avatarupload" onChange={s3upload} />
+
             <div className="field display_name">
               <label>Display Name</label>
               <input

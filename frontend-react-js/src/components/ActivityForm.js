@@ -2,9 +2,8 @@ import './ActivityForm.css';
 import React from "react";
 import process from 'process';
 import {ReactComponent as BombIcon} from './svg/bomb.svg';
-import {post} from 'components/FormErrors';
+import {post} from 'lib/Requests';
 import FormErrors from 'components/FormErrors';
-
 
 export default function ActivityForm(props) {
   const [count, setCount] = React.useState(0);
@@ -20,31 +19,29 @@ export default function ActivityForm(props) {
 
   const onsubmit = async (event) => {
     event.preventDefault();
-    setErrors('')
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities`
-    const  payload_data = {
+    const payload_data = {
       message: message,
       ttl: ttl
     }
-   post(url,payload_data,function(data){
-    // add activity to the feed
-    props.setActivities(current => [data,...current]);
-    // reset and close the form
-    setCount(0)
-    setMessage('')
-    setTtl('7-days')
-    props.setPopped(false)
-   })
+    post(url,payload_data,setErrors,function(data){
+      // add activity to the feed
+      props.setActivities(current => [data,...current]);
+      // reset and close the form
+      setCount(0)
+      setMessage('')
+      setTtl('7-days')
+      props.setPopped(false)
+    })
   }
+
   const textarea_onchange = (event) => {
     setCount(event.target.value.length);
     setMessage(event.target.value);
   }
-
   const ttl_onchange = (event) => {
     setTtl(event.target.value);
   }
-
   if (props.popped === true) {
     return (
       <form 
