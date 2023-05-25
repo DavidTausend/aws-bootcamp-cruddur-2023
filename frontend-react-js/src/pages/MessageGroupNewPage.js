@@ -19,32 +19,17 @@ export default function MessageGroupPage() {
   const params = useParams();
 
   const loadUserShortData = async () => {
-      const url = `${process.env.REACT_APP_BACKEND_URL}/api/users/@${params.handle}/short`
-      get(url,function(data){
-        setOtherUser(resJson)
-      })
+    const url = `${process.env.REACT_APP_BACKEND_URL}/api/users/@${params.handle}/short`
+    get(url,null,function(data){
+      setOtherUser(data)
+    })
   };  
 
   const loadMessageGroupsData = async () => {
-    try {
-      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/message_groups`
-      await getAccessToken()
-      const access_token = localStorage.getItem("access_token")
-      const res = await fetch(backend_url, {
-        headers: {
-          Authorization: `Bearer ${access_token}`
-        },
-        method: "GET"
-      });
-      let resJson = await res.json();
-      if (res.status === 200) {
-        setMessageGroups(resJson)
-      } else {
-        console.log(res)
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    const url = `${process.env.REACT_APP_BACKEND_URL}/api/message_groups`
+    get(url,null,function(data){
+      setMessageGroups(data)
+    })
   };  
 
   React.useEffect(()=>{

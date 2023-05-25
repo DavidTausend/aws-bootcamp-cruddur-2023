@@ -19,13 +19,13 @@ export default function ReplyForm(props) {
 
   const onsubmit = async (event) => {
     event.preventDefault();
-    setErrors('')
+   
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/${props.activity.uuid}/reply`
     payload_data = {
       activity_uuid: props.activity.uuid,
       message: message
     }
-    post(url,payload_data,function(data){
+    post(url,payload_data, setErrors,function(data){
        // add activity to the feed
 
        let activities_deep_copy = JSON.parse(JSON.stringify(props.activities))
@@ -60,7 +60,7 @@ export default function ReplyForm(props) {
   }
 
   if (props.popped === true) {
-  return (
+    return (
       <div className="popup_form_wrap reply_popup" onClick={close}>
         <div className="popup_form">
           <div className="popup_heading">

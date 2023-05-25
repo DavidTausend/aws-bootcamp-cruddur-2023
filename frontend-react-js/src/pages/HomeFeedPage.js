@@ -21,8 +21,8 @@ export default function HomeFeedPage() {
 
   const loadData = async () => {
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/home`
-    get(url,function(data){
-      setActivities(resJson)
+    get(url,null,function(data){
+      setActivities(data)
     })
   }
   //React.useEffect(() => {

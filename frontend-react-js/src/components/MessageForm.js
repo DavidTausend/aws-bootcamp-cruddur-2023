@@ -18,7 +18,6 @@ export default function ActivityForm(props) {
 
   const onsubmit = async (event) => {
     event.preventDefault();
-    setErrors('')
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/messages`
     let payload_data ={'message': message}
       if (params.handle) {
@@ -26,7 +25,7 @@ export default function ActivityForm(props) {
       } else {
         json.message_group_uuid = params.message_group_uuid
       }
-    post(url,payload_data,function(){})
+    post(url,payload_data,setErrors,function(){})
       console.log('data:',data)
       if (data.message_group_uuid) {
         console.log('redirect to message group')
