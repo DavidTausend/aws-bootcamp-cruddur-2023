@@ -43,10 +43,14 @@ const router = createBrowserRouter([
     element: <HomeFeedPage />
   },
   {
-    path: "notifications",
+    path: "/notifications",
     element: <NotificationsFeedPage />
   },
   {
+    path: "/@:handle",
+    element: <UserFeedPage />
+  },
+  { 
     path: "/@:handle/status/:activity_uuid",
     element: <ActivityShowPage />
   },

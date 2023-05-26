@@ -20,7 +20,7 @@ def load(app):
   #xray
   #@xray_recorder.capture('activities_users')
   def data_users_activities(handle):
-    model = ActivityShow.run(handle)
+    model = UserActivities.run(handle)
     return model_json(model)
 
   @app.route("/api/activities/@<string:handle>/status/<string:activity_uuid>", methods=['GET'])
