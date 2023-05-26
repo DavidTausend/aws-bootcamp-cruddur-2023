@@ -10,6 +10,7 @@ from flask_cors import cross_origin
 from services.users_short import UsersShort
 from services.update_profile import UpdateProfile
 from services.user_activities import UserActivities
+from services.show_activities import ShowActivity
 
 #route helpers
 from lib.helpers import model_json
@@ -19,8 +20,13 @@ def load(app):
   #xray
   #@xray_recorder.capture('activities_users')
   def data_handle(handle):
-    model = UserActivities.run(handle)
+    model = ActivityShow.run(handle)
     return return_model(model)
+
+  @app.route("/api/activities/@<string:handle>/status/<string:activity_uuid>", methods=['GET'])
+  def data_handle(handle):
+    model = UserActivities.run(handle)
+    return return_model(model)    
 
   @app.route("/api/users/@<string:handle>/short", methods=['GET'])
   def data_users_short(handle):

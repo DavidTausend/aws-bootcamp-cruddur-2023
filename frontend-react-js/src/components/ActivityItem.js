@@ -8,21 +8,6 @@ import ActivityActionShare  from '../components/ActivityActionShare';
 import { Link } from 'react-router-dom';
 
 export default function ActivityItem(props) {
-
-  let replies;
-  if (props.activity.replies) {
-    replies = <div className="replies">
-                {props.activity.replies.map(reply => {
-                return  <ActivityItem 
-                  setReplyActivity={props.setReplyActivity} 
-                  setPopped={props.setPopped} 
-                  key={reply.uuid} 
-                  activity={reply} 
-                  />
-                })}
-              </div>
-  }
-
   return (
     <Link className='activity_item'to={`/@${+props.activity.handle}/status/${props.activity.uuid}`}>
       <div className="activity_main">
