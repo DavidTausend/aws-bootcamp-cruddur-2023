@@ -1,19 +1,21 @@
 import {getAccessToken} from 'lib/CheckAuth';
 
-async function request(method,url,payload_data,setErrors,success){
+async function request(method,url,payload_data,setErrors,options,success){
   if (setErrors !== null){
     setErrors('')
   }
   let res
   try {
-    await getAccessToken()
-    const access_token = localStorage.getItem("access_token")
     const attrs = {
       method: method,
       headers: {
-        'Authorization': `Bearer ${access_token}`,
         'Content-Type': 'application/json'
       }
+    }
+    if (options.auth === true){
+      await getAccessToken()
+      const access_token = localStorage.getItem("access_token")
+      attrs.headers['Authorization'] = `Bearer ${access_token}`
     }
 
     if (method !== 'GET') {
@@ -46,17 +48,17 @@ async function request(method,url,payload_data,setErrors,success){
 }
 
 export function post(url,payload_data,setErrors,success){
-  request('POST',url,payload_data,setErrors,success)
+  request('POST',url,payload_data,setErrors,{},success)
 }
 
 export function put(url,payload_data,setErrors,success){
-  request('PUT',url,payload_data,setErrors,success)
+  request('PUT',url,payload_data,setErrors,{auth: true},success)
 }
 
 export function get(url,setErrors,success){
-  request('GET',url,null,setErrors,success)
+  request('GET',url,null,setErrors,{auth: true},success)
 }
 
 export function destroy(url,payload_data,setErrors,success){
-  request('DELETE',url,payload_data,setErrors,success)
+  request('DELETE',url,payload_data,setErrors,{auth: true},success)
 }

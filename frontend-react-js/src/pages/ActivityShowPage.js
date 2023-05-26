@@ -1,4 +1,4 @@
-import './ActivityShow.css';
+import './ActivityShowPage.css';
 import React from "react";
 //import { trace } from '@opentelemetry/api';
 import { useParams } from 'react-router-dom';
@@ -24,7 +24,7 @@ export default function ActivityShowPage() {
   const params = useParams();
 
   const loadData = async () => {
-    const url = `${process.env.REACT_APP_BACKEND_URL}/api/@${params.handle}/status${params.activity_uuid}`
+    const url = `${process.env.REACT_APP_BACKEND_URL}/api/@${params.handle}/status/${params.activity_uuid}`
     get(url,null,function(data){
       setActivity(data.activity)
       setReplies(data.replies)
@@ -59,37 +59,41 @@ export default function ActivityShowPage() {
     checkAuth(setUser);
   }, [])
 
+  let el_activity
+  if (activity !== null){
+    el_activity = (
+      <ActivityItem 
+      setReplyActivity={setReplyActivity} 
+      setPopped={setPoppedReply} 
+      key={activity.uuid} 
+      activity={activity} 
+    />
+    )
+  }
+
   return (
     <article>
       <DesktopNavigation user={user} active={'home'} setPopped={setPopped} />
       <div className='content'>
         <ActivityForm  
           popped={popped}
-          setPopped={setPopped} 
-          setActivities={setActivities} 
+          setPopped={setPopped}
         />
         <ReplyForm 
           activity={replyActivity} 
           popped={poppedReply} 
-          setPopped={setPoppedReply} 
-          setActivities={setActivities} 
-          activities={activities} 
+          setPopped={setPoppedReply}
         />
         <div className='activity_feed'>
           <div className='activity_feed_heading'>
             <div className='title'>Home</div>
           </div> 
-          <ActivityItem 
-            setReplyActivity={setReplyActivity} 
-            setPopped={setPoppedReply} 
-            key={activity.uuid} 
-            activity={activity} 
-          />
+          {el_activity}
           <Replies
             title="Home" 
             setReplyActivity={setReplyActivity} 
             setPopped={setPoppedReply} 
-            activities={activities} 
+            replies={replies} 
           />
           </div>
         </div>
