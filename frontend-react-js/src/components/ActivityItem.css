@@ -1,36 +1,36 @@
 .activity_item {
   display: flex;
   flex-direction: column;
-  border-bottom: solid 1px rgb(22, 65, 183);
+  border-bottom: solid 1px rgb(60,54,79);
   overflow: hidden;
-  padding: 16px;
+}
+
+a.activity_item {
+  text-decoration: none;
+}
+a.activity_item:hover {
+  background: rgba(255,255,255,0.15);
 }
 
 .replies {
   padding-left: 24px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255,255,255,0.15);
 }
-
-.replies .activity_itme{
+.replies .activity_item{
   background: var(--fg);
 }
-
-.activity_main {
+.acitivty_main {
   padding: 16px;
-
 }
-
 .activity_item:last-child {
   border-bottom: none;
 }
-
 .activity_item .activity_actions {
   display: flex;
   align-items: flex-end;
   padding-top: 16px;
   padding-left: 60px;
 }
-
 .activity_item .activity_actions .action{
   flex-grow: 1;
   cursor: pointer;
@@ -40,22 +40,18 @@
   flex-direction: row;
   gap: 12px
 }
-
 .activity_item .activity_actions .action .counter{
   color: rgba(255,255,255,0.8);
   font-weight: 800;
 }
-
 .activity_item .activity_actions .icon{
   height: 18px;
   width: 18px;
   fill: #fff;
 }
-
 .activity_item .activity_actions .action:hover {
   background: rgba(149,0,255,0.2);
 }
-
 .activity_item .activity_actions .action:hover .icon {
   fill: rgb(149,0,255);
 }
