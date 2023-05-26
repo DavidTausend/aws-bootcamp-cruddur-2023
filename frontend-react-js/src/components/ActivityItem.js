@@ -19,7 +19,6 @@ export default function ActivityItem(props) {
           <ActivityActionShare activity_uuid={props.activity.uuid} />
         </div>
       </div>
-      {replies}
     </Link>
   ); 
 }

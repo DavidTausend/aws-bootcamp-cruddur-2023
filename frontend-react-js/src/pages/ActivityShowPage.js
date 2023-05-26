@@ -67,7 +67,6 @@ export default function ActivityShowPage() {
       <ActivityItem 
       setReplyActivity={setReplyActivity} 
       setPopped={setPoppedReply} 
-      key={activity.uuid} 
       activity={activity} 
     />
     )
