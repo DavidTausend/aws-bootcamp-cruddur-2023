@@ -24,8 +24,8 @@ def load(app):
     return return_model(model)
 
   @app.route("/api/activities/@<string:handle>/status/<string:activity_uuid>", methods=['GET'])
-  def data_show_activity(handle):
-    model = ShowActivity.run(handle)
+  def data_show_activity(handle,activity_uuid):
+    model = ShowActivity.run(activity_uuid)
     return return_model(model)    
 
   @app.route("/api/users/@<string:handle>/short", methods=['GET'])

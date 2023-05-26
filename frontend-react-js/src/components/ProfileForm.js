@@ -78,11 +78,15 @@ export default function ProfileForm(props) {
       bio: bio,
       display_name: displayName
     }
-    put(url,payload_data,function(data){
-      setBio(null)
-      setDisplayName(null)
-      props.setPopped(false)
-      setErrors(data.errors || []);
+    put(url,payload_data,{
+      auth: true,
+      setErros: setErrors,
+      function(data){
+        setBio(null)
+        setDisplayName(null)
+        props.setPopped(false)
+        setErrors(data.errors || []);
+    }
     })
   }
 

@@ -24,11 +24,13 @@ export default function ActivityShowPage() {
   const params = useParams();
 
   const loadData = async () => {
-    const url = `${process.env.REACT_APP_BACKEND_URL}/api/@${params.handle}/status/${params.activity_uuid}`
-    get(url,null,function(data){
-      setActivity(data.activity)
-      setReplies(data.replies)
-    })
+    const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/@${params.handle}/status/${params.activity_uuid}`
+    get(url,{
+      auth: false,
+      success: function(data){
+        setActivity(data.activity)
+        setReplies(data.replies)
+    }})
   }
   //React.useEffect(() => {
   //  if (dataFetchedRef.current) return;
