@@ -26,7 +26,7 @@ export default function ReplyForm(props) {
     }
     post(url,payload_data,{
       auth: true,
-      setErros: setErrors,
+      setErrors: setErrors,
       success: function(data){
         // add activity to the feed
         //let activities_deep_copy = JSON.parse(JSON.stringify(props.activities))

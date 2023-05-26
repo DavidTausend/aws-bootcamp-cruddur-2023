@@ -21,7 +21,7 @@ function useFormSubmit() {
       auth: true,
       setErrors: setErrors,
       success: function (data) {
-        console.log('data:', data);
+        console.log('data:',data);
         if (data.message_group_uuid) {
           console.log('redirect to message group');
           window.location.href = `/messages/${data.message_group_uuid}`;
@@ -42,7 +42,7 @@ export default function ActivityForm(props) {
   const params = useParams();
   const classes = []
   classes.push('count');
-  if (1024 - count < 0) {
+  if (1024-count < 0) {
     classes.push('err');
   }
 

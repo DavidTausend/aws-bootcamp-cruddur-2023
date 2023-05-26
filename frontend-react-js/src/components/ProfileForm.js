@@ -80,8 +80,8 @@ export default function ProfileForm(props) {
     }
     put(url,payload_data,{
       auth: true,
-      setErros: setErrors,
-      function(data){
+      setErrors: setErrors,
+      success: function(data){
         setBio(null)
         setDisplayName(null)
         props.setPopped(false)

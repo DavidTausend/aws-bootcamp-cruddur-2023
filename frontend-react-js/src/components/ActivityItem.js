@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 export default function ActivityItem(props) {
   return (
-    <Link className='activity_item'to={`/@${+props.activity.handle}/status/${props.activity.uuid}`}>
+    <Link className='activity_item' to={`/@${props.activity.handle}/status/${props.activity.uuid}`}>
       <div className="activity_main">
         <ActivityContent activity={props.activity} />
         <div className="activity_actions">

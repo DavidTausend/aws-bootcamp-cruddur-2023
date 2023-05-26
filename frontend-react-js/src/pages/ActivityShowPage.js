@@ -91,7 +91,6 @@ export default function ActivityShowPage() {
           </div> 
           {el_activity}
           <Replies
-            title="Home" 
             setReplyActivity={setReplyActivity} 
             setPopped={setPoppedReply} 
             replies={replies} 
