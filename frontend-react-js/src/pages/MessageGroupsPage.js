@@ -16,7 +16,7 @@ export default function MessageGroupsPage() {
       const url = `${process.env.REACT_APP_BACKEND_URL}/api/message_groups`
       get(url,{
         auth: true,
-        function(data){
+        success: function(data){
           setMessageGroups(data)
       }
       })
