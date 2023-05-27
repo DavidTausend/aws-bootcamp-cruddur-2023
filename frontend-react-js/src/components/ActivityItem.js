@@ -5,11 +5,19 @@ import ActivityActionReply  from '../components/ActivityActionReply';
 import ActivityActionRepost  from '../components/ActivityActionRepost';
 import ActivityActionLike  from '../components/ActivityActionLike';
 import ActivityActionShare  from '../components/ActivityActionShare';
-import { Link } from 'react-router-dom';
+import { click } from '@testing-library/user-event/dist/click';
+import { addListener } from 'process';
+import { useHistory } from "react-router-dom";
 
 export default function ActivityItem(props) {
+  const history = useHistory();
+  const click = (event) => {
+    event.preventDefault()
+    history.push('/route');
+    return false;
+  }
   return (
-    <div className='activity_item' to={`/@${props.activity.handle}/status/${props.activity.uuid}`}>
+    <div className='activity_item' onClick={click} to={`/@${props.activity.handle}/status/${props.activity.uuid}`}>
       <div className="activity_main">
         <ActivityContent activity={props.activity} />
         <div className="activity_actions">
