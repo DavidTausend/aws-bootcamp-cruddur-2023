@@ -17,6 +17,10 @@ export default function ActivityItem(props) {
     return false;
   }
 
+  let expanded_meta;
+  if (props.expanded === true) {
+    //1:56 PM May 23, 2023
+  }
   const attrs = {}
   let item
   if (props.expanded === true ){
@@ -29,6 +33,7 @@ export default function ActivityItem(props) {
     item = (<div className='activity_item' onClick={click}>
        <div {...attrs}>
         <ActivityContent activity={props.activity} />
+        {expanded_meta}
         <div className="activity_actions">
           <ActivityActionReply setReplyActivity={props.setReplyActivity} activity={props.activity} setPopped={props.setPopped} activity_uuid={props.activity.uuid} count={props.activity.replies_count}/>
           <ActivityActionRepost activity_uuid={props.activity.uuid} count={props.activity.reposts_count}/>
