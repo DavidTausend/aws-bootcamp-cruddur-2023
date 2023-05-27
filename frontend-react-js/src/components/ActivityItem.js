@@ -17,8 +17,17 @@ export default function ActivityItem(props) {
     return false;
   }
 
-const activity_main = (
-      <div className="activity_main">
+  const attrs = {}
+  let item
+  if (props.expanded === true ){
+    attrs.className = 'activity_item expanded'
+  } else {
+    attrs.className = 'activity_item clickable'
+    attrs.onClick = click
+  }
+  return (
+    item = (<div className='activity_item' onClick={click}>
+       <div {...attrs}>
         <ActivityContent activity={props.activity} />
         <div className="activity_actions">
           <ActivityActionReply setReplyActivity={props.setReplyActivity} activity={props.activity} setPopped={props.setPopped} activity_uuid={props.activity.uuid} count={props.activity.replies_count}/>
@@ -27,17 +36,6 @@ const activity_main = (
           <ActivityActionShare activity_uuid={props.activity.uuid} />
         </div>
       </div>
-)
-  let item
-  if (props.expanded === true ){
-    item = (
-    <div className='activity_item expanded'>
-      {activity_main}
     </div>)
-  }else {
-    item = (<div className='activity_item' onClick={click}>
-      {activity_main}
-    </div>)
-  }
-  return ((item)); 
+  )
 }

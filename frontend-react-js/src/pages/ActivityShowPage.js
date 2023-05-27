@@ -65,9 +65,10 @@ export default function ActivityShowPage() {
   if (activity !== null){
     el_activity = (
       <ActivityItem 
-      setReplyActivity={setReplyActivity} 
-      setPopped={setPoppedReply} 
-      activity={activity} 
+        expanded={true}
+        setReplyActivity={setReplyActivity} 
+        setPopped={setPoppedReply} 
+        activity={activity} 
     />
     )
   }
