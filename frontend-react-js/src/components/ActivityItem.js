@@ -8,7 +8,7 @@ import ActivityActionShare  from '../components/ActivityActionShare';
 import { useNavigate } from "react-router-dom";
 
 export default function ActivityItem(props) {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const click = (event) => {
     event.preventDefault()
     const url = `/@${props.activity.handle}/status/${props.activity.uuid}`
