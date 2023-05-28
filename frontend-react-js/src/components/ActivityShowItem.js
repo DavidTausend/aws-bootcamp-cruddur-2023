@@ -4,9 +4,8 @@ import ActivityActionReply  from '../components/ActivityActionReply';
 import ActivityActionRepost  from '../components/ActivityActionRepost';
 import ActivityActionLike  from '../components/ActivityActionLike';
 import ActivityActionShare  from '../components/ActivityActionShare';
-import { format_datetime } from '../lib/DateTimeFormats';
 import { Link } from "react-router-dom";
-import { format_datetime, time_ago } from '../lib/DateTimeFormats';
+import { format_datetime, time_ago, time_future } from '../lib/DateTimeFormats';
 import {ReactComponent as BombIcon} from './svg/bomb.svg';
 
 export default function ActivityShowItem(props) {
@@ -14,8 +13,8 @@ export default function ActivityShowItem(props) {
   const attrs = {}
   attrs.className = 'activity_item expanded'
   return (
-    item = (<div className='activity_item' onClick={click}>
        <div {...attrs}>
+        <div className="acitivty_main">
         <div className='activity_content_wrap'>
         <Link className='activity_avatar'to={`/@`+props.activity.handle} ></Link>
         <div className='activity_content'>
@@ -49,6 +48,6 @@ export default function ActivityShowItem(props) {
           <ActivityActionShare activity_uuid={props.activity.uuid} />
         </div>
       </div>
-    </div>)
+    </div>
   )
 }

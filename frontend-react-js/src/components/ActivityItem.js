@@ -12,7 +12,7 @@ export default function ActivityItem(props) {
   const click = (event) => {
     event.preventDefault()
     const url = `/@${props.activity.handle}/status/${props.activity.uuid}`
-    navigate(url);
+    navigate(url)
     return false;
   }
 
@@ -20,8 +20,8 @@ export default function ActivityItem(props) {
   attrs.className = 'activity_item clickable'
   attrs.onClick = click
   return (
-    item = (<div className='activity_item' onClick={click}>
        <div {...attrs}>
+        <div className="acitivty_main">
         <ActivityContent activity={props.activity} />
         <div className="activity_actions">
           <ActivityActionReply setReplyActivity={props.setReplyActivity} activity={props.activity} setPopped={props.setPopped} activity_uuid={props.activity.uuid} count={props.activity.replies_count}/>
@@ -30,6 +30,6 @@ export default function ActivityItem(props) {
           <ActivityActionShare activity_uuid={props.activity.uuid} />
         </div>
       </div>
-    </div>)
+    </div>
   )
 }

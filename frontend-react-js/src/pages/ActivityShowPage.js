@@ -69,7 +69,7 @@ export default function ActivityShowPage() {
   let el_activity
   if (activity !== null){
     el_activity = (
-      <ActivityShowItem 
+      <ActivityShoItem 
         expanded={true}
         setReplyActivity={setReplyActivity} 
         setPopped={setPoppedReply} 
