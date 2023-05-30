@@ -85,7 +85,6 @@ export default function ProfileForm(props) {
         setBio(null)
         setDisplayName(null)
         props.setPopped(false)
-        setErrors(data.errors || []);
     }
     })
   }
