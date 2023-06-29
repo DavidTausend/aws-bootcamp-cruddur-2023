@@ -3,6 +3,7 @@
 
 In this section we will refactor, optimize, and organize our project. Let's end the last week challenge of our Bootcamp!
 
+
 Under bin/frontend/ folder create a new folder "static-build" and add the following code:
 
 Note: Make sure to give your appropieded information.
