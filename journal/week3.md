@@ -71,8 +71,29 @@ I first enabled the MFA in AWS cognito as optional but before it's needed to hav
           return data, 401
 
 
-## idp with Facebook and Google
+## idp with Google
 
+Note: my screenshot are in German, because I live in Germany 🇩🇪.
+
+Go to the Google developer console and click "new project":
+
+<img width="1439" alt="Week3-GoogleDevConsole" src="https://github.com/DavidTausend/aws-bootcamp-cruddur-2023/assets/125006062/f2a65831-e389-48b9-9cfe-6b28b18f9491">
+
+Click "new project" and type "Cruddur":
+
+<img width="619" alt="Bildschirmfoto 2023-07-08 um 8 44 09 PM" src="https://github.com/DavidTausend/aws-bootcamp-cruddur-2023/assets/125006062/89233dbb-b8bc-4819-8a68-de4859e13476">
+
+Click "Create" and wait until the project is created on the main website:
+
+<img width="1409" alt="Week3-PorjectCruddur" src="https://github.com/DavidTausend/aws-bootcamp-cruddur-2023/assets/125006062/76832960-d046-49ac-be24-a37b58cf5b41">
+
+Go to credentials and to create your OAuth 2.0 credentials, select OAuth client ID from the Create credentials dropdown list:
+
+<img width="1397" alt="Week3-CredentialsOAUHT" src="https://github.com/DavidTausend/aws-bootcamp-cruddur-2023/assets/125006062/cdd1d1db-9be5-4e70-a9f0-035afb42a326">
+
+
+
+Enter the required information for the App Information and Developer Contact Information fields, then click Save and Continue three times (OAuth consent screen -> Scopes -> Test Users) to complete the consent screen setup.
 
 Source:
 https://www.youtube.com/watch?v=9obl7rVgzJw&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=40
