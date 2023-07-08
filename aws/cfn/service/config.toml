@@ -6,3 +6,4 @@ stack_name = 'CrdSrvBackendFlask'
 [parameters]
 EnvFrontendUrl = 'https://hallotausend.com'
 EnvBackendUrl = 'https://api.hallotausend.com'
+DDBMessageTable = 'CrdDdb-DynamoDBTable-7SO0I927GDGD'

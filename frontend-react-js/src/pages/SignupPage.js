@@ -12,7 +12,7 @@ export default function SignupPage() {
     username: '',
     password: '',
   });
-  const [errors, setErrors] = useState('');
+  const [errors, setErrors] = useState([]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -24,7 +24,7 @@ export default function SignupPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setErrors('')
+    setErrors([])
     try {
       const { user } = await Auth.signUp({
         username: formData.email,
@@ -41,8 +41,7 @@ export default function SignupPage() {
       localStorage.setItem('email', formData.email);
       window.location.href = `/confirm`
     } catch (error) {
-      console.log(error);
-      setErrors(error.message)
+      setErrors([error.message])
     }
     return false
   }

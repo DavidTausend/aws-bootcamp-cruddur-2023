@@ -19,6 +19,7 @@ rollbar._build_request_data = _build_request_data
 
 def init_rollbar(app):
   rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+  flask_env = os.getenv('FLASK_ENV')
   rollbar.init(
      # access token
     rollbar_access_token,
